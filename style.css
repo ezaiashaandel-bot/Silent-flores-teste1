@@ -431,3 +431,22 @@ h1 {
     color:white;
 
 }
+
+#brightnessBar {
+
+    width:300px;
+
+    accent-color:#8b0000;
+
+}
+
+
+#brightnessText {
+
+    margin-top:15px;
+
+    font-size:25px;
+
+    color:white;
+
+}
