@@ -62,17 +62,9 @@ h1{
     z-index: 2;
 }
 
-#menu h1 {
-    position: relative;
-    z-index: 2;
-    font-size: 50px;
-    color: white;
-    text-align: center;
-}
-#menu h1,
-#menu div {
+#menu * {
     font-size: 50px !important;
     color: white !important;
-    position: relative;
     z-index: 2;
+    position: relative;
 }
