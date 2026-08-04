@@ -2,8 +2,11 @@ const configBtn = document.getElementById("config");
 const settingsScreen = document.getElementById("settingsScreen");
 const backSettings = document.getElementById("backSettings");
 
+const options = document.querySelectorAll(".settingOption");
+const info = document.getElementById("settingInfo");
 
-// Abrir tela de configurações
+
+// Abrir configurações
 
 configBtn.onclick = () => {
 
@@ -12,8 +15,7 @@ configBtn.onclick = () => {
 };
 
 
-
-// Voltar para menu
+// Voltar
 
 backSettings.onclick = () => {
 
@@ -23,21 +25,13 @@ backSettings.onclick = () => {
 
 
 
-
-// Opções da configuração
-
-const options = document.querySelectorAll(".settingOption");
-const info = document.getElementById("settingInfo");
-
-
+// Opções
 
 options.forEach(option => {
 
 
     option.onclick = () => {
 
-
-        // remove seleção dos outros botões
 
         options.forEach(btn => {
 
@@ -46,102 +40,126 @@ options.forEach(option => {
         });
 
 
-
-        // coloca seleção no botão clicado
-
         option.classList.add("ativo");
-
 
 
         let page = option.dataset.page;
 
 
 
+        // SOM
+
         if(page === "som"){
 
-    info.innerHTML = `
 
-    VOLUME<br><br>
+            info.innerHTML = `
 
-    <input 
-    type="range" 
-    id="volumeBar"
-    min="0" 
-    max="100" 
-    value="70">
+            VOLUME<br><br>
 
-    <p id="volumeText">
-    70%
-    </p>
-
-    `;
+            <input 
+            type="range"
+            id="volumeBar"
+            min="0"
+            max="100"
+            value="70">
 
 
-    const volumeBar = document.getElementById("volumeBar");
-    const volumeText = document.getElementById("volumeText");
+            <p id="volumeText">
+            70%
+            </p>
+
+            `;
 
 
-    volumeBar.oninput = () => {
 
-        volumeText.innerHTML = volumeBar.value + "%";
+            const volumeBar = document.getElementById("volumeBar");
+            const volumeText = document.getElementById("volumeText");
 
-    };
+
+            volumeBar.oninput = () => {
+
+                volumeText.innerHTML = volumeBar.value + "%";
+
+            };
+
 
         }
 
 
+
+
+
+        // IMAGEM
 
         if(page === "imagem"){
 
-    info.innerHTML = `
 
-    BRILHO<br><br>
+            info.innerHTML = `
 
-    <input 
-    type="range" 
-    id="brightnessBar"
-    min="0" 
-    max="100" 
-    value="60">
-
-    <p id="brightnessText">
-    60%
-    </p>
-
-    `;
+            BRILHO<br><br>
 
 
-    const brightnessBar = document.getElementById("brightnessBar");
-    const brightnessText = document.getElementById("brightnessText");
+            <input
+            type="range"
+            id="brightnessBar"
+            min="0"
+            max="100"
+            value="60">
 
 
-    brightnessBar.oninput = () => {
+            <p id="brightnessText">
+            60%
+            </p>
 
-        brightnessText.innerHTML = brightnessBar.value + "%";
+            `;
 
-    };
+
+
+            const brightnessBar = document.getElementById("brightnessBar");
+            const brightnessText = document.getElementById("brightnessText");
+
+
+
+            brightnessBar.oninput = () => {
+
+                brightnessText.innerHTML = brightnessBar.value + "%";
+
+            };
+
 
         }
 
 
+
+
+
+        // GRÁFICOS
+
         if(page === "graficos"){
 
+
             info.innerHTML = `
-            
+
             QUALIDADE GRÁFICA<br><br>
 
             ALTA
 
             `;
 
+
         }
 
 
 
+
+
+        // CONTROLES
+
         if(page === "controles"){
 
+
             info.innerHTML = `
-            
+
             CONTROLES<br><br>
 
             W A S D → ANDAR<br>
@@ -150,8 +168,8 @@ options.forEach(option => {
 
             `;
 
-        }
 
+        }
 
 
     };
