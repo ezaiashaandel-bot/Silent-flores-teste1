@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,9 +11,14 @@
     <link rel="stylesheet" href="style.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+
 </head>
 
+
 <body>
+
+
+    <!-- MENU INICIAL -->
 
     <div id="menu">
 
@@ -20,39 +26,84 @@
 
         <h1>Silent Forest</h1>
 
+
         <button id="start">
             JOGAR
         </button>
 
+
         <button id="config">
             CONFIGURAÇÕES
         </button>
-        <div id="configMenu">
 
-    <h2>CONFIGURAÇÕES</h2>
 
-    <div class="option">
-        <label>Volume</label>
-        <input type="range" min="0" max="100" value="50">
     </div>
 
-    <div class="option">
-        <label>
-            <input type="checkbox">
-            Tela cheia
-        </label>
-    </div>
 
-    <button id="back">
-        VOLTAR
-    </button>
+
+    <!-- TELA DE CONFIGURAÇÕES -->
+
+    <div id="settingsScreen">
+
+
+        <div id="settingsSide">
+
+
+            <button class="settingOption" data-page="som">
+                SOM
+            </button>
+
+
+            <button class="settingOption" data-page="imagem">
+                IMAGEM
+            </button>
+
+
+            <button class="settingOption" data-page="graficos">
+                GRÁFICOS
+            </button>
+
+
+            <button class="settingOption" data-page="controles">
+                CONTROLES
+            </button>
+
 
         </div>
 
+
+
+
+        <div id="settingsContent">
+
+
+            <h2>
+                CONFIGURAÇÕES
+            </h2>
+
+
+            <div id="settingInfo">
+                Selecione uma opção
+            </div>
+
+
+        </div>
+
+
+
+
+        <button id="backSettings">
+            VOLTAR
+        </button>
+
+
+
     </div>
 
 
+
     <script src="script.js"></script>
+
 
 </body>
 
