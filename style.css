@@ -20,9 +20,27 @@ h1{
     font-size:60px;
     text-align:center;
     letter-spacing:6px;
+
+    text-shadow:
+    0 0 10px black,
+    0 0 20px black;
+
+    position:relative;
+    z-index:2;
 }
 
+
 #start{
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+    text-shadow:0 0 5px black;
+
+    position:relative;
+    z-index:2;
+
     margin-top:30px;
     padding:15px 40px;
 
