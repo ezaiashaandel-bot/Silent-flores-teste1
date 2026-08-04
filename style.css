@@ -62,12 +62,7 @@ h1{
     z-index: 2;
 }
 
-#titulo {
+#menu * {
     position: relative;
     z-index: 2;
-}
-#titulo {
-    position: relative;
-    z-index: 9999;
-    color: white;
 }
