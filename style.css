@@ -58,29 +58,28 @@ h1 {
     position: relative;
     z-index: 2;
 
-    margin-top: 35px;
-    padding: 15px 40px;
+    width: 260px;
+    padding: 16px;
+
+    background: rgba(20,20,20,.75);
+
+    color: #f5f5f5;
+
+    border: 2px solid #8b0000;
+    border-radius: 12px;
 
     font-family: "Trebuchet MS", sans-serif;
     font-size: 22px;
     font-weight: bold;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
-
-    border: 2px solid white;
-    border-radius: 8px;
+    letter-spacing: 4px;
 
     cursor: pointer;
-
-    transition: all 0.3s ease;
+    transition: .3s;
 }
 
-#start:hover {
-    background: rgba(120, 0, 0, 0.5);
-    border-color: #ff2d2d;
-    color: #ff2d2d;
-    transform: scale(1.05);
+#start:hover{
+    background:#8b0000;
+    color:white;
+    box-shadow:0 0 20px #8b0000;
+    transform:scale(1.05);
 }
