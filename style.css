@@ -61,7 +61,7 @@ h1{
     position: relative;
     z-index: 2;
 }
-#titulo {
+h1 {
     position: relative;
-    z-index: 2;
+    z-index: 999;
 }
