@@ -14,57 +14,70 @@ body {
 }
 
 
+
 /* MENU INICIAL */
 
 #menu {
 
     position: relative;
 
-    width:100%;
-    height:100vh;
+    width: 100%;
+    height: 100vh;
 
-    display:flex;
-    flex-direction:column;
+    display: flex;
 
-    justify-content:center;
-    align-items:center;
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
 
 
-    background-image:url("imagens/fundo.png");
+    background-image: url("imagens/fundo.png");
 
-    background-size:cover;
-    background-position:center;
+    background-size: cover;
 
-    overflow:hidden;
+    background-position: center;
+
+    overflow: hidden;
 }
+
 
 
 #nevoa {
 
-    position:absolute;
-    inset:0;
+    position: absolute;
 
-    background:rgba(0,0,0,0.45);
+    inset: 0;
 
-    z-index:1;
+    background: rgba(0,0,0,0.45);
+
+    z-index: 1;
+
 }
 
 
 
 h1 {
 
-    position:relative;
-    z-index:2;
+    position: relative;
 
-    font-family:'Nosifer', cursive;
+    z-index: 2;
 
-    font-size:80px;
 
-    color:#c40000;
+    font-family: 'Nosifer', cursive;
 
-    letter-spacing:6px;
 
-    text-align:center;
+    font-size: 80px;
+
+
+    color: #c40000;
+
+
+    text-align: center;
+
+
+    letter-spacing: 6px;
 
 
     text-shadow:
@@ -77,23 +90,29 @@ h1 {
 
 
 
+
+/* BOTÕES DO MENU */
+
+
 #start,
 #config {
 
 
-    position:relative;
+    position: relative;
 
-    z-index:2;
-
-
-    width:260px;
-
-    padding:16px;
-
-    margin-top:15px;
+    z-index: 2;
 
 
-    background:rgba(20,20,20,.75);
+    width: 260px;
+
+
+    padding: 16px;
+
+
+    margin-top: 15px;
+
+
+    background: rgba(20,20,20,.75);
 
 
     color:white;
@@ -101,17 +120,21 @@ h1 {
 
     border:2px solid #8b0000;
 
+
     border-radius:12px;
 
 
     font-size:22px;
 
+
     font-weight:bold;
+
 
     letter-spacing:4px;
 
 
     cursor:pointer;
+
 
     transition:.3s;
 
@@ -119,16 +142,21 @@ h1 {
 
 
 
+
 #start:hover,
 #config:hover {
 
+
     background:#8b0000;
 
+
     box-shadow:0 0 20px #8b0000;
+
 
     transform:scale(1.05);
 
 }
+
 
 
 
@@ -143,6 +171,7 @@ h1 {
 
     position:absolute;
 
+
     inset:0;
 
 
@@ -154,7 +183,33 @@ h1 {
 
     z-index:20;
 
+
+    animation: aparecer .5s ease;
+
 }
+
+
+
+
+@keyframes aparecer {
+
+
+    from {
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+    }
+
+
+}
+
 
 
 
@@ -169,15 +224,19 @@ h1 {
 
     right:50px;
 
+
     top:50%;
 
 
     transform:translateY(-50%);
 
 
+
     display:flex;
 
+
     flex-direction:column;
+
 
     gap:20px;
 
@@ -185,10 +244,12 @@ h1 {
 
 
 
+
 .settingOption {
 
 
     width:220px;
+
 
     padding:15px;
 
@@ -201,15 +262,18 @@ h1 {
 
     border:2px solid #8b0000;
 
+
     border-radius:10px;
 
 
     font-size:20px;
 
+
     letter-spacing:3px;
 
 
     cursor:pointer;
+
 
     transition:.3s;
 
@@ -217,15 +281,32 @@ h1 {
 
 
 
+
 .settingOption:hover {
 
+
     background:#8b0000;
+
 
 }
 
 
 
-/* CONTEÚDO CENTRAL */
+
+.settingOption.ativo {
+
+
+    background:#8b0000;
+
+
+    box-shadow:0 0 15px #8b0000;
+
+}
+
+
+
+
+/* PARTE CENTRAL */
 
 
 #settingsContent {
@@ -236,6 +317,7 @@ h1 {
 
     left:50%;
 
+
     top:50%;
 
 
@@ -245,6 +327,7 @@ h1 {
     text-align:center;
 
 }
+
 
 
 
@@ -263,6 +346,7 @@ h1 {
 
 
 
+
 #settingInfo {
 
 
@@ -272,6 +356,7 @@ h1 {
     font-size:25px;
 
 }
+
 
 
 
@@ -319,9 +404,11 @@ h1 {
 }
 
 
+
+
 #backSettings:hover {
 
 
     background:#8b0000;
 
-}
+    }
