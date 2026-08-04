@@ -80,5 +80,14 @@ h1{
     background-position:center;
     background-repeat:no-repeat;
 
+    h1 {
+    color: red !important;
+    font-size: 100px !important;
+}
+
+#start {
+    background: blue !important;
+    font-size: 40px !important;
+}
     overflow:hidden;
 }
