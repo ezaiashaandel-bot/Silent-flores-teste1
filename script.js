@@ -3,7 +3,8 @@ const settingsScreen = document.getElementById("settingsScreen");
 const backSettings = document.getElementById("backSettings");
 
 
-// Abrir configurações
+// Abrir tela de configurações
+
 configBtn.onclick = () => {
 
     settingsScreen.style.display = "block";
@@ -11,7 +12,9 @@ configBtn.onclick = () => {
 };
 
 
-// Voltar para o menu
+
+// Voltar para menu
+
 backSettings.onclick = () => {
 
     settingsScreen.style.display = "none";
@@ -20,10 +23,12 @@ backSettings.onclick = () => {
 
 
 
-// Opções de configuração
+
+// Opções da configuração
 
 const options = document.querySelectorAll(".settingOption");
 const info = document.getElementById("settingInfo");
+
 
 
 options.forEach(option => {
@@ -32,48 +37,82 @@ options.forEach(option => {
     option.onclick = () => {
 
 
+        // remove seleção dos outros botões
+
+        options.forEach(btn => {
+
+            btn.classList.remove("ativo");
+
+        });
+
+
+
+        // coloca seleção no botão clicado
+
+        option.classList.add("ativo");
+
+
+
         let page = option.dataset.page;
+
 
 
         if(page === "som"){
 
             info.innerHTML = `
+            
             VOLUME<br><br>
+
             🔊 ███████░░ 70%
+
             `;
 
         }
+
 
 
         if(page === "imagem"){
 
             info.innerHTML = `
+            
             BRILHO<br><br>
+
             ☀ ██████░░░ 60%
+
             `;
 
         }
+
 
 
         if(page === "graficos"){
 
             info.innerHTML = `
+            
             QUALIDADE GRÁFICA<br><br>
+
             ALTA
+
             `;
 
         }
+
 
 
         if(page === "controles"){
 
             info.innerHTML = `
+            
             CONTROLES<br><br>
-            W A S D<br>
-            MOVIMENTO
+
+            W A S D → ANDAR<br>
+            E → INTERAGIR<br>
+            ESC → MENU
+
             `;
 
         }
+
 
 
     };
