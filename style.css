@@ -57,3 +57,7 @@ h1{
     background: rgba(0, 0, 0, 0.45);
     z-index: 1;
 }
+#start {
+    position: relative;
+    z-index: 2;
+}
