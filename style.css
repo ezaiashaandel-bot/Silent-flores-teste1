@@ -41,7 +41,7 @@ h1{
     border:2px solid white;
     cursor:pointer;
   }
-#menu{
+#menu {
     background-image: url("imagens/fundo.png");
     background-size: cover;
     background-position: center;
