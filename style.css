@@ -526,3 +526,19 @@ h1 {
     font-size:16px;
 
                          }
+
+/* TELA PRETA DE TRANSIÇÃO */
+
+#transitionScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#000;
+
+    z-index:100;
+
+    display:none;
+
+}
