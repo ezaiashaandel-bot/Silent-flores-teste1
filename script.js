@@ -316,3 +316,5 @@ window.addEventListener("load", () => {
 
 
 });
+
+clickSound.play();
