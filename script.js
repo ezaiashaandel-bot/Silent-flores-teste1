@@ -119,13 +119,9 @@ options.forEach(option => {
 
         brightnessText.innerHTML = brightnessBar.value + "%";
 
-        document.body.style.filter =
-        `brightness(${brightnessBar.value}%)`;
-
     };
 
         }
-
 
 
         if(page === "graficos"){
