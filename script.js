@@ -93,13 +93,36 @@ options.forEach(option => {
 
         if(page === "imagem"){
 
-            info.innerHTML = `
-            
-            BRILHO<br><br>
+    info.innerHTML = `
 
-            ☀ ██████░░░ 60%
+    BRILHO<br><br>
 
-            `;
+    <input 
+    type="range" 
+    id="brightnessBar"
+    min="0" 
+    max="100" 
+    value="60">
+
+    <p id="brightnessText">
+    60%
+    </p>
+
+    `;
+
+
+    const brightnessBar = document.getElementById("brightnessBar");
+    const brightnessText = document.getElementById("brightnessText");
+
+
+    brightnessBar.oninput = () => {
+
+        brightnessText.innerHTML = brightnessBar.value + "%";
+
+        document.body.style.filter =
+        `brightness(${brightnessBar.value}%)`;
+
+    };
 
         }
 
