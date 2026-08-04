@@ -237,3 +237,39 @@ options.forEach(option => {
     }
 
 });
+
+// SOM AO PASSAR NOS BOTÕES
+
+document.querySelectorAll("button").forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+
+        clickSound.currentTime = 0;
+        clickSound.play();
+
+    });
+
+
+    // Celular
+
+    button.addEventListener("touchstart", () => {
+
+        clickSound.currentTime = 0;
+        clickSound.play();
+
+    });
+
+});
+
+
+// CHUVA
+
+window.addEventListener("load", () => {
+
+    rainSound.play().catch(() => {
+
+        console.log("Chuva aguardando interação.");
+
+    });
+
+});
