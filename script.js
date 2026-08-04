@@ -59,13 +59,33 @@ options.forEach(option => {
 
         if(page === "som"){
 
-            info.innerHTML = `
-            
-            VOLUME<br><br>
+    info.innerHTML = `
 
-            🔊 ███████░░ 70%
+    VOLUME<br><br>
 
-            `;
+    <input 
+    type="range" 
+    id="volumeBar"
+    min="0" 
+    max="100" 
+    value="70">
+
+    <p id="volumeText">
+    70%
+    </p>
+
+    `;
+
+
+    const volumeBar = document.getElementById("volumeBar");
+    const volumeText = document.getElementById("volumeText");
+
+
+    volumeBar.oninput = () => {
+
+        volumeText.innerHTML = volumeBar.value + "%";
+
+    };
 
         }
 
