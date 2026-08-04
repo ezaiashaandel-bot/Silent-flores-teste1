@@ -1,3 +1,26 @@
+// =====================
+// SONS DO JOGO
+// =====================
+
+const clickSound = new Audio("sons/click.mp3");
+const transitionSound = new Audio("sons/transicao.mp3");
+const rainSound = new Audio("sons/chuva.mp3");
+const thunderSound = new Audio("sons/trovao.mp3");
+
+
+clickSound.volume = 0.5;
+transitionSound.volume = 0.7;
+rainSound.volume = 0.35;
+thunderSound.volume = 0.8;
+
+rainSound.loop = true;
+
+
+
+// =====================
+// CONFIGURAÇÕES
+// =====================
+
 const configBtn = document.getElementById("config");
 const settingsScreen = document.getElementById("settingsScreen");
 const backSettings = document.getElementById("backSettings");
@@ -22,6 +45,7 @@ backSettings.onclick = () => {
     settingsScreen.style.display = "none";
 
 };
+
 
 
 
@@ -71,7 +95,6 @@ options.forEach(option => {
             `;
 
 
-
             const volumeBar = document.getElementById("volumeBar");
             const volumeText = document.getElementById("volumeText");
 
@@ -84,7 +107,6 @@ options.forEach(option => {
 
 
         }
-
 
 
 
@@ -114,10 +136,8 @@ options.forEach(option => {
             `;
 
 
-
             const brightnessBar = document.getElementById("brightnessBar");
             const brightnessText = document.getElementById("brightnessText");
-
 
 
             brightnessBar.oninput = () => {
@@ -132,55 +152,55 @@ options.forEach(option => {
 
 
 
-
         // GRÁFICOS
 
         if(page === "graficos"){
 
-    info.innerHTML = `
 
-    QUALIDADE GRÁFICA<br><br>
+            info.innerHTML = `
 
-
-    <button class="graphicBtn">
-    BAIXA
-    </button>
-
-    <button class="graphicBtn">
-    MÉDIA
-    </button>
-
-    <button class="graphicBtn">
-    ALTA
-    </button>
+            QUALIDADE GRÁFICA<br><br>
 
 
-    `;
+            <button class="graphicBtn">
+            BAIXA
+            </button>
+
+            <button class="graphicBtn">
+            MÉDIA
+            </button>
+
+            <button class="graphicBtn">
+            ALTA
+            </button>
 
 
-    const graphicBtns = document.querySelectorAll(".graphicBtn");
+            `;
 
 
-    graphicBtns.forEach(btn => {
+            const graphicBtns = document.querySelectorAll(".graphicBtn");
 
 
-        btn.onclick = () => {
+            graphicBtns.forEach(btn => {
 
 
-            graphicBtns.forEach(b => {
+                btn.onclick = () => {
 
-                b.classList.remove("selecionado");
+
+                    graphicBtns.forEach(b => {
+
+                        b.classList.remove("selecionado");
+
+                    });
+
+
+                    btn.classList.add("selecionado");
+
+
+                };
+
 
             });
-
-
-            btn.classList.add("selecionado");
-
-
-        };
-
-
-    });
 
 
         }
@@ -194,82 +214,105 @@ options.forEach(option => {
         if(page === "controles"){
 
 
-    info.innerHTML = `
+            info.innerHTML = `
 
-    CONTROLES<br><br>
-
-
-    <div class="controle">
-
-    <span>W A S D</span>
-    <p>MOVIMENTO</p>
-
-    </div>
+            CONTROLES<br><br>
 
 
-    <div class="controle">
+            <div class="controle">
 
-    <span>E</span>
-    <p>INTERAGIR</p>
+            <span>W A S D</span>
+            <p>MOVIMENTO</p>
 
-    </div>
-
-
-    <div class="controle">
-
-    <span>ESC</span>
-    <p>MENU</p>
-
-    </div>
+            </div>
 
 
-    <div class="controle">
+            <div class="controle">
 
-    <span>SHIFT</span>
-    <p>CORRER</p>
+            <span>E</span>
+            <p>INTERAGIR</p>
 
-    </div>
+            </div>
 
-    `;
+
+            <div class="controle">
+
+            <span>ESC</span>
+            <p>MENU</p>
+
+            </div>
+
+
+            <div class="controle">
+
+            <span>SHIFT</span>
+            <p>CORRER</p>
+
+            </div>
+
+            `;
 
 
         }
-    }
+
+
+    };
+
 
 });
 
+
+
+
+// =====================
 // SOM AO PASSAR NOS BOTÕES
+// =====================
 
 document.querySelectorAll("button").forEach(button => {
 
+
     button.addEventListener("mouseenter", () => {
+
 
         clickSound.currentTime = 0;
         clickSound.play();
 
+
     });
+
 
 
     // Celular
 
     button.addEventListener("touchstart", () => {
 
+
         clickSound.currentTime = 0;
         clickSound.play();
 
+
     });
+
 
 });
 
 
+
+
+// =====================
 // CHUVA
+// =====================
 
 window.addEventListener("load", () => {
 
+
     rainSound.play().catch(() => {
+
 
         console.log("Chuva aguardando interação.");
 
+
     });
+
 
 });
