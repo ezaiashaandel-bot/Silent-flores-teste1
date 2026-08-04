@@ -492,3 +492,37 @@ h1 {
     box-shadow:0 0 15px #8b0000;
 
 }
+
+.controle {
+
+    margin:20px;
+
+    font-size:20px;
+
+}
+
+
+.controle span {
+
+    display:inline-block;
+
+    padding:8px 20px;
+
+    background:#111;
+
+    border:2px solid #8b0000;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+}
+
+
+.controle p {
+
+    margin-top:8px;
+
+    font-size:16px;
+
+                         }
