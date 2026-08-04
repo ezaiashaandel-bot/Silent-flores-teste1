@@ -194,21 +194,43 @@ options.forEach(option => {
         if(page === "controles"){
 
 
-            info.innerHTML = `
+    info.innerHTML = `
 
-            CONTROLES<br><br>
+    CONTROLES<br><br>
 
-            W A S D → ANDAR<br>
-            E → INTERAGIR<br>
-            ESC → MENU
 
-            `;
+    <div class="controle">
+
+    <span>W A S D</span>
+    <p>MOVIMENTO</p>
+
+    </div>
+
+
+    <div class="controle">
+
+    <span>E</span>
+    <p>INTERAGIR</p>
+
+    </div>
+
+
+    <div class="controle">
+
+    <span>ESC</span>
+    <p>MENU</p>
+
+    </div>
+
+
+    <div class="controle">
+
+    <span>SHIFT</span>
+    <p>CORRER</p>
+
+    </div>
+
+    `;
 
 
         }
-
-
-    };
-
-
-});
