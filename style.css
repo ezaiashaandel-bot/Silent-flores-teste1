@@ -412,3 +412,22 @@ h1 {
     background:#8b0000;
 
     }
+
+#volumeBar {
+
+    width:300px;
+
+    accent-color:#8b0000;
+
+}
+
+
+#volumeText {
+
+    margin-top:15px;
+
+    font-size:25px;
+
+    color:white;
+
+}
