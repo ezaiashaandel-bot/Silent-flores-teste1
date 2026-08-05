@@ -349,6 +349,8 @@ function iniciarTransicao(){
 
 startBtn.addEventListener("click", () => {
 
-    iniciarTransicao();
+    alert("Clique funcionando");
+
+    transitionScreen.style.display = "block";
 
 });
