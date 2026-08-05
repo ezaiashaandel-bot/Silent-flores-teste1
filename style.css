@@ -531,14 +531,18 @@ h1 {
 
 #transitionScreen{
 
-    position:fixed;
+    position: fixed;
 
-    inset:0;
+    top: 0;
+    left: 0;
 
-    background:#000;
+    width: 100vw;
+    height: 100vh;
 
-    z-index:100;
+    background: #000;
 
-    display:none;
+    display: none;
+
+    z-index: 999999;
 
 }
