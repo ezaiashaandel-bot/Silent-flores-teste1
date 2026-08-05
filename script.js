@@ -256,3 +256,99 @@ options.forEach(option => {
     };
 
 });
+
+// ======================
+// TRANSIÇÃO
+// ======================
+
+function diminuirChuva(callback){
+
+    let volume = rainSound.volume;
+
+    const fade = setInterval(() => {
+
+        volume -= 0.02;
+
+        if(volume <= 0){
+
+            volume = 0;
+
+            clearInterval(fade);
+
+            rainSound.volume = 0;
+
+            callback();
+
+            return;
+
+        }
+
+        rainSound.volume = volume;
+
+    },50);
+
+}
+
+
+
+function aumentarChuva(){
+
+    let volume = 0;
+
+    rainSound.volume = 0;
+
+    rainSound.play();
+
+    const fade = setInterval(() => {
+
+        volume += 0.02;
+
+        if(volume >= 0.35){
+
+            volume = 0.35;
+
+            clearInterval(fade);
+
+        }
+
+        rainSound.volume = volume;
+
+    },50);
+
+}
+
+
+
+function iniciarTransicao(){
+
+    diminuirChuva(() => {
+
+        transitionScreen.style.display = "block";
+
+        transitionSound.currentTime = 0;
+        transitionSound.play();
+
+        setTimeout(() => {
+
+            aumentarChuva();
+
+            // Depois vamos trocar isso
+            // pela tela de seleção de personagem.
+
+        },3000);
+
+    });
+
+}
+
+
+
+// ======================
+// BOTÃO JOGAR
+// ======================
+
+startBtn.addEventListener("click", () => {
+
+    iniciarTransicao();
+
+});
