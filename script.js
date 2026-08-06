@@ -457,51 +457,7 @@ gameScreen.style.display="block";
 
 
 
-// ======================
-// TROVÃO
-// ======================
 
-
-function relampago(){
-
-
-lightning.classList.add("flash");
-
-
-thunderSound.currentTime=0;
-
-
-thunderSound.play().catch(()=>{});
-
-
-setTimeout(()=>{
-
-
-lightning.classList.remove("flash");
-
-
-},120);
-
-
-}
-
-
-
-
-
-setInterval(()=>{
-
-
-if(Math.random()>0.7){
-
-
-relampago();
-
-
-}
-
-
-},5000);
 
 // ======================
 // RELÂMPAGO SUAVE
