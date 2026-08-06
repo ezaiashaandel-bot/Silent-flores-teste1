@@ -226,13 +226,6 @@ option.onclick=()=>{
 
 
 
-    if(page==="graficos"){
-
-
-
-
-
-
     if(page==="controles"){
 
 
