@@ -42,15 +42,11 @@ const info = document.getElementById("settingInfo");
 // CHUVA
 // ======================
 
-window.addEventListener("load", () => {
+document.addEventListener("click", () => {
 
-    rainSound.play().catch(() => {
+    rainSound.play();
 
-        console.log("Chuva aguardando interação");
-
-    });
-
-});
+}, { once:true });
 
 
 
@@ -463,18 +459,15 @@ function aumentarChuva(){
 
 function iniciarTransicao(){
 
-
     diminuirChuva(() => {
 
-
-
+        // mostra tela preta
         transitionScreen.style.display = "block";
+        transitionScreen.style.opacity = "1";
 
 
-
+        // toca som da transição
         transitionSound.currentTime = 0;
-
-
         transitionSound.play();
 
 
@@ -482,23 +475,20 @@ function iniciarTransicao(){
         setTimeout(() => {
 
 
-
+            // esconde tela preta
             transitionScreen.style.display = "none";
 
 
-
+            // volta chuva
             aumentarChuva();
-
 
 
         },3000);
 
 
-
     });
 
-
-}
+                  }
 
 
 
