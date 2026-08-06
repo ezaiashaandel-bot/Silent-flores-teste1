@@ -571,20 +571,57 @@ aumentarChuva();
 const characterScreen =
 document.getElementById("characterScreen");
 
-startBtn.onclick=()=>{
+startBtn.onclick = () => {
 
     iniciarTransicao();
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        menu.style.display="none";
+        menu.style.display = "none";
 
-        characterScreen.style.display="block";
+        nicknameScreen.style.display = "block";
 
     },3000);
 
 };
 
+backToMenu.onclick = () => {
+
+    iniciarTransicao();
+
+    setTimeout(() => {
+
+        nicknameScreen.style.display = "none";
+
+        menu.style.display = "flex";
+
+    },3000);
+
+};
+
+continueToGender.onclick = () => {
+
+    let nome = playerName.value.trim();
+
+    if(nome === ""){
+
+        alert("Digite um nickname.");
+
+        return;
+
+    }
+
+    localStorage.setItem("playerName", nome);
+
+    iniciarTransicao();
+
+    setTimeout(() => {
+
+        alert("Próxima tela: Escolha de gênero.");
+
+    },3000);
+
+};
 
 const confirmCharacter =
 document.getElementById("confirmCharacter");
