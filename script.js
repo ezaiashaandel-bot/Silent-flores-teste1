@@ -160,18 +160,17 @@ options.forEach(option => {
 
             `;
 
-            const brightnessBar = document.getElementById("brightnessBar");
-            const brightnessText = document.getElementById("brightnessText");
+            const menu = document.getElementById("menu");
 
-            brightnessBar.oninput = () => {
+brightnessBar.oninput = () => {
 
-                document.body.style.filter =
-                    "brightness(" + brightnessBar.value + "%)";
+    menu.style.filter =
+        "brightness(" + brightnessBar.value + "%)";
 
-                brightnessText.innerHTML =
-                    brightnessBar.value + "%";
+    brightnessText.innerHTML =
+        brightnessBar.value + "%";
 
-            };
+};
 
         }
 
