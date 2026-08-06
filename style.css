@@ -1,517 +1,439 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
-
 
 body{
 
-    width:100vw;
-    height:100vh;
+width:100vw;  
+height:100vh;  
 
-    overflow:hidden;
+overflow:hidden;  
 
-    background:#000;
+background:#000;  
 
-    font-family:"Trebuchet MS", sans-serif;
+font-family:"Trebuchet MS", sans-serif;
 
 }
 
-
-
 /* ======================
-   MENU INICIAL
+MENU INICIAL
 ====================== */
-
 
 #menu{
 
-    position:relative;
+position:relative;  
 
-    width:100%;
-    height:100vh;
+width:100%;  
+height:100vh;  
 
-    display:flex;
+display:flex;  
 
-    flex-direction:column;
+flex-direction:column;  
 
-    justify-content:center;
+justify-content:center;  
 
-    align-items:center;
+align-items:center;  
 
 
-    overflow:hidden;
+overflow:hidden;
 
 }
-
-
-
 
 #background{
 
-    position:absolute;
+position:absolute;  
 
-    inset:0;
+inset:0;  
 
 
-    background-image:url("imagens/fundo.png");
+background-image:url("imagens/fundo.png");  
 
-    background-size:cover;
+background-size:cover;  
 
-    background-position:center;
+background-position:center;  
 
-    z-index:0;
+z-index:0;
 
 }
-
-
-
-
 
 #nevoa{
 
-    position:absolute;
+position:absolute;  
 
-    inset:0;
+inset:0;  
 
-    background:rgba(0,0,0,0.45);
+background:rgba(0,0,0,0.45);  
 
-    z-index:1;
+z-index:1;
 
 }
-
-
-
-
 
 h1{
 
-    position:relative;
+position:relative;  
 
-    z-index:2;
-
-
-    font-family:"Nosifer", cursive;
-
-    font-size:80px;
-
-    color:#c40000;
+z-index:2;  
 
 
-    letter-spacing:5px;
+font-family:"Nosifer", cursive;  
+
+font-size:80px;  
+
+color:#c40000;  
 
 
-    text-align:center;
+letter-spacing:5px;  
 
 
-    text-shadow:
+text-align:center;  
 
-    0 0 10px #ff0000,
-    0 0 25px #8b0000;
 
+text-shadow:  
+
+0 0 10px #ff0000,  
+0 0 25px #8b0000;
 
 }
 
-
-
-
-
 /* ======================
-   BOTÕES
+BOTÕES
 ====================== */
-
 
 button{
 
+cursor:pointer;  
 
-    cursor:pointer;
 
-
-    font-weight:bold;
-
+font-weight:bold;
 
 }
-
-
-
-
 
 #start,
 #config{
 
+position:relative;  
 
-    position:relative;
-
-    z-index:2;
-
-
-    width:260px;
-
-    padding:16px;
+z-index:2;  
 
 
-    margin-top:15px;
+width:260px;  
+
+padding:16px;  
 
 
-    background:rgba(20,20,20,.8);
+margin-top:15px;  
 
 
-    color:white;
+background:rgba(20,20,20,.8);  
 
 
-    border:2px solid #8b0000;
+color:white;  
 
 
-    border-radius:12px;
+border:2px solid #8b0000;  
 
 
-    font-size:22px;
+border-radius:12px;  
 
 
-    letter-spacing:3px;
+font-size:22px;  
 
 
-    transition:.3s;
+letter-spacing:3px;  
+
+
+transition:.3s;
 
 }
-
-
-
-
 
 #start:hover,
 #config:hover{
 
-
-    background:#8b0000;
-
-
-    box-shadow:0 0 20px #8b0000;
+background:#8b0000;  
 
 
-    transform:scale(1.05);
+box-shadow:0 0 20px #8b0000;  
 
+
+transform:scale(1.05);
 
 }
 
-
-
-
-
 /* ======================
-   JOGO
+JOGO
 ====================== */
-
 
 #gameScreen{
 
-
-    display:none;
-
-
-    position:absolute;
+display:none;  
 
 
-    inset:0;
+position:absolute;  
 
 
-    background:#000;
+inset:0;  
 
 
-    z-index:10;
+background:#000;  
 
+
+z-index:10;
 
 }
 
-
-
-
-
 /* ======================
-   CONFIGURAÇÕES
+CONFIGURAÇÕES
 ====================== */
-
 
 #settingsScreen{
 
-
-    display:none;
-
-
-    position:absolute;
+display:none;  
 
 
-    inset:0;
+position:absolute;  
 
 
-    background:#000;
+inset:0;  
 
 
-    color:white;
+background:#000;  
 
 
-    z-index:20;
+color:white;  
 
+
+z-index:20;
 
 }
-
-
-
-
 
 #settingsSide{
 
-
-    position:absolute;
-
-
-    right:50px;
-
-    top:50%;
+position:absolute;  
 
 
-    transform:translateY(-50%);
+right:50px;  
+
+top:50%;  
 
 
-    display:flex;
-
-    flex-direction:column;
+transform:translateY(-50%);  
 
 
-    gap:20px;
+display:flex;  
 
+flex-direction:column;  
+
+
+gap:20px;
 
 }
-
-
-
 
 .settingOption{
 
-
-    width:220px;
-
-
-    padding:15px;
+width:220px;  
 
 
-    background:#111;
+padding:15px;  
 
 
-    color:white;
+background:#111;  
 
 
-    border:2px solid #8b0000;
+color:white;  
 
 
-    border-radius:10px;
+border:2px solid #8b0000;  
 
 
-    font-size:20px;
+border-radius:10px;  
 
+
+font-size:20px;
 
 }
-
-
-
 
 .settingOption:hover,
 .settingOption.ativo{
 
-
-    background:#8b0000;
-
+background:#8b0000;
 
 }
-
-
-
-
 
 #settingsContent{
 
-
-    position:absolute;
-
-
-    top:50%;
-
-    left:50%;
+position:absolute;  
 
 
-    transform:translate(-50%,-50%);
+top:50%;  
+
+left:50%;  
 
 
-    text-align:center;
+transform:translate(-50%,-50%);  
 
+
+text-align:center;
 
 }
-
-
-
 
 #settingsContent h2{
 
-
-    font-family:"Nosifer",cursive;
-
-
-    color:#c40000;
+font-family:"Nosifer",cursive;  
 
 
-    font-size:40px;
+color:#c40000;  
 
+
+font-size:40px;
 
 }
-
-
-
 
 #settingInfo{
 
+margin-top:40px;  
 
-    margin-top:40px;
-
-    font-size:25px;
-
+font-size:25px;
 
 }
-
-
-
-
 
 #backSettings{
 
-
-    position:absolute;
-
-
-    bottom:40px;
-
-    left:50%;
+position:absolute;  
 
 
-    transform:translateX(-50%);
+bottom:40px;  
+
+left:50%;  
 
 
-    width:200px;
+transform:translateX(-50%);  
 
 
-    padding:15px;
+width:200px;  
 
 
-    background:#111;
+padding:15px;  
 
 
-    color:white;
+background:#111;  
 
 
-    border:2px solid #8b0000;
+color:white;  
 
 
-    border-radius:10px;
+border:2px solid #8b0000;  
 
+
+border-radius:10px;
 
 }
 
-
-
-
-
 /* ======================
-   BARRAS
+BARRAS
 ====================== */
-
 
 #volumeBar,
 #brightnessBar{
 
+width:300px;  
 
-    width:300px;
-
-    accent-color:#8b0000;
-
+accent-color:#8b0000;
 
 }
 
-
-
-
-
 /* ======================
-   TRANSIÇÃO
+TRANSIÇÃO
 ====================== */
-
 
 #transitionScreen{
 
-
-    position:fixed;
-
-
-    inset:0;
+position:fixed;  
 
 
-    background:#000;
+inset:0;  
 
 
-    opacity:0;
+background:#000;  
 
 
-    display:none;
+opacity:0;  
 
 
-    z-index:9999;
+display:none;  
 
 
-    transition:.6s;
+z-index:9999;  
 
+
+transition:.6s;
 
 }
-
-
 
 #transitionScreen.show{
 
+display:block;  
 
-    display:block;
 
-
-    opacity:1;
-
+opacity:1;
 
 }
 
-
-
-
-
-
 /* ======================
-   RELÂMPAGO
+RELÂMPAGO
 ====================== */
 
 #lightning{
 
-    position:absolute;
+position:fixed;  
 
-    inset:0;
 
-    pointer-events:none;
+inset:0;  
 
-    opacity:0;
 
-    z-index:1;
+background:white;  
 
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(255,255,255,.22) 0%,
-        rgba(255,255,255,.12) 35%,
-        rgba(255,255,255,.05) 65%,
-        rgba(255,255,255,0) 100%
-    );
 
-    }
+opacity:0;  
+
+
+pointer-events:none;  
+
+
+z-index:9998;
+
+}
+
+#lightning.flash{
+
+opacity:.8;
+
+}
+
+/* ======================
+RELÂMPAGO
+====================== */
+
+#lightning{
+
+position:absolute;  
+
+inset:0;  
+
+pointer-events:none;  
+
+opacity:0;  
+
+z-index:1;  
+
+background:  
+radial-gradient(  
+    circle at center,  
+    rgba(255,255,255,.22) 0%,  
+    rgba(255,255,255,.12) 35%,  
+    rgba(255,255,255,.05) 65%,  
+    rgba(255,255,255,0) 100%  
+);  
+
+                     }
