@@ -461,12 +461,12 @@ function iniciarTransicao(){
 
     diminuirChuva(() => {
 
-        // mostra tela preta
-        transitionScreen.style.display = "block";
-        transitionScreen.style.opacity = "1";
+
+        // ativa tela preta
+        transitionScreen.classList.add("show");
 
 
-        // toca som da transição
+        // toca som
         transitionSound.currentTime = 0;
         transitionSound.play();
 
@@ -475,11 +475,10 @@ function iniciarTransicao(){
         setTimeout(() => {
 
 
-            // esconde tela preta
-            transitionScreen.style.display = "none";
+            // remove tela preta
+            transitionScreen.classList.remove("show");
 
 
-            // volta chuva
             aumentarChuva();
 
 
@@ -487,6 +486,8 @@ function iniciarTransicao(){
 
 
     });
+
+}
 
                   }
 
