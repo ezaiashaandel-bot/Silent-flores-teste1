@@ -138,39 +138,117 @@ option.onclick=()=>{
 
     if(page==="som"){
 
+info.innerHTML=`
 
-        info.innerHTML=`
+VOLUME GERAL<br><br>
 
-        VOLUME<br><br>
+<input type="range" id="masterVolume" min="0" max="100" value="100">
 
-        <input 
-        type="range"
-        id="volumeBar"
-        min="0"
-        max="100"
-        value="35">
+<p id="masterText">100%</p>
 
 
-        <p id="volumeText">
-        35%
-        </p>
+<br>
 
-        `;
+VOLUME CLICK<br><br>
 
+<input type="range" id="clickVolume" min="0" max="100" value="50">
 
-        const bar=document.getElementById("volumeBar");
-        const text=document.getElementById("volumeText");
+<p id="clickText">50%</p>
 
 
-        bar.oninput=()=>{
+<br>
+
+VOLUME TROVÃO<br><br>
+
+<input type="range" id="thunderVolume" min="0" max="100" value="80">
+
+<p id="thunderText">80%</p>
 
 
-            rainSound.volume=bar.value/100;
+<br>
 
-            text.innerHTML=bar.value+"%";
+VOLUME TRANSIÇÃO<br><br>
+
+<input type="range" id="transitionVolume" min="0" max="100" value="70">
+
+<p id="transitionText">70%</p>
 
 
-        };
+<br>
+
+VOLUME CHUVA<br><br>
+
+<input type="range" id="rainVolume" min="0" max="100" value="35">
+
+<p id="rainText">35%</p>
+
+`;
+
+
+
+const master = document.getElementById("masterVolume");
+
+const click = document.getElementById("clickVolume");
+const thunder = document.getElementById("thunderVolume");
+const transition = document.getElementById("transitionVolume");
+const rain = document.getElementById("rainVolume");
+
+
+const masterText = document.getElementById("masterText");
+const clickText = document.getElementById("clickText");
+const thunderText = document.getElementById("thunderText");
+const transitionText = document.getElementById("transitionText");
+const rainText = document.getElementById("rainText");
+
+
+
+function atualizarVolumes(){
+
+let geral = master.value / 100;
+
+
+clickSound.volume =
+(click.value / 100) * geral;
+
+
+thunderSound.volume =
+(thunder.value / 100) * geral;
+
+
+transitionSound.volume =
+(transition.value / 100) * geral;
+
+
+rainSound.volume =
+(rain.value / 100) * geral;
+
+
+
+masterText.innerHTML =
+master.value+"%";
+
+clickText.innerHTML =
+click.value+"%";
+
+thunderText.innerHTML =
+thunder.value+"%";
+
+transitionText.innerHTML =
+transition.value+"%";
+
+rainText.innerHTML =
+rain.value+"%";
+
+
+}
+
+
+
+master.oninput = atualizarVolumes;
+click.oninput = atualizarVolumes;
+thunder.oninput = atualizarVolumes;
+transition.oninput = atualizarVolumes;
+rain.oninput = atualizarVolumes;
 
 
     }
