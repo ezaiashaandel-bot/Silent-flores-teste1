@@ -228,28 +228,39 @@ option.onclick=()=>{
 
     if(page==="graficos"){
 
+    info.innerHTML=`
 
-        info.innerHTML=`
+    QUALIDADE GRÁFICA<br><br>
 
-        QUALIDADE GRÁFICA<br><br>
+    <button class="graphicBtn">
+    BAIXA
+    </button>
 
+    <button class="graphicBtn selecionado">
+    MÉDIA
+    </button>
 
-        <button class="graphicBtn">
-        BAIXA
-        </button>
+    <button class="graphicBtn">
+    ALTA
+    </button>
 
+    `;
 
-        <button class="graphicBtn">
-        MÉDIA
-        </button>
+    const graphicBtns = document.querySelectorAll(".graphicBtn");
 
+    graphicBtns.forEach(btn => {
 
-        <button class="graphicBtn">
-        ALTA
-        </button>
+        btn.onclick = () => {
 
-        `;
+            graphicBtns.forEach(b => {
+                b.classList.remove("selecionado");
+            });
 
+            btn.classList.add("selecionado");
+
+        };
+
+    });
 
     }
 
