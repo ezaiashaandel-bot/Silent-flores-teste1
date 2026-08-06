@@ -18,114 +18,97 @@
 <body>
 
 
-    <!-- MENU INICIAL -->
+<!-- MENU INICIAL -->
 
-    <div id="menu">
-
-
-        <!-- FUNDO DA FLORESTA -->
-
-        <div id="background"></div>
+<div id="menu">
 
 
-        <!-- NEBLINA -->
+    <div id="background"></div>
 
-        <div id="nevoa"></div>
+    <div id="nevoa"></div>
 
 
-        <!-- LUZ DO RELÂMPAGO -->
-
-        <div id="lightning"></div>
+    <h1>
+        Silent Forest
+    </h1>
 
 
 
-        <h1>
-            Silent Forest
-        </h1>
+    <button id="start">
+        JOGAR
+    </button>
 
 
 
-        <button id="start">
-            JOGAR
+    <button id="config">
+        CONFIGURAÇÕES
+    </button>
+
+
+</div>
+
+
+
+
+
+<!-- TELA DO JOGO -->
+
+<div id="gameScreen">
+
+
+</div>
+
+
+
+
+
+<!-- CONFIGURAÇÕES -->
+
+<div id="settingsScreen">
+
+
+    <div id="settingsSide">
+
+
+        <button class="settingOption" data-page="som">
+            SOM
         </button>
 
 
+        <button class="settingOption" data-page="imagem">
+            IMAGEM
+        </button>
 
-        <button id="config">
+
+        <button class="settingOption" data-page="graficos">
+            GRÁFICOS
+        </button>
+
+
+        <button class="settingOption" data-page="controles">
+            CONTROLES
+        </button>
+
+
+    </div>
+
+
+
+
+
+    <div id="settingsContent">
+
+
+        <h2>
             CONFIGURAÇÕES
-        </button>
+        </h2>
 
 
-    </div>
+        <div id="settingInfo">
 
-
-
-
-    <!-- TELA DE CONFIGURAÇÕES -->
-
-    <div id="settingsScreen">
-
-
-        <div id="settingsSide">
-
-
-            <button class="settingOption" data-page="som">
-                SOM
-            </button>
-
-
-
-            <button class="settingOption" data-page="imagem">
-                IMAGEM
-            </button>
-
-
-
-            <button class="settingOption" data-page="graficos">
-                GRÁFICOS
-            </button>
-
-
-
-            <button class="settingOption" data-page="controles">
-                CONTROLES
-            </button>
-
+            Selecione uma opção
 
         </div>
-
-
-
-
-
-        <div id="settingsContent">
-
-
-            <h2>
-                CONFIGURAÇÕES
-            </h2>
-
-
-
-            <div id="settingInfo">
-
-                Selecione uma opção
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-        <button id="backSettings">
-
-            VOLTAR
-
-        </button>
-
 
 
     </div>
@@ -134,15 +117,37 @@
 
 
 
-    <!-- TELA DE TRANSIÇÃO -->
+    <button id="backSettings">
 
-    <div id="transitionScreen"></div>
+        VOLTAR
+
+    </button>
+
+
+</div>
 
 
 
 
 
-    <script src="script.js"></script>
+
+<!-- EFEITO DO TROVÃO -->
+
+<div id="lightning"></div>
+
+
+
+
+
+<!-- TRANSIÇÃO -->
+
+<div id="transitionScreen"></div>
+
+
+
+
+
+<script src="script.js"></script>
 
 
 </body>
