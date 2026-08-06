@@ -112,7 +112,13 @@ document.querySelectorAll(".settingOption");
 const info =
 document.getElementById("settingInfo");
 
+const nicknameScreen = document.getElementById("nicknameScreen");
 
+const backToMenu = document.getElementById("backToMenu");
+
+const continueToGender = document.getElementById("continueToGender");
+
+const playerName = document.getElementById("playerName");
 
 
 // ======================
