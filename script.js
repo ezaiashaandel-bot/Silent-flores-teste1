@@ -1,5 +1,3 @@
-alert("JS funcionando");
-
 // ======================
 // SONS
 // ======================
@@ -9,379 +7,695 @@ const transitionSound = new Audio("sons/transicao.mp3");
 const rainSound = new Audio("sons/chuva.mp3");
 const thunderSound = new Audio("sons/trovao.mp3");
 
-clickSound.volume = 0.5;
-transitionSound.volume = 0.7;
-rainSound.volume = 0.35;
-thunderSound.volume = 0.8;
-
 rainSound.loop = true;
+
+
+// ======================
+// VOLUMES
+// ======================
+
+let volumes = JSON.parse(localStorage.getItem("volumes")) || {
+
+    geral:100,
+    click:50,
+    transicao:70,
+    chuva:35,
+    trova:80
+
+};
+
+
+function atualizarVolumes(){
+
+
+clickSound.volume =
+(volumes.click / 100) *
+(volumes.geral / 100);
+
+
+transitionSound.volume =
+(volumes.transicao / 100) *
+(volumes.geral / 100);
+
+
+rainSound.volume =
+(volumes.chuva / 100) *
+(volumes.geral / 100);
+
+
+thunderSound.volume =
+(volumes.trova / 100) *
+(volumes.geral / 100);
+
+
+
+localStorage.setItem(
+"volumes",
+JSON.stringify(volumes)
+);
+
+
+}
+
+
+atualizarVolumes();
+
+
+
+
 
 // ======================
 // ELEMENTOS
 // ======================
 
-const startBtn = document.getElementById("start");
-const configBtn = document.getElementById("config");
 
-const menu = document.getElementById("menu");
-const gameScreen = document.getElementById("gameScreen");
+const startBtn =
+document.getElementById("start");
 
-const settingsScreen = document.getElementById("settingsScreen");
-const backSettings = document.getElementById("backSettings");
 
-const transitionScreen = document.getElementById("transitionScreen");
+const configBtn =
+document.getElementById("config");
 
-const background = document.getElementById("background");
 
-const lightning = document.getElementById("lightning");
+const menu =
+document.getElementById("menu");
 
-const options = document.querySelectorAll(".settingOption");
-const info = document.getElementById("settingInfo");
+
+const gameScreen =
+document.getElementById("gameScreen");
+
+
+const settingsScreen =
+document.getElementById("settingsScreen");
+
+
+const backSettings =
+document.getElementById("backSettings");
+
+
+const transitionScreen =
+document.getElementById("transitionScreen");
+
+
+const background =
+document.getElementById("background");
+
+
+const lightning =
+document.getElementById("lightning");
+
+
+const options =
+document.querySelectorAll(".settingOption");
+
+
+const info =
+document.getElementById("settingInfo");
+
+
+
 
 // ======================
-// INICIAR CHUVA
+// CHUVA
 // ======================
 
-document.addEventListener("click", () => {
+
+document.addEventListener("click",()=>{
+
 
 rainSound.play().catch(()=>{});
 
+
 },{once:true});
 
+
+
+
+
 // ======================
-// SOM DOS BOTÕES
+// CLICK BOTÕES
 // ======================
 
-document.querySelectorAll("button").forEach(button=>{
 
-button.addEventListener("mouseenter",()=>{  
-
-    clickSound.currentTime = 0;  
-
-    clickSound.play().catch(()=>{});  
-
-});  
+document.querySelectorAll("button")
+.forEach(button=>{
 
 
-button.addEventListener("touchstart",()=>{  
+button.addEventListener("mouseenter",()=>{
 
-    clickSound.currentTime = 0;  
 
-    clickSound.play().catch(()=>{});  
+clickSound.currentTime=0;
+
+clickSound.play().catch(()=>{});
+
 
 });
 
+
+
+button.addEventListener("touchstart",()=>{
+
+
+clickSound.currentTime=0;
+
+clickSound.play().catch(()=>{});
+
+
 });
+
+
+});
+
+
+
+
+
+
 
 // ======================
 // CONFIGURAÇÕES
 // ======================
 
-configBtn.onclick = ()=>{
+
+configBtn.onclick=()=>{
+
 
 settingsScreen.style.display="block";
 
+
 };
 
-backSettings.onclick = ()=>{
+
+
+backSettings.onclick=()=>{
+
 
 settingsScreen.style.display="none";
 
+
 };
 
-// ======================
-// CONFIGURAÇÕES
-// ======================
+
+
+
+
 
 options.forEach(option=>{
 
+
 option.onclick=()=>{
 
-options.forEach(btn=>{  
 
-    btn.classList.remove("ativo");  
+options.forEach(btn=>{
 
-});  
+btn.classList.remove("ativo");
 
+});
 
-option.classList.add("ativo");  
 
+option.classList.add("ativo");
 
-const page = option.dataset.page;  
 
 
+let page =
+option.dataset.page;
 
-if(page==="som"){  
 
 
-    info.innerHTML=`  
 
-    VOLUME<br><br>  
 
-    <input   
-    type="range"  
-    id="volumeBar"  
-    min="0"  
-    max="100"  
-    value="35">  
+// SOM
 
 
-    <p id="volumeText">  
-    35%  
-    </p>  
+if(page==="som"){
 
-    `;  
 
 
-    const bar=document.getElementById("volumeBar");  
-    const text=document.getElementById("volumeText");  
+info.innerHTML=`
 
+VOLUME GERAL<br>
 
-    bar.oninput=()=>{  
+<input id="geral"
+type="range"
+min="0"
+max="100"
+value="${volumes.geral}">
 
 
-        rainSound.volume=bar.value/100;  
+<p>${volumes.geral}%</p>
 
-        text.innerHTML=bar.value+"%";  
 
 
-    };  
+VOLUME CLICK<br>
 
+<input id="click"
+type="range"
+min="0"
+max="100"
+value="${volumes.click}">
 
-}  
 
 
+<p>${volumes.click}%</p>
 
 
 
-if(page==="imagem"){  
+VOLUME TROVÃO<br>
 
+<input id="trova"
+type="range"
+min="0"
+max="100"
+value="${volumes.trova}">
 
-    info.innerHTML=`  
 
-    BRILHO<br><br>  
 
+<p>${volumes.trova}%</p>
 
-    <input  
-    type="range"  
-    id="brightnessBar"  
-    min="50"  
-    max="150"  
-    value="100">  
 
 
-    <p id="brightnessText">  
-    100%  
-    </p>  
 
-    `;  
+VOLUME TRANSIÇÃO<br>
 
+<input id="transicao"
+type="range"
+min="0"
+max="100"
+value="${volumes.transicao}">
 
-    const bar=document.getElementById("brightnessBar");  
-    const text=document.getElementById("brightnessText");  
 
 
-    bar.oninput=()=>{  
+<p>${volumes.transicao}%</p>
 
 
-        background.style.filter =  
-        "brightness("+bar.value+"%)";  
 
 
-        text.innerHTML =  
-        bar.value+"%";  
+VOLUME CHUVA<br>
 
+<input id="chuva"
+type="range"
+min="0"
+max="100"
+value="${volumes.chuva}">
 
-    };  
 
 
-}  
+<p>${volumes.chuva}%</p>
 
+`;
 
 
 
+["geral",
+"click",
+"trova",
+"transicao",
+"chuva"]
 
-if(page==="controles"){  
+.forEach(id=>{
 
 
-    info.innerHTML=`  
+let barra =
+document.getElementById(id);
 
-    CONTROLES<br><br>  
 
+barra.oninput=()=>{
 
-    W A S D<br>  
-    MOVIMENTO<br><br>  
 
+volumes[id]=
+Number(barra.value);
 
-    E<br>  
-    INTERAGIR<br><br>  
 
+atualizarVolumes();
 
-    SHIFT<br>  
-    CORRER  
 
-    `;  
+barra.nextElementSibling.innerHTML =
+barra.value+"%";
+
+
+};
+
+
+});
 
 
 }
 
+
+
+
+
+
+
+// IMAGEM
+
+
+if(page==="imagem"){
+
+
+let brilho =
+localStorage.getItem("brilho")
+||100;
+
+
+
+info.innerHTML=`
+
+BRILHO<br><br>
+
+
+<input id="brightnessBar"
+type="range"
+min="50"
+max="150"
+value="${brilho}">
+
+
+<p>${brilho}%</p>
+
+`;
+
+
+
+let bar =
+document.getElementById(
+"brightnessBar"
+);
+
+
+
+bar.oninput=()=>{
+
+
+background.style.filter =
+`brightness(${bar.value}%)`;
+
+
+localStorage.setItem(
+"brilho",
+bar.value
+);
+
+
+bar.nextElementSibling.innerHTML =
+bar.value+"%";
+
+
 };
 
+
+
+}
+
+
+
+
+
+// CONTROLES
+
+
+if(page==="controles"){
+
+
+info.innerHTML=`
+
+CONTROLES<br><br>
+
+
+W A S D<br>
+MOVIMENTO<br><br>
+
+
+E<br>
+INTERAGIR<br><br>
+
+
+SHIFT<br>
+CORRER
+
+
+`;
+
+
+}
+
+
+
+};
+
+
 });
+
+
+
+
+
 
 // ======================
 // TRANSIÇÃO
 // ======================
 
+
 function diminuirChuva(callback){
 
-let volume = rainSound.volume;
 
-let fade=setInterval(()=>{
+let volume =
+rainSound.volume;
+
+
+let fade =
+setInterval(()=>{
+
 
 volume-=0.02;
 
+
+
 if(volume<=0){
+
 
 clearInterval(fade);
 
+
 rainSound.volume=0;
+
 
 callback();
 
+
 return;
 
+
 }
+
+
 
 rainSound.volume=volume;
 
+
+
 },50);
 
+
+
 }
+
+
 
 function aumentarChuva(){
 
-let volume=0;
-
-rainSound.volume=0;
 
 rainSound.play().catch(()=>{});
 
-let fade=setInterval(()=>{
 
-volume+=0.02;
+atualizarVolumes();
 
-if(volume>=0.35){
-
-volume=0.35;
-
-clearInterval(fade);
 
 }
 
-rainSound.volume=volume;
 
-},50);
 
-}
+
 
 function iniciarTransicao(){
 
+
 diminuirChuva(()=>{
+
 
 transitionScreen.classList.add("show");
 
+
 transitionSound.currentTime=0;
 
-transitionSound.play().catch(()=>{});
+
+transitionSound.play()
+.catch(()=>{});
+
+
 
 setTimeout(()=>{
 
+
 transitionScreen.classList.remove("show");
+
 
 aumentarChuva();
 
+
 },3000);
+
+
 
 });
 
+
 }
+
+
+
+
+
 
 // ======================
 // JOGAR
 // ======================
 
+
 startBtn.onclick=()=>{
+
 
 iniciarTransicao();
 
+
+
 setTimeout(()=>{
+
 
 menu.style.display="none";
 
+
 gameScreen.style.display="block";
+
 
 },3000);
 
+
+
 };
 
+
+
+
+
+
+
 // ======================
-// RELÂMPAGO SUAVE
+// TROVÃO ALEATÓRIO
 // ======================
+
 
 function relampago(){
 
-const posicoes = [  
-    "left",  
-    "center",  
-    "right"  
-];  
 
-const lado =  
-    posicoes[Math.floor(Math.random()*3)];  
 
-if(lado==="left"){  
+let posicoes=[
 
-    lightning.style.background =  
-    "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
+"left",
+"center",
+"right"
 
-}  
+];
 
-if(lado==="center"){  
 
-    lightning.style.background =  
-    "radial-gradient(circle at center, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
 
-}  
+let lado =
+posicoes[
+Math.floor(Math.random()*3)
+];
 
-if(lado==="right"){  
 
-    lightning.style.background =  
-    "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
 
-}  
+let efeito;
 
-lightning.style.transition = "none";  
-lightning.style.opacity = "0.22";  
 
-requestAnimationFrame(() => {  
 
-    lightning.style.transition = "opacity .35s ease-out";  
-    lightning.style.opacity = "0";  
+if(lado==="left"){
 
-});  
 
-setTimeout(() => {  
+efeito =
+"radial-gradient(circle at 20% 50%,rgba(255,255,255,.22),transparent 70%)";
 
-    thunderSound.currentTime = 0;  
-    thunderSound.play().catch(()=>{});  
-
-},300);
 
 }
 
+
+
+if(lado==="center"){
+
+
+efeito =
+"radial-gradient(circle at center,rgba(255,255,255,.22),transparent 70%)";
+
+
+}
+
+
+
+if(lado==="right"){
+
+
+efeito =
+"radial-gradient(circle at 80% 50%,rgba(255,255,255,.22),transparent 70%)";
+
+
+}
+
+
+
+lightning.style.background =
+efeito;
+
+
+
+lightning.style.opacity=".22";
+
+
+
+setTimeout(()=>{
+
+
+lightning.style.opacity="0";
+
+
+},350);
+
+
+
+
+setTimeout(()=>{
+
+
+thunderSound.currentTime=0;
+
+
+thunderSound.play()
+.catch(()=>{});
+
+
+},300);
+
+
+
+}
+
+
+
+
 setInterval(()=>{
 
+
 relampago();
+
 
 },15000);
