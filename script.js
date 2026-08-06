@@ -562,30 +562,66 @@ aumentarChuva();
 // ======================
 
 
+const characterScreen =
+document.getElementById("characterScreen");
+
 startBtn.onclick=()=>{
 
+    iniciarTransicao();
 
-iniciarTransicao();
+    setTimeout(()=>{
 
+        menu.style.display="none";
 
+        characterScreen.style.display="block";
 
-setTimeout(()=>{
-
-
-menu.style.display="none";
-
-
-gameScreen.style.display="block";
-
-
-},3000);
-
-
+    },3000);
 
 };
 
 
+const confirmCharacter =
+document.getElementById("confirmCharacter");
 
+const playerName =
+document.getElementById("playerName");
+
+let player = {
+
+    nick:""
+
+};
+
+confirmCharacter.onclick=()=>{
+
+    let nome = playerName.value.trim();
+
+    if(nome===""){
+
+        alert("Digite um nickname!");
+
+        return;
+
+    }
+
+    player.nick = nome;
+
+    localStorage.setItem(
+        "playerName",
+        nome
+    );
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        characterScreen.style.display="none";
+
+        gameScreen.style.display="block";
+
+    },3000);
+
+};
 
 
 
