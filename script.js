@@ -502,3 +502,64 @@ relampago();
 
 
 },5000);
+
+// ======================
+// RELÂMPAGO SUAVE
+// ======================
+
+function relampago(){
+
+    const posicoes = [
+        "left",
+        "center",
+        "right"
+    ];
+
+    const lado =
+        posicoes[Math.floor(Math.random()*3)];
+
+    if(lado==="left"){
+
+        lightning.style.background =
+        "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+
+    }
+
+    if(lado==="center"){
+
+        lightning.style.background =
+        "radial-gradient(circle at center, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+
+    }
+
+    if(lado==="right"){
+
+        lightning.style.background =
+        "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+
+    }
+
+    lightning.style.transition = "none";
+    lightning.style.opacity = "0.22";
+
+    requestAnimationFrame(() => {
+
+        lightning.style.transition = "opacity .35s ease-out";
+        lightning.style.opacity = "0";
+
+    });
+
+    setTimeout(() => {
+
+        thunderSound.currentTime = 0;
+        thunderSound.play().catch(()=>{});
+
+    },300);
+
+}
+
+setInterval(()=>{
+
+    relampago();
+
+},15000);
