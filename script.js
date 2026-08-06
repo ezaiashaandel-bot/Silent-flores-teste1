@@ -27,33 +27,30 @@ let volumes = JSON.parse(localStorage.getItem("volumes")) || {
 
 function atualizarVolumes(){
 
-
-clickSound.volume =
-(volumes.click / 100) *
-(volumes.geral / 100);
-
-
-transitionSound.volume =
-(volumes.transicao / 100) *
-(volumes.geral / 100);
+    clickSound.volume =
+    (volumes.click / 100) *
+    (volumes.geral / 100);
 
 
-rainSound.volume =
-(volumes.chuva / 100) *
-(volumes.geral / 100);
+    transitionSound.volume =
+    (volumes.transicao / 100) *
+    (volumes.geral / 100);
 
 
-thunderSound.volume =
-(volumes.trova / 100) *
-(volumes.geral / 100);
+    rainSound.volume =
+    (volumes.chuva / 100) *
+    (volumes.geral / 100);
 
 
+    thunderSound.volume =
+    (volumes.trova / 100) *
+    (volumes.geral / 100);
 
-localStorage.setItem(
-"volumes",
-JSON.stringify(volumes)
-);
 
+    localStorage.setItem(
+        "volumes",
+        JSON.stringify(volumes)
+    );
 
 }
 
@@ -62,12 +59,9 @@ atualizarVolumes();
 
 
 
-
-
 // ======================
 // ELEMENTOS
 // ======================
-
 
 const startBtn =
 document.getElementById("start");
@@ -79,10 +73,6 @@ document.getElementById("config");
 
 const menu =
 document.getElementById("menu");
-
-
-const gameScreen =
-document.getElementById("gameScreen");
 
 
 const settingsScreen =
@@ -112,25 +102,34 @@ document.querySelectorAll(".settingOption");
 const info =
 document.getElementById("settingInfo");
 
-const nicknameScreen = document.getElementById("nicknameScreen");
 
-const backToMenu = document.getElementById("backToMenu");
+// nickname
 
-const continueToGender = document.getElementById("continueToGender");
+const nicknameScreen =
+document.getElementById("nicknameScreen");
 
-const playerName = document.getElementById("playerName");
+
+const backToMenu =
+document.getElementById("backToMenu");
+
+
+const continueToGender =
+document.getElementById("continueToGender");
+
+
+const playerName =
+document.getElementById("playerName");
+
+
 
 
 // ======================
-// CHUVA
+// INICIAR CHUVA
 // ======================
-
 
 document.addEventListener("click",()=>{
 
-
-rainSound.play().catch(()=>{});
-
+    rainSound.play().catch(()=>{});
 
 },{once:true});
 
@@ -139,41 +138,33 @@ rainSound.play().catch(()=>{});
 
 
 // ======================
-// CLICK BOTÕES
+// SOM DOS BOTÕES
 // ======================
-
 
 document.querySelectorAll("button")
 .forEach(button=>{
 
 
-button.addEventListener("mouseenter",()=>{
+    button.addEventListener("mouseenter",()=>{
 
+        clickSound.currentTime = 0;
 
-clickSound.currentTime=0;
+        clickSound.play().catch(()=>{});
 
-clickSound.play().catch(()=>{});
-
-
-});
+    });
 
 
 
-button.addEventListener("touchstart",()=>{
+    button.addEventListener("touchstart",()=>{
 
+        clickSound.currentTime = 0;
 
-clickSound.currentTime=0;
+        clickSound.play().catch(()=>{});
 
-clickSound.play().catch(()=>{});
-
-
-});
+    });
 
 
 });
-
-
-
 
 
 
@@ -182,25 +173,19 @@ clickSound.play().catch(()=>{});
 // CONFIGURAÇÕES
 // ======================
 
+configBtn.onclick = ()=>{
 
-configBtn.onclick=()=>{
-
-
-settingsScreen.style.display="block";
-
+    settingsScreen.style.display="block";
 
 };
 
 
 
-backSettings.onclick=()=>{
+backSettings.onclick = ()=>{
 
-
-settingsScreen.style.display="none";
-
+    settingsScreen.style.display="none";
 
 };
-
 
 
 
@@ -209,126 +194,93 @@ settingsScreen.style.display="none";
 options.forEach(option=>{
 
 
-option.onclick=()=>{
+option.onclick = ()=>{
 
 
-options.forEach(btn=>{
+    options.forEach(btn=>{
 
-btn.classList.remove("ativo");
+        btn.classList.remove("ativo");
 
-});
-
-
-option.classList.add("ativo");
+    });
 
 
-
-let page =
-option.dataset.page;
+    option.classList.add("ativo");
 
 
+    let page =
+    option.dataset.page;
 
 
 
 // SOM
 
-
 if(page==="som"){
 
 
+info.innerHTML = `
 
-info.innerHTML=`
 
 VOLUME GERAL<br>
 
-<input id="geral"
-type="range"
-min="0"
-max="100"
-value="${volumes.geral}">
-
-
+<input id="geral" type="range" min="0" max="100" value="${volumes.geral}">
 <p>${volumes.geral}%</p>
 
 
+<br>
 
 VOLUME CLICK<br>
 
-<input id="click"
-type="range"
-min="0"
-max="100"
-value="${volumes.click}">
-
-
-
+<input id="click" type="range" min="0" max="100" value="${volumes.click}">
 <p>${volumes.click}%</p>
 
 
+<br>
 
 VOLUME TROVÃO<br>
 
-<input id="trova"
-type="range"
-min="0"
-max="100"
-value="${volumes.trova}">
-
-
-
+<input id="trova" type="range" min="0" max="100" value="${volumes.trova}">
 <p>${volumes.trova}%</p>
 
 
-
+<br>
 
 VOLUME TRANSIÇÃO<br>
 
-<input id="transicao"
-type="range"
-min="0"
-max="100"
-value="${volumes.transicao}">
-
-
-
+<input id="transicao" type="range" min="0" max="100" value="${volumes.transicao}">
 <p>${volumes.transicao}%</p>
 
 
-
+<br>
 
 VOLUME CHUVA<br>
 
-<input id="chuva"
-type="range"
-min="0"
-max="100"
-value="${volumes.chuva}">
-
-
-
+<input id="chuva" type="range" min="0" max="100" value="${volumes.chuva}">
 <p>${volumes.chuva}%</p>
+
 
 `;
 
 
 
-["geral",
+[
+"geral",
 "click",
 "trova",
 "transicao",
-"chuva"]
+"chuva"
 
-.forEach(id=>{
+].forEach(id=>{
 
 
 let barra =
 document.getElementById(id);
 
 
-barra.oninput=()=>{
+
+barra.oninput = ()=>{
 
 
-volumes[id]=
+volumes[id] =
 Number(barra.value);
 
 
@@ -350,57 +302,38 @@ barra.value+"%";
 
 
 
-
-
-
 // IMAGEM
-
 
 if(page==="imagem"){
 
 
-let brilho =
-localStorage.getItem("brilho")
-||100;
-
-
-
-info.innerHTML=`
+info.innerHTML = `
 
 BRILHO<br><br>
 
-
-<input id="brightnessBar"
+<input 
+id="brightnessBar"
 type="range"
 min="50"
 max="150"
-value="${brilho}">
+value="100">
 
-
-<p>${brilho}%</p>
+<p>100%</p>
 
 `;
 
 
 
 let bar =
-document.getElementById(
-"brightnessBar"
-);
+document.getElementById("brightnessBar");
 
 
 
-bar.oninput=()=>{
+bar.oninput = ()=>{
 
 
 background.style.filter =
-`brightness(${bar.value}%)`;
-
-
-localStorage.setItem(
-"brilho",
-bar.value
-);
+"brightness("+bar.value+"%)";
 
 
 bar.nextElementSibling.innerHTML =
@@ -410,20 +343,17 @@ bar.value+"%";
 };
 
 
-
 }
-
 
 
 
 
 // CONTROLES
 
-
 if(page==="controles"){
 
 
-info.innerHTML=`
+info.innerHTML = `
 
 CONTROLES<br><br>
 
@@ -446,13 +376,10 @@ CORRER
 }
 
 
-
 };
 
 
 });
-
-
 
 
 
@@ -462,71 +389,7 @@ CORRER
 // ======================
 
 
-function diminuirChuva(callback){
-
-
-let volume =
-rainSound.volume;
-
-
-let fade =
-setInterval(()=>{
-
-
-volume-=0.02;
-
-
-
-if(volume<=0){
-
-
-clearInterval(fade);
-
-
-rainSound.volume=0;
-
-
-callback();
-
-
-return;
-
-
-}
-
-
-
-rainSound.volume=volume;
-
-
-
-},50);
-
-
-
-}
-
-
-
-function aumentarChuva(){
-
-
-rainSound.play().catch(()=>{});
-
-
-atualizarVolumes();
-
-
-}
-
-
-
-
-
 function iniciarTransicao(){
-
-
-diminuirChuva(()=>{
 
 
 transitionScreen.classList.add("show");
@@ -535,8 +398,7 @@ transitionScreen.classList.add("show");
 transitionSound.currentTime=0;
 
 
-transitionSound.play()
-.catch(()=>{});
+transitionSound.play().catch(()=>{});
 
 
 
@@ -546,14 +408,7 @@ setTimeout(()=>{
 transitionScreen.classList.remove("show");
 
 
-aumentarChuva();
-
-
 },3000);
-
-
-
-});
 
 
 }
@@ -562,123 +417,123 @@ aumentarChuva();
 
 
 
+// ======================
+// JOGAR → NICKNAME
+// ======================
+
+
+startBtn.onclick = ()=>{
+
+
+iniciarTransicao();
+
+
+
+setTimeout(()=>{
+
+
+menu.style.display="none";
+
+
+nicknameScreen.style.display="block";
+
+
+},3000);
+
+
+};
+
+
+
+
+
+// VOLTAR PARA MENU
+
+
+backToMenu.onclick = ()=>{
+
+
+iniciarTransicao();
+
+
+
+setTimeout(()=>{
+
+
+nicknameScreen.style.display="none";
+
+
+menu.style.display="flex";
+
+
+},3000);
+
+
+};
+
+
+
+
+
+// CONTINUAR
+
+
+continueToGender.onclick = ()=>{
+
+
+let nome =
+playerName.value.trim();
+
+
+
+if(nome===""){
+
+
+alert("Digite seu nickname");
+
+
+return;
+
+
+}
+
+
+
+localStorage.setItem(
+"playerName",
+nome
+);
+
+
+
+iniciarTransicao();
+
+
+
+setTimeout(()=>{
+
+
+alert("Próxima tela: escolha de gênero");
+
+
+},3000);
+
+
+};
+
+
+
+
 
 // ======================
-// JOGAR
-// ======================
-
-
-const characterScreen =
-document.getElementById("characterScreen");
-
-startBtn.onclick = () => {
-
-    iniciarTransicao();
-
-    setTimeout(() => {
-
-        menu.style.display = "none";
-
-        nicknameScreen.style.display = "block";
-
-    },3000);
-
-};
-
-backToMenu.onclick = () => {
-
-    iniciarTransicao();
-
-    setTimeout(() => {
-
-        nicknameScreen.style.display = "none";
-
-        menu.style.display = "flex";
-
-    },3000);
-
-};
-
-continueToGender.onclick = () => {
-
-    let nome = playerName.value.trim();
-
-    if(nome === ""){
-
-        alert("Digite um nickname.");
-
-        return;
-
-    }
-
-    localStorage.setItem("playerName", nome);
-
-    iniciarTransicao();
-
-    setTimeout(() => {
-
-        alert("Próxima tela: Escolha de gênero.");
-
-    },3000);
-
-};
-
-const confirmCharacter =
-document.getElementById("confirmCharacter");
-
-const playerName =
-document.getElementById("playerName");
-
-let player = {
-
-    nick:""
-
-};
-
-confirmCharacter.onclick=()=>{
-
-    let nome = playerName.value.trim();
-
-    if(nome===""){
-
-        alert("Digite um nickname!");
-
-        return;
-
-    }
-
-    player.nick = nome;
-
-    localStorage.setItem(
-        "playerName",
-        nome
-    );
-
-    iniciarTransicao();
-
-    setTimeout(()=>{
-
-        characterScreen.style.display="none";
-
-        gameScreen.style.display="block";
-
-    },3000);
-
-};
-
-
-
-
-// ======================
-// TROVÃO ALEATÓRIO
+// RELÂMPAGO
 // ======================
 
 
 function relampago(){
 
 
-
-let posicoes=[
+let lados = [
 
 "left",
 "center",
@@ -687,24 +542,15 @@ let posicoes=[
 ];
 
 
-
 let lado =
-posicoes[
-Math.floor(Math.random()*3)
-];
-
-
-
-let efeito;
+lados[Math.floor(Math.random()*3)];
 
 
 
 if(lado==="left"){
 
-
-efeito =
+lightning.style.background =
 "radial-gradient(circle at 20% 50%,rgba(255,255,255,.22),transparent 70%)";
-
 
 }
 
@@ -712,10 +558,8 @@ efeito =
 
 if(lado==="center"){
 
-
-efeito =
+lightning.style.background =
 "radial-gradient(circle at center,rgba(255,255,255,.22),transparent 70%)";
-
 
 }
 
@@ -723,17 +567,10 @@ efeito =
 
 if(lado==="right"){
 
-
-efeito =
+lightning.style.background =
 "radial-gradient(circle at 80% 50%,rgba(255,255,255,.22),transparent 70%)";
 
-
 }
-
-
-
-lightning.style.background =
-efeito;
 
 
 
@@ -743,12 +580,9 @@ lightning.style.opacity=".22";
 
 setTimeout(()=>{
 
-
 lightning.style.opacity="0";
 
-
 },350);
-
 
 
 
@@ -758,8 +592,7 @@ setTimeout(()=>{
 thunderSound.currentTime=0;
 
 
-thunderSound.play()
-.catch(()=>{});
+thunderSound.play().catch(()=>{});
 
 
 },300);
@@ -767,7 +600,6 @@ thunderSound.play()
 
 
 }
-
 
 
 
