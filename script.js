@@ -244,7 +244,7 @@ brightnessBar.oninput = () => {
 
                     <span>SHIFT</span>
 
-                    <p>MENU</>
+                    <p>MENU</p>
 
                     </div>
 
