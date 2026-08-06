@@ -39,12 +39,12 @@ const info = document.getElementById("settingInfo");
 
 
 // ======================
-// CHUVA
+// INICIAR CHUVA
 // ======================
 
 document.addEventListener("click", () => {
 
-    rainSound.play();
+    rainSound.play().catch(()=>{});
 
 }, { once:true });
 
@@ -79,9 +79,8 @@ document.querySelectorAll("button").forEach(button => {
 
 
 // ======================
-// MENU CONFIGURAÇÕES
+// CONFIGURAÇÕES
 // ======================
-
 
 configBtn.onclick = () => {
 
@@ -103,7 +102,6 @@ backSettings.onclick = () => {
 // OPÇÕES
 // ======================
 
-
 options.forEach(option => {
 
 
@@ -122,12 +120,9 @@ options.forEach(option => {
 
         const page = option.dataset.page;
 
-
-
-        // ======================
+                // ======================
         // SOM
         // ======================
-
 
         if(page === "som"){
 
@@ -151,8 +146,13 @@ options.forEach(option => {
             `;
 
 
-            const volumeBar = document.getElementById("volumeBar");
-            const volumeText = document.getElementById("volumeText");
+            const volumeBar =
+            document.getElementById("volumeBar");
+
+
+            const volumeText =
+            document.getElementById("volumeText");
+
 
 
             volumeBar.oninput = () => {
@@ -171,7 +171,10 @@ options.forEach(option => {
 
         }
 
-                            
+
+
+
+
         // ======================
         // IMAGEM
         // ======================
@@ -182,7 +185,6 @@ options.forEach(option => {
             info.innerHTML = `
 
             BRILHO<br><br>
-
 
             <input
             type="range"
@@ -195,7 +197,6 @@ options.forEach(option => {
             <p id="brightnessText">
             100%
             </p>
-
 
             `;
 
@@ -213,10 +214,14 @@ options.forEach(option => {
             brightnessBar.oninput = () => {
 
 
-                background.style.filter =
-                "brightness(" +
-                brightnessBar.value +
-                "%)";
+                if(background){
+
+                    background.style.filter =
+                    "brightness(" +
+                    brightnessBar.value +
+                    "%)";
+
+                }
 
 
                 brightnessText.innerHTML =
@@ -235,7 +240,6 @@ options.forEach(option => {
         // ======================
         // GRÁFICOS
         // ======================
-
 
         if(page === "graficos"){
 
@@ -265,25 +269,19 @@ options.forEach(option => {
 
 
 
-            const graphicBtns =
-            document.querySelectorAll(".graphicBtn");
-
-
-
-            graphicBtns.forEach(btn => {
-
+            document.querySelectorAll(".graphicBtn")
+            .forEach(btn => {
 
 
                 btn.onclick = () => {
 
 
-
-                    graphicBtns.forEach(b => {
+                    document.querySelectorAll(".graphicBtn")
+                    .forEach(b => {
 
                         b.classList.remove("selecionado");
 
                     });
-
 
 
                     btn.classList.add("selecionado");
@@ -305,7 +303,6 @@ options.forEach(option => {
         // CONTROLES
         // ======================
 
-
         if(page === "controles"){
 
 
@@ -313,7 +310,6 @@ options.forEach(option => {
 
 
             CONTROLES<br><br>
-
 
 
             <div class="controle">
@@ -326,7 +322,6 @@ options.forEach(option => {
 
 
 
-
             <div class="controle">
 
             <span>E</span>
@@ -334,7 +329,6 @@ options.forEach(option => {
             <p>INTERAGIR</p>
 
             </div>
-
 
 
 
@@ -353,13 +347,11 @@ options.forEach(option => {
         }
 
 
-
     };
 
 
 });
 
-        
 // ======================
 // TRANSIÇÃO
 // ======================
@@ -395,7 +387,6 @@ function diminuirChuva(callback){
 
             return;
 
-
         }
 
 
@@ -412,6 +403,7 @@ function diminuirChuva(callback){
 
 
 
+
 function aumentarChuva(){
 
 
@@ -421,7 +413,7 @@ function aumentarChuva(){
     rainSound.volume = 0;
 
 
-    rainSound.play();
+    rainSound.play().catch(()=>{});
 
 
 
@@ -457,38 +449,44 @@ function aumentarChuva(){
 
 
 
+
 function iniciarTransicao(){
+
 
     diminuirChuva(() => {
 
 
-        // ativa tela preta
+
         transitionScreen.classList.add("show");
 
 
-        // toca som
+
         transitionSound.currentTime = 0;
-        transitionSound.play();
+
+        transitionSound.play().catch(()=>{});
 
 
 
         setTimeout(() => {
 
 
-            // remove tela preta
+
             transitionScreen.classList.remove("show");
+
 
 
             aumentarChuva();
 
 
+
         },3000);
+
 
 
     });
 
-}
 
+}
 
 
 
@@ -512,39 +510,42 @@ startBtn.addEventListener("click", () => {
 
 
 // ======================
-// RELÂMPAGO TESTE
+// TROVÃO / RELÂMPAGO
 // ======================
 
 
 function relampago(){
 
 
-    lightning.classList.add("flash");
+    if(lightning){
+
+
+        lightning.classList.add("flash");
 
 
 
-    thunderSound.currentTime = 0;
+        thunderSound.currentTime = 0;
 
-    thunderSound.play();
-
-
-
-    setTimeout(() => {
+        thunderSound.play().catch(()=>{});
 
 
-        lightning.classList.remove("flash");
+
+        setTimeout(() => {
 
 
-    },120);
+            lightning.classList.remove("flash");
 
+
+        },120);
+
+
+    }
 
 
 }
 
 
 
-
-// Relâmpagos aleatórios
 
 
 setInterval(() => {
