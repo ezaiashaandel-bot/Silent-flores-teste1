@@ -488,45 +488,6 @@ button{
 
 
 
-/* ======================
-   RELÂMPAGO
-====================== */
-
-
-#lightning{
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    background:white;
-
-
-    opacity:0;
-
-
-    pointer-events:none;
-
-
-    z-index:9998;
-
-
-}
-
-
-
-
-
-#lightning.flash{
-
-
-    opacity:.8;
-
-
-  }
 
 /* ======================
    RELÂMPAGO
