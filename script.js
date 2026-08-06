@@ -9,16 +9,12 @@ const transitionSound = new Audio("sons/transicao.mp3");
 const rainSound = new Audio("sons/chuva.mp3");
 const thunderSound = new Audio("sons/trovao.mp3");
 
-
 clickSound.volume = 0.5;
 transitionSound.volume = 0.7;
 rainSound.volume = 0.35;
 thunderSound.volume = 0.8;
 
-
 rainSound.loop = true;
-
-
 
 // ======================
 // ELEMENTOS
@@ -42,22 +38,15 @@ const lightning = document.getElementById("lightning");
 const options = document.querySelectorAll(".settingOption");
 const info = document.getElementById("settingInfo");
 
-
-
-
 // ======================
 // INICIAR CHUVA
 // ======================
 
 document.addEventListener("click", () => {
 
-    rainSound.play().catch(()=>{});
+rainSound.play().catch(()=>{});
 
 },{once:true});
-
-
-
-
 
 // ======================
 // SOM DOS BOTÕES
@@ -65,30 +54,24 @@ document.addEventListener("click", () => {
 
 document.querySelectorAll("button").forEach(button=>{
 
+button.addEventListener("mouseenter",()=>{  
 
-    button.addEventListener("mouseenter",()=>{
+    clickSound.currentTime = 0;  
 
-        clickSound.currentTime = 0;
+    clickSound.play().catch(()=>{});  
 
-        clickSound.play().catch(()=>{});
-
-    });
+});  
 
 
-    button.addEventListener("touchstart",()=>{
+button.addEventListener("touchstart",()=>{  
 
-        clickSound.currentTime = 0;
+    clickSound.currentTime = 0;  
 
-        clickSound.play().catch(()=>{});
-
-    });
-
+    clickSound.play().catch(()=>{});  
 
 });
 
-
-
-
+});
 
 // ======================
 // CONFIGURAÇÕES
@@ -96,21 +79,15 @@ document.querySelectorAll("button").forEach(button=>{
 
 configBtn.onclick = ()=>{
 
-    settingsScreen.style.display="block";
+settingsScreen.style.display="block";
 
 };
-
-
 
 backSettings.onclick = ()=>{
 
-    settingsScreen.style.display="none";
+settingsScreen.style.display="none";
 
 };
-
-
-
-
 
 // ======================
 // CONFIGURAÇÕES
@@ -118,382 +95,235 @@ backSettings.onclick = ()=>{
 
 options.forEach(option=>{
 
-
 option.onclick=()=>{
 
+options.forEach(btn=>{  
 
-    options.forEach(btn=>{
+    btn.classList.remove("ativo");  
 
-        btn.classList.remove("ativo");
-
-    });
-
-
-    option.classList.add("ativo");
+});  
 
 
-    const page = option.dataset.page;
+option.classList.add("ativo");  
 
 
-
-    if(page==="som"){
-
-info.innerHTML=`
-
-VOLUME GERAL<br><br>
-
-<input type="range" id="masterVolume" min="0" max="100" value="100">
-
-<p id="masterText">100%</p>
-
-
-<br>
-
-VOLUME CLICK<br><br>
-
-<input type="range" id="clickVolume" min="0" max="100" value="50">
-
-<p id="clickText">50%</p>
-
-
-<br>
-
-VOLUME TROVÃO<br><br>
-
-<input type="range" id="thunderVolume" min="0" max="100" value="80">
-
-<p id="thunderText">80%</p>
-
-
-<br>
-
-VOLUME TRANSIÇÃO<br><br>
-
-<input type="range" id="transitionVolume" min="0" max="100" value="70">
-
-<p id="transitionText">70%</p>
-
-
-<br>
-
-VOLUME CHUVA<br><br>
-
-<input type="range" id="rainVolume" min="0" max="100" value="35">
-
-<p id="rainText">35%</p>
-
-`;
+const page = option.dataset.page;  
 
 
 
-const master = document.getElementById("masterVolume");
-
-const click = document.getElementById("clickVolume");
-const thunder = document.getElementById("thunderVolume");
-const transition = document.getElementById("transitionVolume");
-const rain = document.getElementById("rainVolume");
+if(page==="som"){  
 
 
-const masterText = document.getElementById("masterText");
-const clickText = document.getElementById("clickText");
-const thunderText = document.getElementById("thunderText");
-const transitionText = document.getElementById("transitionText");
-const rainText = document.getElementById("rainText");
+    info.innerHTML=`  
+
+    VOLUME<br><br>  
+
+    <input   
+    type="range"  
+    id="volumeBar"  
+    min="0"  
+    max="100"  
+    value="35">  
+
+
+    <p id="volumeText">  
+    35%  
+    </p>  
+
+    `;  
+
+
+    const bar=document.getElementById("volumeBar");  
+    const text=document.getElementById("volumeText");  
+
+
+    bar.oninput=()=>{  
+
+
+        rainSound.volume=bar.value/100;  
+
+        text.innerHTML=bar.value+"%";  
+
+
+    };  
+
+
+}  
 
 
 
-function atualizarVolumes(){
-
-let geral = master.value / 100;
 
 
-clickSound.volume =
-(click.value / 100) * geral;
+if(page==="imagem"){  
 
 
-thunderSound.volume =
-(thunder.value / 100) * geral;
+    info.innerHTML=`  
+
+    BRILHO<br><br>  
 
 
-transitionSound.volume =
-(transition.value / 100) * geral;
+    <input  
+    type="range"  
+    id="brightnessBar"  
+    min="50"  
+    max="150"  
+    value="100">  
 
 
-rainSound.volume =
-(rain.value / 100) * geral;
+    <p id="brightnessText">  
+    100%  
+    </p>  
+
+    `;  
+
+
+    const bar=document.getElementById("brightnessBar");  
+    const text=document.getElementById("brightnessText");  
+
+
+    bar.oninput=()=>{  
+
+
+        background.style.filter =  
+        "brightness("+bar.value+"%)";  
+
+
+        text.innerHTML =  
+        bar.value+"%";  
+
+
+    };  
+
+
+}  
 
 
 
-masterText.innerHTML =
-master.value+"%";
 
-clickText.innerHTML =
-click.value+"%";
 
-thunderText.innerHTML =
-thunder.value+"%";
+if(page==="controles"){  
 
-transitionText.innerHTML =
-transition.value+"%";
 
-rainText.innerHTML =
-rain.value+"%";
+    info.innerHTML=`  
+
+    CONTROLES<br><br>  
+
+
+    W A S D<br>  
+    MOVIMENTO<br><br>  
+
+
+    E<br>  
+    INTERAGIR<br><br>  
+
+
+    SHIFT<br>  
+    CORRER  
+
+    `;  
 
 
 }
 
-
-
-master.oninput = atualizarVolumes;
-click.oninput = atualizarVolumes;
-thunder.oninput = atualizarVolumes;
-transition.oninput = atualizarVolumes;
-rain.oninput = atualizarVolumes;
-
-
-    }
-
-
-
-
-
-    if(page==="imagem"){
-
-
-        info.innerHTML=`
-
-        BRILHO<br><br>
-
-
-        <input
-        type="range"
-        id="brightnessBar"
-        min="50"
-        max="150"
-        value="100">
-
-
-        <p id="brightnessText">
-        100%
-        </p>
-
-        `;
-
-
-        const bar=document.getElementById("brightnessBar");
-        const text=document.getElementById("brightnessText");
-
-
-        bar.oninput=()=>{
-
-
-            background.style.filter =
-            "brightness("+bar.value+"%)";
-
-
-            text.innerHTML =
-            bar.value+"%";
-
-
-        };
-
-
-    }
-
-
-
-
-
-    if(page==="controles"){
-
-
-        info.innerHTML=`
-
-        CONTROLES<br><br>
-
-
-        W A S D<br>
-        MOVIMENTO<br><br>
-
-
-        E<br>
-        INTERAGIR<br><br>
-
-
-        SHIFT<br>
-        CORRER
-
-        `;
-
-
-    }
-
-
 };
 
-
 });
-
-
-
-
 
 // ======================
 // TRANSIÇÃO
 // ======================
 
-
 function diminuirChuva(callback){
-
 
 let volume = rainSound.volume;
 
-
 let fade=setInterval(()=>{
-
 
 volume-=0.02;
 
-
 if(volume<=0){
-
 
 clearInterval(fade);
 
-
 rainSound.volume=0;
-
 
 callback();
 
-
 return;
 
-
 }
-
 
 rainSound.volume=volume;
 
-
 },50);
 
-
 }
-
-
-
-
 
 function aumentarChuva(){
 
-
 let volume=0;
-
 
 rainSound.volume=0;
 
-
 rainSound.play().catch(()=>{});
-
-
 
 let fade=setInterval(()=>{
 
-
 volume+=0.02;
-
 
 if(volume>=0.35){
 
-
 volume=0.35;
-
 
 clearInterval(fade);
 
-
 }
-
 
 rainSound.volume=volume;
 
-
 },50);
-
 
 }
 
-
-
-
-
 function iniciarTransicao(){
-
 
 diminuirChuva(()=>{
 
-
 transitionScreen.classList.add("show");
-
 
 transitionSound.currentTime=0;
 
 transitionSound.play().catch(()=>{});
 
-
-
 setTimeout(()=>{
-
 
 transitionScreen.classList.remove("show");
 
-
 aumentarChuva();
-
 
 },3000);
 
-
-
 });
 
-
 }
-
-
-
-
 
 // ======================
 // JOGAR
 // ======================
 
-
 startBtn.onclick=()=>{
-
 
 iniciarTransicao();
 
-
 setTimeout(()=>{
-
 
 menu.style.display="none";
 
 gameScreen.style.display="block";
 
-
 },3000);
 
-
 };
-
-
-
-
-
-
 
 // ======================
 // RELÂMPAGO SUAVE
@@ -501,57 +331,57 @@ gameScreen.style.display="block";
 
 function relampago(){
 
-    const posicoes = [
-        "left",
-        "center",
-        "right"
-    ];
+const posicoes = [  
+    "left",  
+    "center",  
+    "right"  
+];  
 
-    const lado =
-        posicoes[Math.floor(Math.random()*3)];
+const lado =  
+    posicoes[Math.floor(Math.random()*3)];  
 
-    if(lado==="left"){
+if(lado==="left"){  
 
-        lightning.style.background =
-        "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+    lightning.style.background =  
+    "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
 
-    }
+}  
 
-    if(lado==="center"){
+if(lado==="center"){  
 
-        lightning.style.background =
-        "radial-gradient(circle at center, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+    lightning.style.background =  
+    "radial-gradient(circle at center, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
 
-    }
+}  
 
-    if(lado==="right"){
+if(lado==="right"){  
 
-        lightning.style.background =
-        "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";
+    lightning.style.background =  
+    "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.12) 35%, rgba(255,255,255,.05) 65%, rgba(255,255,255,0) 100%)";  
 
-    }
+}  
 
-    lightning.style.transition = "none";
-    lightning.style.opacity = "0.22";
+lightning.style.transition = "none";  
+lightning.style.opacity = "0.22";  
 
-    requestAnimationFrame(() => {
+requestAnimationFrame(() => {  
 
-        lightning.style.transition = "opacity .35s ease-out";
-        lightning.style.opacity = "0";
+    lightning.style.transition = "opacity .35s ease-out";  
+    lightning.style.opacity = "0";  
 
-    });
+});  
 
-    setTimeout(() => {
+setTimeout(() => {  
 
-        thunderSound.currentTime = 0;
-        thunderSound.play().catch(()=>{});
+    thunderSound.currentTime = 0;  
+    thunderSound.play().catch(()=>{});  
 
-    },300);
+},300);
 
 }
 
 setInterval(()=>{
 
-    relampago();
+relampago();
 
 },15000);
