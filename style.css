@@ -480,11 +480,11 @@ transition:.6s;
 
 #transitionScreen.show{
 
-
 display:block;
 
-
 opacity:1;
+
+}
 
 
 /* ======================
