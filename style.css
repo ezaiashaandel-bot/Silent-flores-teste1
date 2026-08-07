@@ -4,409 +4,355 @@
     box-sizing:border-box;
 }
 
+
 body{
+
     width:100vw;
     height:100vh;
+
     overflow:hidden;
+
     background:#000;
-    font-family:"Trebuchet MS",sans-serif;
+
+    font-family:"Trebuchet MS", sans-serif;
+
 }
+
+
 
 /* ======================
 MENU INICIAL
 ====================== */
 
+
 #menu{
+
     position:relative;
+
     width:100%;
     height:100vh;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
+
     overflow:hidden;
+
 }
+
+
 
 #background{
+
     position:absolute;
+
     inset:0;
+
     background-image:url("imagens/fundo.png");
+
     background-size:cover;
+
     background-position:center;
+
     z-index:0;
+
 }
+
+
 
 #nevoa{
+
     position:absolute;
+
     inset:0;
+
     background:rgba(0,0,0,.45);
-    pointer-events:none;
+
     z-index:1;
+
+    pointer-events:none;
+
 }
 
+
+
 #lightning{
+
     position:absolute;
+
     inset:0;
+
     pointer-events:none;
+
     opacity:0;
+
     z-index:2;
+
 }
+
+
+
+
 
 /* ======================
 TÍTULO
 ====================== */
 
+
 h1{
+
     position:relative;
+
     z-index:3;
+
     font-family:"Nosifer",cursive;
+
     font-size:80px;
+
     color:#c40000;
+
     letter-spacing:5px;
+
     text-align:center;
+
+
     text-shadow:
+
     0 0 10px #ff0000,
     0 0 25px #8b0000;
+
 }
+
+
+
 
 /* ======================
-BOTÕES
+BOTÕES PRINCIPAIS
 ====================== */
 
+
 button{
+
     cursor:pointer;
+
     font-weight:bold;
-    transition:.3s;
+
 }
+
+
 
 #start,
 #config{
+
+
     position:relative;
+
     z-index:3;
+
+
     width:260px;
+
+
     padding:16px;
+
+
     margin-top:15px;
+
+
     background:rgba(20,20,20,.85);
-    color:#fff;
+
+
+    color:white;
+
+
     border:2px solid #8b0000;
+
+
     border-radius:12px;
+
+
     font-size:22px;
+
+
     letter-spacing:3px;
+
+
+    transition:.3s;
+
 }
+
+
 
 #start:hover,
 #config:hover{
+
+
     background:#8b0000;
+
+
     box-shadow:0 0 20px #8b0000;
+
+
     transform:scale(1.05);
-}
 
-/* ======================
-TRANSIÇÃO
-====================== */
-
-#transitionScreen{
-    position:fixed;
-    inset:0;
-    background:#000;
-    opacity:0;
-    display:none;
-    z-index:9999;
-    transition:.6s;
-}
-
-#transitionScreen.show{
-    display:block;
-    opacity:1;
 }
 
 /* ======================
 TELA NICKNAME
 ====================== */
 
+
 #nicknameScreen{
+
     display:none;
+
     position:absolute;
+
     inset:0;
-    overflow:hidden;
+
     background:#000;
+
+    overflow:hidden;
+
     z-index:15;
+
 }
 
-/* Névoa animada */
+
 
 #nicknameFog{
+
     position:absolute;
-    inset:-20%;
-    pointer-events:none;
-    z-index:1;
-    opacity:.9;
-    filter:blur(35px);
+
+    inset:0;
 
     background:
-    radial-gradient(circle at 15% 30%,rgba(255,255,255,.12),transparent 35%),
-    radial-gradient(circle at 75% 60%,rgba(255,255,255,.10),transparent 35%),
-    radial-gradient(circle at 50% 80%,rgba(255,255,255,.08),transparent 40%),
-    radial-gradient(circle at 90% 20%,rgba(255,255,255,.09),transparent 30%);
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.08),transparent 35%),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.06),transparent 40%);
 
-    background-size:250% 250%;
+    animation:fogMove 18s ease-in-out infinite;
 
-    animation:fogMove 18s ease-in-out infinite alternate;
+    opacity:.8;
+
+    pointer-events:none;
+
 }
+
+
 
 @keyframes fogMove{
 
     0%{
-        background-position:0% 0%;
-        transform:scale(1);
+
+        transform:translateX(-60px);
+
     }
+
 
     50%{
-        background-position:100% 50%;
-        transform:scale(1.08);
+
+        transform:translateX(60px);
+
     }
+
 
     100%{
-        background-position:0% 100%;
-        transform:scale(1);
+
+        transform:translateX(-60px);
+
     }
 
 }
 
+
+
+
 #nicknamePanel{
+
     position:absolute;
+
     top:50%;
+
     left:50%;
+
     transform:translate(-50%,-50%);
-    width:450px;
+
+    width:420px;
+
     padding:35px;
+
     background:rgba(20,20,20,.92);
+
     border:2px solid #8b0000;
+
     border-radius:15px;
+
     text-align:center;
+
     z-index:2;
-    box-shadow:
-    0 0 20px rgba(139,0,0,.4),
-    0 0 60px rgba(0,0,0,.6);
+
 }
 
-#nicknamePanel h2{
+
+
+#nicknamePanel h2,
+#genderPanel h2,
+#characterPanel h2{
+
     font-family:"Nosifer",cursive;
+
     color:#c40000;
+
+    text-shadow:0 0 15px red;
+
     margin-bottom:20px;
-    font-size:42px;
+
 }
+
+
 
 #nicknamePanel p{
+
     color:white;
+
     font-size:20px;
-    margin-bottom:20px;
+
+    margin-bottom:15px;
+
 }
+
+
 
 #playerName{
+
     width:100%;
+
     padding:15px;
+
+    font-size:20px;
+
     border:none;
-    border-radius:10px;
-    background:#222;
-    color:#fff;
-    font-size:20px;
-    outline:none;
+
+    border-radius:8px;
+
     margin-bottom:25px;
-}
 
-#playerName:focus{
-    box-shadow:0 0 15px #8b0000;
-}
-
-/* ======================
-BOTÕES TELA NICKNAME
-====================== */
-
-.screenButtons{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-}
-
-.screenButtons button{
-
-    flex:1;
-    padding:15px;
-
-    background:#111;
-    color:white;
-
-    border:2px solid #8b0000;
-    border-radius:10px;
-
-    font-size:18px;
-}
-
-.screenButtons button:hover{
-
-    background:#8b0000;
-    transform:scale(1.05);
-
-}
-
-
-/* ======================
-CONFIGURAÇÕES
-====================== */
-
-#settingsScreen{
-
-    display:none;
-
-    position:absolute;
-
-    inset:0;
-
-    background:#000;
+    background:#222;
 
     color:white;
 
-    z-index:20;
-
 }
 
 
-#settingsSide{
-
-    position:absolute;
-
-    right:50px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-}
-
-
-.settingOption{
-
-    width:220px;
-
-    padding:15px;
-
-    background:#111;
-
-    color:white;
-
-    border:2px solid #8b0000;
-
-    border-radius:10px;
-
-    font-size:20px;
-
-}
-
-
-.settingOption:hover,
-.settingOption.ativo{
-
-    background:#8b0000;
-
-    box-shadow:0 0 15px #8b0000;
-
-}
-
-
-#settingsContent{
-
-    position:absolute;
-
-    top:50%;
-
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    text-align:center;
-
-}
-
-
-#settingsContent h2{
-
-    font-family:"Nosifer",cursive;
-
-    color:#c40000;
-
-    font-size:40px;
-
-}
-
-
-#settingInfo{
-
-    margin-top:35px;
-
-    font-size:22px;
-
-}
-
-
-#backSettings{
-
-    position:absolute;
-
-    bottom:40px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:200px;
-
-    padding:15px;
-
-    background:#111;
-
-    color:white;
-
-    border:2px solid #8b0000;
-
-    border-radius:10px;
-
-}
-
-
-#backSettings:hover{
-
-    background:#8b0000;
-
-}
 
 
 
 /* ======================
-BARRAS DE SOM
-====================== */
-
-input[type="range"]{
-
-    width:300px;
-
-    height:8px;
-
-    accent-color:#8b0000;
-
-}
-
-
-
-/* ======================
-TELA DE GÊNERO
-( preparada para próxima etapa )
+TELA GÊNERO
 ====================== */
 
 
@@ -420,13 +366,12 @@ TELA DE GÊNERO
 
     background:#000;
 
-    color:white;
+    overflow:hidden;
 
     z-index:16;
 
-    overflow:hidden;
-
 }
+
 
 
 #genderFog{
@@ -440,31 +385,16 @@ TELA DE GÊNERO
     rgba(255,255,255,.08),
     transparent 70%);
 
-    animation:genderFogMove 18s infinite alternate;
+    animation:fogMove 18s infinite;
 
-    filter:blur(20px);
-
-}
-
-
-@keyframes genderFogMove{
-
-    from{
-
-        transform:translateX(-60px);
-
-    }
-
-    to{
-
-        transform:translateX(60px);
-
-    }
+    pointer-events:none;
 
 }
+
 
 
 #genderPanel{
+
 
     position:absolute;
 
@@ -474,60 +404,79 @@ TELA DE GÊNERO
 
     transform:translate(-50%,-50%);
 
-    width:500px;
 
-    padding:40px;
+    width:420px;
 
-    background:rgba(15,15,15,.95);
+
+    padding:35px;
+
+
+    background:rgba(20,20,20,.92);
+
 
     border:2px solid #8b0000;
 
+
     border-radius:15px;
+
 
     text-align:center;
 
-}
 
-
-#genderPanel h2{
-
-    font-family:"Nosifer",cursive;
-
-    color:#c40000;
-
-    font-size:40px;
-
-    margin-bottom:30px;
+    z-index:2;
 
 }
+
+
+
 
 
 .genderButton{
 
-    width:220px;
 
-    padding:15px;
+    width:100%;
 
-    margin:10px;
+
+    padding:18px;
+
+
+    margin:10px 0;
+
 
     background:#111;
 
+
     color:white;
+
 
     border:2px solid #8b0000;
 
+
     border-radius:10px;
+
 
     font-size:20px;
 
+
+    transition:.3s;
+
 }
+
+
 
 
 .genderButton:hover{
 
+
     background:#8b0000;
 
+
+    transform:scale(1.05);
+
 }
+
+
+
 
 
 
@@ -538,60 +487,141 @@ CRIAR PERSONAGEM
 
 #characterScreen{
 
+
     display:none;
+
 
     position:absolute;
 
+
     inset:0;
 
-    background:#050505;
+
+    background:#000;
+
 
     z-index:17;
 
-    color:white;
 
 }
+
 
 
 #characterPanel{
 
+
     position:absolute;
+
 
     top:50%;
 
+
     left:50%;
+
 
     transform:translate(-50%,-50%);
 
-    width:700px;
 
-    min-height:400px;
+    width:450px;
 
-    background:#111;
-
-    border:2px solid #8b0000;
-
-    border-radius:20px;
 
     padding:40px;
 
+
+    background:rgba(20,20,20,.95);
+
+
+    border:2px solid #8b0000;
+
+
+    border-radius:15px;
+
+
     text-align:center;
 
-}
-
-
-#characterPanel h2{
-
-    font-family:"Nosifer",cursive;
-
-    color:#c40000;
 
 }
+
+
+
+#characterPanel p{
+
+
+    color:white;
+
+
+    font-size:20px;
+
+
+    margin-bottom:30px;
+
+}
+
 
 
 
 /* ======================
-JOGO
+BOTÕES DAS TELAS
+====================== */
+
+
+.screenButtons{
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    gap:15px;
+
+}
+
+
+
+.screenButtons button{
+
+
+    flex:1;
+
+
+    padding:15px;
+
+
+    background:#111;
+
+
+    color:white;
+
+
+    border:2px solid #8b0000;
+
+
+    border-radius:10px;
+
+
+    font-size:18px;
+
+
+    transition:.3s;
+
+}
+
+
+
+.screenButtons button:hover{
+
+
+    background:#8b0000;
+
+
+    transform:scale(1.03);
+
+    }
+
+/* ======================
+TELA DO JOGO
 ====================== */
 
 
@@ -610,30 +640,345 @@ JOGO
 }
 
 
+
+
+
 /* ======================
-RESPONSIVO
+CONFIGURAÇÕES
 ====================== */
 
 
-@media(max-width:700px){
+#settingsScreen{
 
-    h1{
 
-        font-size:45px;
+    display:none;
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    background:#000;
+
+
+    color:white;
+
+
+    z-index:20;
+
+
+}
+
+
+
+#settingsSide{
+
+
+    position:absolute;
+
+
+    right:50px;
+
+
+    top:50%;
+
+
+    transform:translateY(-50%);
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:20px;
+
+
+}
+
+
+
+.settingOption{
+
+
+    width:220px;
+
+
+    padding:15px;
+
+
+    background:#111;
+
+
+    color:white;
+
+
+    border:2px solid #8b0000;
+
+
+    border-radius:10px;
+
+
+    font-size:20px;
+
+
+}
+
+
+
+.settingOption:hover,
+.settingOption.ativo{
+
+
+    background:#8b0000;
+
+
+}
+
+
+
+
+
+#settingsContent{
+
+
+    position:absolute;
+
+
+    top:50%;
+
+
+    left:50%;
+
+
+    transform:translate(-50%,-50%);
+
+
+    text-align:center;
+
+
+}
+
+
+
+#settingsContent h2{
+
+
+    font-family:"Nosifer",cursive;
+
+
+    color:#c40000;
+
+
+    font-size:40px;
+
+
+}
+
+
+
+
+#settingInfo{
+
+
+    margin-top:35px;
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+
+#backSettings{
+
+
+    position:absolute;
+
+
+    bottom:40px;
+
+
+    left:50%;
+
+
+    transform:translateX(-50%);
+
+
+    width:200px;
+
+
+    padding:15px;
+
+
+    background:#111;
+
+
+    color:white;
+
+
+    border:2px solid #8b0000;
+
+
+    border-radius:10px;
+
+
+}
+
+
+
+
+
+input[type="range"]{
+
+
+    width:300px;
+
+
+    height:8px;
+
+
+    accent-color:#8b0000;
+
+
+}
+
+
+
+
+
+/* ======================
+TRANSIÇÃO
+====================== */
+
+
+#transitionScreen{
+
+
+    position:fixed;
+
+
+    inset:0;
+
+
+    background:#000;
+
+
+    opacity:0;
+
+
+    display:none;
+
+
+    z-index:9999;
+
+
+    transition:.6s;
+
+
+}
+
+
+
+#transitionScreen.show{
+
+
+    display:block;
+
+
+    opacity:1;
+
+
+}
+
+
+
+
+
+/* ======================
+LOADING
+CANTO INFERIOR ESQUERDO
+====================== */
+
+
+#loading{
+
+
+    position:absolute;
+
+
+    left:40px;
+
+
+    bottom:40px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    color:white;
+
+
+    font-size:20px;
+
+
+    font-weight:bold;
+
+
+}
+
+
+
+#loadingCircle{
+
+
+    width:35px;
+
+
+    height:35px;
+
+
+    border-radius:50%;
+
+
+    border:4px solid #333;
+
+
+    border-top:4px solid #8b0000;
+
+
+    animation:loadingRotate 1s linear infinite;
+
+
+}
+
+
+
+@keyframes loadingRotate{
+
+
+    from{
+
+        transform:rotate(0deg);
 
     }
 
 
-    #nicknamePanel{
+    to{
 
-        width:90%;
-
-    }
-
-
-    #genderPanel{
-
-        width:90%;
+        transform:rotate(360deg);
 
     }
 
