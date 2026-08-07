@@ -1,5 +1,6 @@
 alert("JS funcionando");
 
+
 // ======================
 // SONS
 // ======================
@@ -10,6 +11,7 @@ const rainSound = new Audio("sons/chuva.mp3");
 const thunderSound = new Audio("sons/trovao.mp3");
 
 rainSound.loop = true;
+
 
 
 // ======================
@@ -25,6 +27,7 @@ let volumes = JSON.parse(localStorage.getItem("volumes")) || {
     trova:80
 
 };
+
 
 
 function atualizarVolumes(){
@@ -49,6 +52,7 @@ function atualizarVolumes(){
     (volumes.geral / 100);
 
 
+
     localStorage.setItem(
         "volumes",
         JSON.stringify(volumes)
@@ -61,51 +65,40 @@ atualizarVolumes();
 
 
 
+
 // ======================
 // ELEMENTOS
 // ======================
 
-const startBtn = document.getElementById("start");
 
-const configBtn = document.getElementById("config");
-
-const menu = document.getElementById("menu");
-
-const settingsScreen =
-document.getElementById("settingsScreen");
-
-const backSettings =
-document.getElementById("backSettings");
-
-const transitionScreen =
-document.getElementById("transitionScreen");
-
-const background =
-document.getElementById("background");
-
-const lightning =
-document.getElementById("lightning");
-
-const options =
-document.querySelectorAll(".settingOption");
-
-const info =
-document.getElementById("settingInfo");
+const startBtn =
+document.getElementById("start");
 
 
-// NICKNAME
+const configBtn =
+document.getElementById("config");
+
+
+const menu =
+document.getElementById("menu");
+
+
 
 const nicknameScreen =
 document.getElementById("nicknameScreen");
 
+
+const playerName =
+document.getElementById("playerName");
+
+
 const backToMenu =
 document.getElementById("backToMenu");
+
 
 const continueToGender =
 document.getElementById("continueToGender");
 
-const playerName =
-document.getElementById("playerName");
 
 
 // GÊNERO
@@ -113,29 +106,39 @@ document.getElementById("playerName");
 const genderScreen =
 document.getElementById("genderScreen");
 
+
 const male =
 document.getElementById("male");
 
+
 const female =
 document.getElementById("female");
+
 
 const backGender =
 document.getElementById("backGender");
 
 
+
+
 // PERSONAGEM
+
 
 const characterScreen =
 document.getElementById("characterScreen");
 
+
 const backCharacter =
 document.getElementById("backCharacter");
+
 
 const finishCharacter =
 document.getElementById("finishCharacter");
 
 
+
 // JOGO
+
 
 const gameScreen =
 document.getElementById("gameScreen");
@@ -143,8 +146,48 @@ document.getElementById("gameScreen");
 
 
 
+// CONFIG
+
+
+const settingsScreen =
+document.getElementById("settingsScreen");
+
+
+const backSettings =
+document.getElementById("backSettings");
+
+
+const options =
+document.querySelectorAll(".settingOption");
+
+
+const info =
+document.getElementById("settingInfo");
+
+
+
+// TRANSIÇÃO
+
+
+const transitionScreen =
+document.getElementById("transitionScreen");
+
+
+
+const background =
+document.getElementById("background");
+
+
+
+const lightning =
+document.getElementById("lightning");
+
+
+
+console.log("Elementos carregados");
+
 // ======================
-// CHUVA
+// INICIAR CHUVA
 // ======================
 
 document.addEventListener("click",()=>{
@@ -157,32 +200,34 @@ document.addEventListener("click",()=>{
 
 
 // ======================
-// SOM BOTÕES
+// SOM DOS BOTÕES
 // ======================
 
 document.querySelectorAll("button")
 .forEach(button=>{
 
 
-button.addEventListener("mouseenter",()=>{
+    button.addEventListener("mouseenter",()=>{
 
-    clickSound.currentTime=0;
+        clickSound.currentTime = 0;
 
-    clickSound.play().catch(()=>{});
+        clickSound.play().catch(()=>{});
+
+    });
+
+
+
+    button.addEventListener("touchstart",()=>{
+
+        clickSound.currentTime = 0;
+
+        clickSound.play().catch(()=>{});
+
+    });
+
 
 });
 
-
-button.addEventListener("touchstart",()=>{
-
-    clickSound.currentTime=0;
-
-    clickSound.play().catch(()=>{});
-
-});
-
-
-});
 
 
 
@@ -191,14 +236,16 @@ button.addEventListener("touchstart",()=>{
 // CONFIGURAÇÕES
 // ======================
 
-configBtn.onclick=()=>{
+
+configBtn.onclick = ()=>{
 
     settingsScreen.style.display="block";
 
 };
 
 
-backSettings.onclick=()=>{
+
+backSettings.onclick = ()=>{
 
     settingsScreen.style.display="none";
 
@@ -206,127 +253,143 @@ backSettings.onclick=()=>{
 
 
 
+
+
 options.forEach(option=>{
 
 
-option.onclick=()=>{
+    option.onclick = ()=>{
 
 
-options.forEach(btn=>{
+        options.forEach(btn=>{
 
-btn.classList.remove("ativo");
+            btn.classList.remove("ativo");
 
-});
-
-
-option.classList.add("ativo");
-
-
-let page =
-option.dataset.page;
+        });
 
 
 
-if(page==="som"){
+        option.classList.add("ativo");
 
 
-info.innerHTML = `
-
-VOLUME GERAL<br>
-
-<input id="geral" type="range" min="0" max="100" value="${volumes.geral}">
-<p>${volumes.geral}%</p>
-
-<br>
-
-VOLUME CLICK<br>
-
-<input id="click" type="range" min="0" max="100" value="${volumes.click}">
-<p>${volumes.click}%</p>
-
-<br>
-
-VOLUME TROVÃO<br>
-
-<input id="trova" type="range" min="0" max="100" value="${volumes.trova}">
-<p>${volumes.trova}%</p>
-
-<br>
-
-VOLUME TRANSIÇÃO<br>
-
-<input id="transicao" type="range" min="0" max="100" value="${volumes.transicao}">
-<p>${volumes.transicao}%</p>
-
-<br>
-
-VOLUME CHUVA<br>
-
-<input id="chuva" type="range" min="0" max="100" value="${volumes.chuva}">
-<p>${volumes.chuva}%</p>
-
-`;
+        let page = option.dataset.page;
 
 
-[
-"geral",
-"click",
-"trova",
-"transicao",
-"chuva"
-
-].forEach(id=>{
 
 
-let barra =
-document.getElementById(id);
+        if(page==="som"){
 
 
-barra.oninput=()=>{
+            info.innerHTML = `
+
+            VOLUME GERAL<br>
+
+            <input id="geral" type="range" min="0" max="100" value="${volumes.geral}">
+
+            <br><br>
 
 
-volumes[id]=Number(barra.value);
+            VOLUME CHUVA<br>
+
+            <input id="chuva" type="range" min="0" max="100" value="${volumes.chuva}">
+
+            `;
 
 
-atualizarVolumes();
+            ["geral","chuva"].forEach(id=>{
 
 
-barra.nextElementSibling.innerHTML =
-barra.value+"%";
+                let barra =
+                document.getElementById(id);
 
 
-};
+
+                barra.oninput = ()=>{
 
 
-});
+                    volumes[id] =
+                    Number(barra.value);
 
 
-    }
+                    atualizarVolumes();
+
+                };
+
+
+            });
+
+
+        }
+
+
+
+
+        if(page==="controles"){
+
+
+            info.innerHTML = `
+
+
+            W A S D<br>
+            MOVIMENTO<br><br>
+
+
+            E<br>
+            INTERAGIR<br><br>
+
+
+            SHIFT<br>
+            CORRER
+
+
+            `;
+
+
+        }
+
+
 
     };
 
+
 });
 
-    // ======================
+
+
+
+
+// ======================
 // TRANSIÇÃO
 // ======================
 
+
 function iniciarTransicao(){
+
 
     transitionScreen.classList.add("show");
 
+
     transitionSound.currentTime = 0;
+
 
     transitionSound.play().catch(()=>{});
 
 
+
     setTimeout(()=>{
+
 
         transitionScreen.classList.remove("show");
 
+
     },3000);
 
+
+
 }
+
+
+
 
 
 
@@ -334,22 +397,25 @@ function iniciarTransicao(){
 // JOGAR → NICKNAME
 // ======================
 
+
 startBtn.onclick = ()=>{
 
 
     iniciarTransicao();
 
 
+
     setTimeout(()=>{
 
 
-        menu.style.display = "none";
+        menu.style.display="none";
 
 
-        nicknameScreen.style.display = "block";
+        nicknameScreen.style.display="block";
 
 
     },3000);
+
 
 
 };
@@ -358,9 +424,11 @@ startBtn.onclick = ()=>{
 
 
 
+
 // ======================
-// VOLTAR AO MENU
+// VOLTAR NICKNAME
 // ======================
+
 
 backToMenu.onclick = ()=>{
 
@@ -368,16 +436,18 @@ backToMenu.onclick = ()=>{
     iniciarTransicao();
 
 
+
     setTimeout(()=>{
 
 
-        nicknameScreen.style.display = "none";
+        nicknameScreen.style.display="none";
 
 
-        menu.style.display = "flex";
+        menu.style.display="flex";
 
 
     },3000);
+
 
 
 };
@@ -386,25 +456,27 @@ backToMenu.onclick = ()=>{
 
 
 
+
 // ======================
-// CONTINUAR NICKNAME
+// NICKNAME → GÊNERO
 // ======================
+
 
 continueToGender.onclick = ()=>{
 
 
-    let nome = playerName.value.trim();
+    let nome =
+    playerName.value.trim();
 
 
 
-    if(nome === ""){
+    if(nome===""){
 
 
         alert("Digite seu nickname");
 
 
         return;
-
 
     }
 
@@ -424,35 +496,63 @@ continueToGender.onclick = ()=>{
     setTimeout(()=>{
 
 
-        setTimeout(()=>{
+        nicknameScreen.style.display="none";
 
-    nicknameScreen.style.display="none";
-    genderScreen.style.display="block";
 
-},3000);
+        genderScreen.style.display="block";
 
+
+    },3000);
 
 
 
 };
 
 
+
+
+
+
 // ======================
-// ESCOLHA DE GÊNERO
+// GÊNERO
 // ======================
 
-male.onclick = ()=>{
 
-    localStorage.setItem("gender","Masculino");
+function escolherGenero(genero){
+
+
+    localStorage.setItem(
+        "genero",
+        genero
+    );
+
+
 
     iniciarTransicao();
 
+
+
     setTimeout(()=>{
 
+
         genderScreen.style.display="none";
+
+
         characterScreen.style.display="block";
 
+
     },3000);
+
+
+
+}
+
+
+
+
+male.onclick = ()=>{
+
+    escolherGenero("masculino");
 
 };
 
@@ -460,33 +560,25 @@ male.onclick = ()=>{
 
 female.onclick = ()=>{
 
-    localStorage.setItem("gender","Feminino");
-
-    iniciarTransicao();
-
-    setTimeout(()=>{
-
-        genderScreen.style.display="none";
-        characterScreen.style.display="block";
-
-    },3000);
+    escolherGenero("feminino");
 
 };
+
+
 
 
 
 backGender.onclick = ()=>{
 
-    iniciarTransicao();
 
-    setTimeout(()=>{
+    genderScreen.style.display="none";
 
-        genderScreen.style.display="none";
-        nicknameScreen.style.display="block";
 
-    },3000);
+    nicknameScreen.style.display="block";
+
 
 };
+
 
 
 
@@ -495,38 +587,48 @@ backGender.onclick = ()=>{
 // PERSONAGEM
 // ======================
 
+
 backCharacter.onclick = ()=>{
 
-    iniciarTransicao();
 
-    setTimeout(()=>{
+    characterScreen.style.display="none";
 
-        characterScreen.style.display="none";
-        genderScreen.style.display="block";
 
-    },3000);
+    genderScreen.style.display="block";
+
 
 };
+
+
 
 
 
 finishCharacter.onclick = ()=>{
 
+
     iniciarTransicao();
+
+
 
     setTimeout(()=>{
 
+
         characterScreen.style.display="none";
+
+
         gameScreen.style.display="block";
+
 
     },3000);
 
+
+
 };
 
-
-// ======================
+            // ======================
 // RELÂMPAGO
 // ======================
+
 
 function relampago(){
 
@@ -596,6 +698,7 @@ function relampago(){
 
 
 
+
     setTimeout(()=>{
 
 
@@ -621,3 +724,30 @@ setInterval(()=>{
 
 
 },15000);
+
+
+
+
+
+// ======================
+// SALVAR NOME AO ABRIR
+// ======================
+
+
+let nomeSalvo =
+localStorage.getItem("playerName");
+
+
+if(nomeSalvo){
+
+
+    playerName.value = nomeSalvo;
+
+
+}
+
+
+
+
+
+console.log("Silent Forest carregado!");
