@@ -424,10 +424,14 @@ continueToGender.onclick = ()=>{
     setTimeout(()=>{
 
 
-        alert("Próxima tela: escolha de gênero");
+        setTimeout(()=>{
+
+    nicknameScreen.style.display="none";
+    genderScreen.style.display="block";
+
+},3000);
 
 
-    },3000);
 
 
 };
