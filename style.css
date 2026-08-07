@@ -4,200 +4,587 @@
     box-sizing:border-box;
 }
 
-
 body{
-
     width:100vw;
     height:100vh;
-
     overflow:hidden;
-
     background:#000;
-
-    font-family:"Trebuchet MS", sans-serif;
-
+    font-family:"Trebuchet MS",sans-serif;
 }
-
 
 /* ======================
 MENU INICIAL
 ====================== */
 
-
 #menu{
-
     position:relative;
-
     width:100%;
     height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+#background{
+    position:absolute;
+    inset:0;
+    background-image:url("imagens/fundo.png");
+    background-size:cover;
+    background-position:center;
+    z-index:0;
+}
+
+#nevoa{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    pointer-events:none;
+    z-index:1;
+}
+
+#lightning{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:0;
+    z-index:2;
+}
+
+/* ======================
+TÍTULO
+====================== */
+
+h1{
+    position:relative;
+    z-index:3;
+    font-family:"Nosifer",cursive;
+    font-size:80px;
+    color:#c40000;
+    letter-spacing:5px;
+    text-align:center;
+    text-shadow:
+    0 0 10px #ff0000,
+    0 0 25px #8b0000;
+}
+
+/* ======================
+BOTÕES
+====================== */
+
+button{
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+#start,
+#config{
+    position:relative;
+    z-index:3;
+    width:260px;
+    padding:16px;
+    margin-top:15px;
+    background:rgba(20,20,20,.85);
+    color:#fff;
+    border:2px solid #8b0000;
+    border-radius:12px;
+    font-size:22px;
+    letter-spacing:3px;
+}
+
+#start:hover,
+#config:hover{
+    background:#8b0000;
+    box-shadow:0 0 20px #8b0000;
+    transform:scale(1.05);
+}
+
+/* ======================
+TRANSIÇÃO
+====================== */
+
+#transitionScreen{
+    position:fixed;
+    inset:0;
+    background:#000;
+    opacity:0;
+    display:none;
+    z-index:9999;
+    transition:.6s;
+}
+
+#transitionScreen.show{
+    display:block;
+    opacity:1;
+}
+
+/* ======================
+TELA NICKNAME
+====================== */
+
+#nicknameScreen{
+    display:none;
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    background:#000;
+    z-index:15;
+}
+
+/* Névoa animada */
+
+#nicknameFog{
+    position:absolute;
+    inset:-20%;
+    pointer-events:none;
+    z-index:1;
+    opacity:.9;
+    filter:blur(35px);
+
+    background:
+    radial-gradient(circle at 15% 30%,rgba(255,255,255,.12),transparent 35%),
+    radial-gradient(circle at 75% 60%,rgba(255,255,255,.10),transparent 35%),
+    radial-gradient(circle at 50% 80%,rgba(255,255,255,.08),transparent 40%),
+    radial-gradient(circle at 90% 20%,rgba(255,255,255,.09),transparent 30%);
+
+    background-size:250% 250%;
+
+    animation:fogMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes fogMove{
+
+    0%{
+        background-position:0% 0%;
+        transform:scale(1);
+    }
+
+    50%{
+        background-position:100% 50%;
+        transform:scale(1.08);
+    }
+
+    100%{
+        background-position:0% 100%;
+        transform:scale(1);
+    }
+
+}
+
+#nicknamePanel{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:450px;
+    padding:35px;
+    background:rgba(20,20,20,.92);
+    border:2px solid #8b0000;
+    border-radius:15px;
+    text-align:center;
+    z-index:2;
+    box-shadow:
+    0 0 20px rgba(139,0,0,.4),
+    0 0 60px rgba(0,0,0,.6);
+}
+
+#nicknamePanel h2{
+    font-family:"Nosifer",cursive;
+    color:#c40000;
+    margin-bottom:20px;
+    font-size:42px;
+}
+
+#nicknamePanel p{
+    color:white;
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+#playerName{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:#fff;
+    font-size:20px;
+    outline:none;
+    margin-bottom:25px;
+}
+
+#playerName:focus{
+    box-shadow:0 0 15px #8b0000;
+}
+
+/* ======================
+BOTÕES TELA NICKNAME
+====================== */
+
+.screenButtons{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.screenButtons button{
+
+    flex:1;
+    padding:15px;
+
+    background:#111;
+    color:white;
+
+    border:2px solid #8b0000;
+    border-radius:10px;
+
+    font-size:18px;
+}
+
+.screenButtons button:hover{
+
+    background:#8b0000;
+    transform:scale(1.05);
+
+}
+
+
+/* ======================
+CONFIGURAÇÕES
+====================== */
+
+#settingsScreen{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:#000;
+
+    color:white;
+
+    z-index:20;
+
+}
+
+
+#settingsSide{
+
+    position:absolute;
+
+    right:50px;
+
+    top:50%;
+
+    transform:translateY(-50%);
 
     display:flex;
 
     flex-direction:column;
 
-    justify-content:center;
+    gap:20px;
 
-    align-items:center;
+}
+
+
+.settingOption{
+
+    width:220px;
+
+    padding:15px;
+
+    background:#111;
+
+    color:white;
+
+    border:2px solid #8b0000;
+
+    border-radius:10px;
+
+    font-size:20px;
+
+}
+
+
+.settingOption:hover,
+.settingOption.ativo{
+
+    background:#8b0000;
+
+    box-shadow:0 0 15px #8b0000;
+
+}
+
+
+#settingsContent{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    text-align:center;
+
+}
+
+
+#settingsContent h2{
+
+    font-family:"Nosifer",cursive;
+
+    color:#c40000;
+
+    font-size:40px;
+
+}
+
+
+#settingInfo{
+
+    margin-top:35px;
+
+    font-size:22px;
+
+}
+
+
+#backSettings{
+
+    position:absolute;
+
+    bottom:40px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:200px;
+
+    padding:15px;
+
+    background:#111;
+
+    color:white;
+
+    border:2px solid #8b0000;
+
+    border-radius:10px;
+
+}
+
+
+#backSettings:hover{
+
+    background:#8b0000;
+
+}
+
+
+
+/* ======================
+BARRAS DE SOM
+====================== */
+
+input[type="range"]{
+
+    width:300px;
+
+    height:8px;
+
+    accent-color:#8b0000;
+
+}
+
+
+
+/* ======================
+TELA DE GÊNERO
+( preparada para próxima etapa )
+====================== */
+
+
+#genderScreen{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:#000;
+
+    color:white;
+
+    z-index:16;
 
     overflow:hidden;
 
 }
 
 
-
-#background{
-
-    position:absolute;
-
-    inset:0;
-
-    background-image:url("imagens/fundo.png");
-
-    background-size:cover;
-
-    background-position:center;
-
-    z-index:0;
-
-}
-
-
-
-#nevoa{
-
-position:absolute;
-
-inset:0;
-
-background:rgba(0,0,0,.45);
-
-z-index:1;
-
-pointer-events:none;
-
-}
-
-
-
-/* ======================
-RELÂMPAGO
-====================== */
-
-
-#lightning{
+#genderFog{
 
     position:absolute;
 
     inset:0;
 
-    pointer-events:none;
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,.08),
+    transparent 70%);
 
-    opacity:0;
+    animation:genderFogMove 18s infinite alternate;
 
-    z-index:2;
-
-}
-
-
-
-/* ======================
-TÍTULO
-====================== */
-
-
-h1{
-
-    position:relative;
-
-    z-index:3;
-
-    font-family:"Nosifer",cursive;
-
-    font-size:80px;
-
-    color:#c40000;
-
-    letter-spacing:5px;
-
-    text-align:center;
-
-    text-shadow:
-
-    0 0 10px #ff0000,
-    0 0 25px #8b0000;
+    filter:blur(20px);
 
 }
 
 
+@keyframes genderFogMove{
 
-/* ======================
-BOTÕES
-====================== */
+    from{
 
+        transform:translateX(-60px);
 
-button{
+    }
 
-    cursor:pointer;
+    to{
 
-    font-weight:bold;
+        transform:translateX(60px);
+
+    }
 
 }
 
 
+#genderPanel{
 
-#start,
-#config{
+    position:absolute;
 
+    top:50%;
 
-    position:relative;
+    left:50%;
 
-    z-index:3;
+    transform:translate(-50%,-50%);
 
+    width:500px;
 
-    width:260px;
+    padding:40px;
 
-
-    padding:16px;
-
-
-    margin-top:15px;
-
-
-    background:rgba(20,20,20,.85);
-
-
-    color:white;
-
+    background:rgba(15,15,15,.95);
 
     border:2px solid #8b0000;
 
+    border-radius:15px;
 
-    border-radius:12px;
+    text-align:center;
 
-
-    font-size:22px;
-
-
-    letter-spacing:3px;
+}
 
 
-    transition:.3s;
+#genderPanel h2{
+
+    font-family:"Nosifer",cursive;
+
+    color:#c40000;
+
+    font-size:40px;
+
+    margin-bottom:30px;
+
+}
+
+
+.genderButton{
+
+    width:220px;
+
+    padding:15px;
+
+    margin:10px;
+
+    background:#111;
+
+    color:white;
+
+    border:2px solid #8b0000;
+
+    border-radius:10px;
+
+    font-size:20px;
+
+}
+
+
+.genderButton:hover{
+
+    background:#8b0000;
 
 }
 
 
 
-#start:hover,
-#config:hover{
+/* ======================
+CRIAR PERSONAGEM
+====================== */
 
 
-    background:#8b0000;
+#characterScreen{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:#050505;
+
+    z-index:17;
+
+    color:white;
+
+}
 
 
-    box-shadow:0 0 20px #8b0000;
+#characterPanel{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:700px;
+
+    min-height:400px;
+
+    background:#111;
+
+    border:2px solid #8b0000;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    text-align:center;
+
+}
 
 
-    transform:scale(1.05);
+#characterPanel h2{
+
+    font-family:"Nosifer",cursive;
+
+    color:#c40000;
 
 }
 
@@ -223,472 +610,31 @@ JOGO
 }
 
 
-
 /* ======================
-CONFIGURAÇÕES
+RESPONSIVO
 ====================== */
 
 
-#settingsScreen{
+@media(max-width:700px){
 
+    h1{
 
-    display:none;
+        font-size:45px;
 
-
-    position:absolute;
-
-
-    inset:0;
-
-
-    background:#000;
-
-
-    color:white;
-
-
-    z-index:20;
-
-}
-
-
-
-
-#settingsSide{
-
-
-    position:absolute;
-
-
-    right:50px;
-
-
-    top:50%;
-
-
-    transform:translateY(-50%);
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:20px;
-
-}
-
-
-
-.settingOption{
-
-
-    width:220px;
-
-
-    padding:15px;
-
-
-    background:#111;
-
-
-    color:white;
-
-
-    border:2px solid #8b0000;
-
-
-    border-radius:10px;
-
-
-    font-size:20px;
-
-}
-
-
-
-.settingOption:hover,
-.settingOption.ativo{
-
-
-    background:#8b0000;
-
-}
-
-
-
-#settingsContent{
-
-
-    position:absolute;
-
-
-    top:50%;
-
-
-    left:50%;
-
-
-    transform:translate(-50%,-50%);
-
-
-    text-align:center;
-
-}
-
-
-
-#settingsContent h2{
-
-
-    font-family:"Nosifer",cursive;
-
-
-    color:#c40000;
-
-
-    font-size:40px;
-
-}
-
-
-
-#settingInfo{
-
-
-    margin-top:35px;
-
-
-    font-size:22px;
-
-}
-
-
-
-#backSettings{
-
-
-    position:absolute;
-
-
-    bottom:40px;
-
-
-    left:50%;
-
-
-    transform:translateX(-50%);
-
-
-    width:200px;
-
-
-    padding:15px;
-
-
-    background:#111;
-
-
-    color:white;
-
-
-    border:2px solid #8b0000;
-
-
-    border-radius:10px;
-
-}
-
-
-
-/* ======================
-BARRAS
-====================== */
-
-
-input[type="range"]{
-
-
-    width:300px;
-
-
-    height:8px;
-
-
-    accent-color:#8b0000;
-
-}
-
-
-
-/* ======================
-TRANSIÇÃO
-====================== */
-
-
-#transitionScreen{
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    background:#000;
-
-
-    opacity:0;
-
-
-    display:none;
-
-
-    z-index:9999;
-
-
-    transition:.6s;
-
-}
-
-
-
-#transitionScreen.show{
-
-
-    display:block;
-
-
-    opacity:1;
-
-}
-
-
-
-/* ======================
-TELA NICKNAME
-====================== */
-
-
-#nicknameScreen{
-
-
-    display:none;
-
-
-    position:absolute;
-
-
-    inset:0;
-
-
-    background:#000;
-
-
-    overflow:hidden;
-
-
-    z-index:15;
-
-}
-
-
-
-
-#nicknameFog{
-
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0%, transparent 35%),
-        radial-gradient(circle at 80% 70%, rgba(255,255,255,.06) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.05) 0%, transparent 45%);
-
-    background-size:200% 200%;
-
-    animation:fogMove 18s ease-in-out infinite;
-
-    opacity:1;
-
-    z-index:1;
-
-    pointer-events:none;
-
-}
-
-@keyframes fogMove{
-
-    0%{
-        background-position:0% 50%;
     }
 
-    50%{
-        background-position:100% 50%;
+
+    #nicknamePanel{
+
+        width:90%;
+
     }
 
-    100%{
-        background-position:0% 50%;
+
+    #genderPanel{
+
+        width:90%;
+
     }
 
-}
-
-
-
-#nicknamePanel{
-
-
-    position:absolute;
-
-
-    top:50%;
-
-
-    left:50%;
-
-
-    transform:translate(-50%,-50%);
-
-
-    width:420px;
-
-
-    padding:35px;
-
-
-    background:rgba(20,20,20,.92);
-
-
-    border:2px solid #8b0000;
-
-
-    border-radius:15px;
-
-
-    text-align:center;
-
-
-    z-index:2;
-
-}
-
-
-
-
-#nicknamePanel h2{
-
-
-    font-family:"Nosifer",cursive;
-
-
-    color:#c40000;
-
-
-    margin-bottom:15px;
-
-}
-
-
-
-#nicknamePanel p{
-
-
-    color:white;
-
-
-    margin-bottom:15px;
-
-
-    font-size:20px;
-
-}
-
-
-
-
-#playerName{
-
-
-    width:100%;
-
-
-    padding:15px;
-
-
-    font-size:20px;
-
-
-    border:none;
-
-
-    border-radius:8px;
-
-
-    margin-bottom:25px;
-
-
-    background:#222;
-
-
-    color:white;
-
-}
-
-
-
-
-.screenButtons{
-
-
-    display:flex;
-
-
-    justify-content:space-between;
-
-
-    gap:15px;
-
-}
-
-
-
-.screenButtons button{
-
-
-    flex:1;
-
-
-    padding:15px;
-
-
-    font-size:18px;
-
-
-    background:#111;
-
-
-    color:white;
-
-
-    border:2px solid #8b0000;
-
-
-    border-radius:10px;
-
-
-    transition:.3s;
-
-}
-
-
-
-.screenButtons button:hover{
-
-
-    background:#8b0000;
-
-
-    transform:scale(1.03);
-
-}
+    }
