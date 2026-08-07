@@ -521,19 +521,18 @@ TELA NICKNAME
 @keyframes fogMove{
 
     0%{
-        transform:translate(-40px,0);
+        background-position:0% 50%;
     }
 
     50%{
-        transform:translate(40px,-10px);
+        background-position:100% 50%;
     }
 
     100%{
-        transform:translate(-40px,0);
+        background-position:0% 50%;
     }
 
 }
-
 
 
 
