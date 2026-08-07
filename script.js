@@ -433,7 +433,91 @@ continueToGender.onclick = ()=>{
 };
 
 
+// ======================
+// ESCOLHA DE GÊNERO
+// ======================
 
+male.onclick = ()=>{
+
+    localStorage.setItem("gender","Masculino");
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        genderScreen.style.display="none";
+        characterScreen.style.display="block";
+
+    },3000);
+
+};
+
+
+
+female.onclick = ()=>{
+
+    localStorage.setItem("gender","Feminino");
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        genderScreen.style.display="none";
+        characterScreen.style.display="block";
+
+    },3000);
+
+};
+
+
+
+backGender.onclick = ()=>{
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        genderScreen.style.display="none";
+        nicknameScreen.style.display="block";
+
+    },3000);
+
+};
+
+
+
+
+// ======================
+// PERSONAGEM
+// ======================
+
+backCharacter.onclick = ()=>{
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        characterScreen.style.display="none";
+        genderScreen.style.display="block";
+
+    },3000);
+
+};
+
+
+
+finishCharacter.onclick = ()=>{
+
+    iniciarTransicao();
+
+    setTimeout(()=>{
+
+        characterScreen.style.display="none";
+        gameScreen.style.display="block";
+
+    },3000);
+
+};
 
 
 // ======================
