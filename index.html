@@ -46,7 +46,10 @@ MENU INICIAL
         CONFIGURAÇÕES
     </button>
 
+
 </div>
+
+
 
 
 
@@ -72,11 +75,12 @@ TELA NICKNAME
         </p>
 
 
-        <input
+        <input 
         type="text"
         id="playerName"
         maxlength="16"
         placeholder="Seu nome">
+
 
 
         <div class="screenButtons">
@@ -102,9 +106,11 @@ TELA NICKNAME
 
 
 
+
 <!-- ======================
-TELA GÊNERO
+TELA ESCOLHA DE GÊNERO
 ====================== -->
+
 
 <div id="genderScreen">
 
@@ -116,19 +122,25 @@ TELA GÊNERO
 
 
         <h2>
-            Escolha o gênero
+            Escolha seu gênero
         </h2>
 
 
 
         <button class="genderButton" id="male">
+
             Masculino
+
         </button>
+
 
 
         <button class="genderButton" id="female">
+
             Feminino
+
         </button>
+
 
 
 
@@ -136,7 +148,9 @@ TELA GÊNERO
 
 
             <button id="backGender">
+
                 VOLTAR
+
             </button>
 
 
@@ -156,6 +170,7 @@ TELA GÊNERO
 CRIAR PERSONAGEM
 ====================== -->
 
+
 <div id="characterScreen">
 
 
@@ -168,7 +183,7 @@ CRIAR PERSONAGEM
 
 
         <p>
-            Em breve: cabelo, pele, roupa e acessórios
+            Escolha cabelo, roupa e aparência
         </p>
 
 
@@ -177,12 +192,17 @@ CRIAR PERSONAGEM
 
 
             <button id="backCharacter">
+
                 VOLTAR
+
             </button>
 
 
+
             <button id="finishCharacter">
+
                 CONTINUAR
+
             </button>
 
 
@@ -202,6 +222,7 @@ CRIAR PERSONAGEM
 TELA DO JOGO
 ====================== -->
 
+
 <div id="gameScreen">
 
 
@@ -215,6 +236,7 @@ TELA DO JOGO
 CONFIGURAÇÕES
 ====================== -->
 
+
 <div id="settingsScreen">
 
 
@@ -222,17 +244,23 @@ CONFIGURAÇÕES
 
 
         <button class="settingOption" data-page="som">
+
             SOM
+
         </button>
 
 
         <button class="settingOption" data-page="imagem">
+
             IMAGEM
+
         </button>
 
 
         <button class="settingOption" data-page="controles">
+
             CONTROLES
+
         </button>
 
 
@@ -240,11 +268,14 @@ CONFIGURAÇÕES
 
 
 
+
     <div id="settingsContent">
 
 
         <h2>
+
             CONFIGURAÇÕES
+
         </h2>
 
 
@@ -256,6 +287,7 @@ CONFIGURAÇÕES
 
 
     </div>
+
 
 
 
@@ -273,10 +305,29 @@ CONFIGURAÇÕES
 
 
 <!-- ======================
-TRANSIÇÃO
+TELA DE TRANSIÇÃO
 ====================== -->
 
-<div id="transitionScreen"></div>
+
+<div id="transitionScreen">
+
+
+    <div id="loading">
+
+
+        <div id="loadingCircle"></div>
+
+
+        <span>
+            Carregando...
+        </span>
+
+
+    </div>
+
+
+</div>
+
 
 
 
@@ -285,5 +336,6 @@ TRANSIÇÃO
 
 
 </body>
+
 
     </html>
