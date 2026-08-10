@@ -96,8 +96,6 @@ MENU INICIAL
 
 
 
-
-
 /* ======================
 TÍTULO
 ====================== */
@@ -109,7 +107,7 @@ h1{
 
     z-index:3;
 
-    font-family:"Nosifer",cursive;
+    font-family:"Nosifer", cursive;
 
     font-size:80px;
 
@@ -119,14 +117,12 @@ h1{
 
     text-align:center;
 
-
     text-shadow:
 
-    0 0 10px #ff0000,
-    0 0 25px #8b0000;
+        0 0 10px #ff0000,
+        0 0 25px #8b0000;
 
 }
-
 
 
 
@@ -148,38 +144,27 @@ button{
 #start,
 #config{
 
-
     position:relative;
 
     z-index:3;
 
-
     width:260px;
-
 
     padding:16px;
 
-
     margin-top:15px;
-
 
     background:rgba(20,20,20,.85);
 
-
     color:white;
-
 
     border:2px solid #8b0000;
 
-
     border-radius:12px;
-
 
     font-size:22px;
 
-
     letter-spacing:3px;
-
 
     transition:.3s;
 
@@ -190,16 +175,15 @@ button{
 #start:hover,
 #config:hover{
 
-
     background:#8b0000;
 
-
     box-shadow:0 0 20px #8b0000;
-
 
     transform:scale(1.05);
 
 }
+
+
 
 /* ======================
 TELA NICKNAME
@@ -231,8 +215,18 @@ TELA NICKNAME
     inset:0;
 
     background:
-    radial-gradient(circle at 20% 30%,rgba(255,255,255,.08),transparent 35%),
-    radial-gradient(circle at 80% 70%,rgba(255,255,255,.06),transparent 40%);
+
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(255,255,255,.08),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,255,255,.06),
+            transparent 40%
+        );
 
     animation:fogMove 18s ease-in-out infinite;
 
@@ -252,13 +246,11 @@ TELA NICKNAME
 
     }
 
-
     50%{
 
         transform:translateX(60px);
 
     }
-
 
     100%{
 
@@ -267,7 +259,6 @@ TELA NICKNAME
     }
 
 }
-
 
 
 
@@ -299,11 +290,9 @@ TELA NICKNAME
 
 
 
-#nicknamePanel h2,
-#genderPanel h2,
-#characterPanel h2{
+#nicknamePanel h2{
 
-    font-family:"Nosifer",cursive;
+    font-family:"Nosifer", cursive;
 
     color:#c40000;
 
@@ -345,18 +334,26 @@ TELA NICKNAME
 
     color:white;
 
+    outline:none;
+
 }
 
 
 
+#playerName:focus{
+
+    box-shadow:0 0 12px #8b0000;
+
+}
+
 
 
 /* ======================
-TELA GÊNERO
+ESCOLHA DE PERSONAGEM
 ====================== */
 
 
-#genderScreen{
+#characterSelectScreen{
 
     display:none;
 
@@ -368,24 +365,33 @@ TELA GÊNERO
 
     overflow:hidden;
 
-    z-index:16;
+    z-index:17;
 
 }
 
 
 
-#genderFog{
+#characterSelectFog{
 
     position:absolute;
 
     inset:0;
 
     background:
-    radial-gradient(circle,
-    rgba(255,255,255,.08),
-    transparent 70%);
 
-    animation:fogMove 18s infinite;
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(255,255,255,.07),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,255,255,.05),
+            transparent 45%
+        );
+
+    animation:fogMove 18s ease-in-out infinite;
 
     pointer-events:none;
 
@@ -393,8 +399,7 @@ TELA GÊNERO
 
 
 
-#genderPanel{
-
+#characterSelectPanel{
 
     position:absolute;
 
@@ -404,159 +409,311 @@ TELA GÊNERO
 
     transform:translate(-50%,-50%);
 
+    width:520px;
 
-    width:420px;
-
+    min-height:620px;
 
     padding:35px;
 
-
-    background:rgba(20,20,20,.92);
-
+    background:rgba(20,20,20,.94);
 
     border:2px solid #8b0000;
-
 
     border-radius:15px;
 
-
     text-align:center;
-
 
     z-index:2;
 
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
 }
 
 
 
+#characterSelectPanel h2{
+
+    font-family:"Nosifer", cursive;
+
+    color:#c40000;
+
+    text-shadow:0 0 15px red;
+
+    margin-bottom:15px;
+
+}
 
 
-.genderButton{
 
-
-    width:100%;
-
-
-    padding:18px;
-
-
-    margin:10px 0;
-
-
-    background:#111;
-
+#characterSelectPanel p{
 
     color:white;
 
+    font-size:17px;
 
-    border:2px solid #8b0000;
-
-
-    border-radius:10px;
-
-
-    font-size:20px;
-
-
-    transition:.3s;
+    margin-bottom:20px;
 
 }
-
-
-
-
-.genderButton:hover{
-
-
-    background:#8b0000;
-
-
-    transform:scale(1.05);
-
-}
-
-
-
 
 
 
 /* ======================
-CRIAR PERSONAGEM
+CARD DO PERSONAGEM
 ====================== */
 
 
-#characterScreen{
+#characterCard{
 
+    position:relative;
 
-    display:none;
+    width:280px;
 
+    height:390px;
 
-    position:absolute;
+    display:flex;
 
+    flex-direction:column;
 
-    inset:0;
+    justify-content:flex-end;
 
+    align-items:center;
 
-    background:#000;
+    background:
 
+        radial-gradient(
+            circle at center,
+            rgba(80,0,0,.28),
+            rgba(0,0,0,.8) 70%
+        );
 
-    z-index:17;
-
-
-}
-
-
-
-#characterPanel{
-
-
-    position:absolute;
-
-
-    top:50%;
-
-
-    left:50%;
-
-
-    transform:translate(-50%,-50%);
-
-
-    width:450px;
-
-
-    padding:40px;
-
-
-    background:rgba(20,20,20,.95);
-
-
-    border:2px solid #8b0000;
-
+    border:2px solid #4d0000;
 
     border-radius:15px;
 
+    cursor:pointer;
 
-    text-align:center;
+    transition:
 
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+
+    overflow:hidden;
 
 }
 
 
 
-#characterPanel p{
+/* brilho interno */
 
+
+#characterCard::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(255,0,0,.15),
+            transparent 65%
+        );
+
+    opacity:0;
+
+    transition:opacity .3s ease;
+
+    pointer-events:none;
+
+}
+
+
+
+/* ======================
+PERSONAGEM
+====================== */
+
+
+#characterPreview{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:90%;
+
+    max-height:330px;
+
+    width:auto;
+
+    height:auto;
+
+    image-rendering:pixelated;
+
+    object-fit:contain;
+
+    transition:
+
+        transform .35s ease,
+
+        filter .35s ease;
+
+}
+
+
+
+/* ======================
+EFEITO AO PASSAR O MOUSE
+====================== */
+
+
+#characterCard:hover{
+
+    transform:scale(1.04);
+
+    border-color:#c40000;
+
+    box-shadow:
+
+        0 0 10px #8b0000,
+        0 0 30px rgba(139,0,0,.6);
+
+}
+
+
+
+#characterCard:hover::before{
+
+    opacity:1;
+
+}
+
+
+
+#characterCard:hover #characterPreview{
+
+    transform:scale(1.08);
+
+    filter:
+
+        drop-shadow(0 0 8px rgba(255,0,0,.65));
+
+}
+
+
+
+/* ======================
+NOME DO PERSONAGEM
+====================== */
+
+
+#characterName{
+
+    position:relative;
+
+    z-index:3;
+
+    width:100%;
+
+    padding:12px;
+
+    background:rgba(0,0,0,.75);
 
     color:white;
 
+    font-size:19px;
 
-    font-size:20px;
+    letter-spacing:2px;
 
-
-    margin-bottom:30px;
+    border-top:1px solid #4d0000;
 
 }
 
+
+
+/* ======================
+PERSONAGEM SELECIONADO
+====================== */
+
+
+#characterCard.selected{
+
+    transform:scale(1.06);
+
+    border-color:#ff0000;
+
+    box-shadow:
+
+        0 0 15px #8b0000,
+        0 0 40px rgba(196,0,0,.7);
+
+}
+
+
+
+#characterCard.selected::before{
+
+    opacity:1;
+
+}
+
+
+
+#characterCard.selected #characterPreview{
+
+    filter:
+
+        drop-shadow(0 0 12px rgba(255,0,0,.9));
+
+}
+
+
+
+/* ======================
+INDICADOR DE SELEÇÃO
+====================== */
+
+
+#characterCard.selected::after{
+
+    content:"SELECIONADO";
+
+    position:absolute;
+
+    top:12px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+    padding:6px 14px;
+
+    background:#8b0000;
+
+    color:white;
+
+    border-radius:6px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    box-shadow:0 0 12px #8b0000;
+
+}
 
 
 
@@ -567,14 +724,15 @@ BOTÕES DAS TELAS
 
 .screenButtons{
 
+    width:100%;
 
     display:flex;
 
-
     justify-content:space-between;
 
-
     gap:15px;
+
+    margin-top:25px;
 
 }
 
@@ -582,27 +740,19 @@ BOTÕES DAS TELAS
 
 .screenButtons button{
 
-
     flex:1;
-
 
     padding:15px;
 
-
     background:#111;
-
 
     color:white;
 
-
     border:2px solid #8b0000;
-
 
     border-radius:10px;
 
-
     font-size:18px;
-
 
     transition:.3s;
 
@@ -612,13 +762,15 @@ BOTÕES DAS TELAS
 
 .screenButtons button:hover{
 
-
     background:#8b0000;
-
 
     transform:scale(1.03);
 
-    }
+    box-shadow:0 0 15px #8b0000;
+
+}
+
+
 
 /* ======================
 TELA DO JOGO
@@ -641,8 +793,6 @@ TELA DO JOGO
 
 
 
-
-
 /* ======================
 CONFIGURAÇÕES
 ====================== */
@@ -650,24 +800,17 @@ CONFIGURAÇÕES
 
 #settingsScreen{
 
-
     display:none;
-
 
     position:absolute;
 
-
     inset:0;
-
 
     background:#000;
 
-
     color:white;
 
-
     z-index:20;
-
 
 }
 
@@ -675,27 +818,19 @@ CONFIGURAÇÕES
 
 #settingsSide{
 
-
     position:absolute;
-
 
     right:50px;
 
-
     top:50%;
-
 
     transform:translateY(-50%);
 
-
     display:flex;
-
 
     flex-direction:column;
 
-
     gap:20px;
-
 
 }
 
@@ -703,27 +838,19 @@ CONFIGURAÇÕES
 
 .settingOption{
 
-
     width:220px;
-
 
     padding:15px;
 
-
     background:#111;
-
 
     color:white;
 
-
     border:2px solid #8b0000;
-
 
     border-radius:10px;
 
-
     font-size:20px;
-
 
 }
 
@@ -732,33 +859,23 @@ CONFIGURAÇÕES
 .settingOption:hover,
 .settingOption.ativo{
 
-
     background:#8b0000;
-
 
 }
 
 
 
-
-
 #settingsContent{
-
 
     position:absolute;
 
-
     top:50%;
-
 
     left:50%;
 
-
     transform:translate(-50%,-50%);
 
-
     text-align:center;
-
 
 }
 
@@ -766,90 +883,61 @@ CONFIGURAÇÕES
 
 #settingsContent h2{
 
-
-    font-family:"Nosifer",cursive;
-
+    font-family:"Nosifer", cursive;
 
     color:#c40000;
 
-
     font-size:40px;
 
-
 }
-
 
 
 
 #settingInfo{
 
-
     margin-top:35px;
-
 
     font-size:22px;
 
-
 }
-
-
 
 
 
 #backSettings{
 
-
     position:absolute;
-
 
     bottom:40px;
 
-
     left:50%;
-
 
     transform:translateX(-50%);
 
-
     width:200px;
-
 
     padding:15px;
 
-
     background:#111;
-
 
     color:white;
 
-
     border:2px solid #8b0000;
-
 
     border-radius:10px;
 
-
 }
-
-
 
 
 
 input[type="range"]{
 
-
     width:300px;
-
 
     height:8px;
 
-
     accent-color:#8b0000;
 
-
 }
-
-
 
 
 
@@ -860,27 +948,19 @@ TRANSIÇÃO
 
 #transitionScreen{
 
-
     position:fixed;
-
 
     inset:0;
 
-
     background:#000;
-
 
     opacity:0;
 
-
     display:none;
-
 
     z-index:9999;
 
-
     transition:.6s;
-
 
 }
 
@@ -888,16 +968,11 @@ TRANSIÇÃO
 
 #transitionScreen.show{
 
-
     display:block;
-
 
     opacity:1;
 
-
 }
-
-
 
 
 
@@ -909,33 +984,23 @@ CANTO INFERIOR ESQUERDO
 
 #loading{
 
-
     position:absolute;
-
 
     left:40px;
 
-
     bottom:40px;
-
 
     display:flex;
 
-
     align-items:center;
-
 
     gap:15px;
 
-
     color:white;
-
 
     font-size:20px;
 
-
     font-weight:bold;
-
 
 }
 
@@ -943,24 +1008,17 @@ CANTO INFERIOR ESQUERDO
 
 #loadingCircle{
 
-
     width:35px;
-
 
     height:35px;
 
-
     border-radius:50%;
-
 
     border:4px solid #333;
 
-
     border-top:4px solid #8b0000;
 
-
     animation:loadingRotate 1s linear infinite;
-
 
 }
 
@@ -968,13 +1026,11 @@ CANTO INFERIOR ESQUERDO
 
 @keyframes loadingRotate{
 
-
     from{
 
         transform:rotate(0deg);
 
     }
-
 
     to{
 
