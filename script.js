@@ -1276,7 +1276,164 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+// ==================================================
+// MOVIMENTO DO PERSONAGEM + CÂMERA
+// ==================================================
 
+const player =
+    document.getElementById("player");
+
+const gameWorld =
+    document.getElementById("gameWorld");
+
+let playerX = 1500;
+let playerY = 1500;
+
+let velocidadeNormal = 3;
+let velocidadeCorrendo = 6;
+
+
+// Movimento do personagem
+function atualizarMovimento() {
+
+    if (!gameScreen) return;
+
+    if (gameScreen.style.display !== "block") {
+        requestAnimationFrame(atualizarMovimento);
+        return;
+    }
+
+
+    let velocidade =
+        correndo
+            ? velocidadeCorrendo
+            : velocidadeNormal;
+
+
+    let movimentoX = 0;
+    let movimentoY = 0;
+
+
+    // =========================
+    // CELULAR
+    // =========================
+
+    if (
+        plataformaSelecionada ===
+        "mobile"
+    ) {
+
+        movimentoX = joystickX;
+        movimentoY = joystickY;
+
+    }
+
+
+    // =========================
+    // PC
+    // =========================
+
+    if (
+        plataformaSelecionada ===
+        "pc"
+    ) {
+
+        if (teclas["w"]) {
+            movimentoY -= 1;
+        }
+
+        if (teclas["s"]) {
+            movimentoY += 1;
+        }
+
+        if (teclas["a"]) {
+            movimentoX -= 1;
+        }
+
+        if (teclas["d"]) {
+            movimentoX += 1;
+        }
+
+    }
+
+
+    // =========================
+    // MOVIMENTO
+    // =========================
+
+    playerX +=
+        movimentoX *
+        velocidade;
+
+    playerY +=
+        movimentoY *
+        velocidade;
+
+
+    // =========================
+    // LIMITES TEMPORÁRIOS
+    // =========================
+
+    const limite =
+        1500 - 20;
+
+    playerX =
+        Math.max(
+            -limite,
+            Math.min(
+                3000 + limite,
+                playerX
+            )
+        );
+
+    playerY =
+        Math.max(
+            -limite,
+            Math.min(
+                3000 + limite,
+                playerY
+            )
+        );
+
+
+    // =========================
+    // POSIÇÃO DO PERSONAGEM
+    // =========================
+
+    player.style.left =
+        playerX + "px";
+
+    player.style.top =
+        playerY + "px";
+
+
+    // =========================
+    // CÂMERA
+    // =========================
+
+    const telaX =
+        window.innerWidth / 2;
+
+    const telaY =
+        window.innerHeight / 2;
+
+
+    gameWorld.style.transform =
+        `translate(
+            ${telaX - playerX}px,
+            ${telaY - playerY}px
+        )`;
+
+
+    requestAnimationFrame(
+        atualizarMovimento
+    );
+
+}
+
+
+atualizarMovimento();
+    
     // ==================================================
     // RELÂMPAGO
     // ==================================================
