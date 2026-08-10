@@ -76,11 +76,11 @@ TELA NICKNAME
 
 
         <input 
-        type="text"
-        id="playerName"
-        maxlength="16"
-        placeholder="Seu nome">
-
+            type="text"
+            id="playerName"
+            maxlength="16"
+            placeholder="Seu nome"
+        >
 
 
         <div class="screenButtons">
@@ -91,7 +91,7 @@ TELA NICKNAME
             </button>
 
 
-            <button id="continueToGender">
+            <button id="continueToCharacter">
                 CONTINUAR
             </button>
 
@@ -108,101 +108,55 @@ TELA NICKNAME
 
 
 <!-- ======================
-TELA ESCOLHA DE GÊNERO
+TELA ESCOLHA DE PERSONAGEM
 ====================== -->
 
+<div id="characterSelectScreen">
 
-<div id="genderScreen">
-
-
-    <div id="genderFog"></div>
+    <div id="characterSelectFog"></div>
 
 
-    <div id="genderPanel">
+    <div id="characterSelectPanel">
 
 
         <h2>
-            Escolha seu gênero
-        </h2>
-
-
-
-        <button class="genderButton" id="male">
-
-            Masculino
-
-        </button>
-
-
-
-        <button class="genderButton" id="female">
-
-            Feminino
-
-        </button>
-
-
-
-
-        <div class="screenButtons">
-
-
-            <button id="backGender">
-
-                VOLTAR
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
-
-</div>
-
-
-
-
-
-<!-- ======================
-CRIAR PERSONAGEM
-====================== -->
-
-
-<div id="characterScreen">
-
-
-    <div id="characterPanel">
-
-
-        <h2>
-            Personalizar Personagem
+            Escolha seu personagem
         </h2>
 
 
         <p>
-            Escolha cabelo, roupa e aparência
+            Escolha o personagem que irá explorar a floresta
         </p>
 
+
+        <div id="characterCard">
+
+
+            <img
+                src="sprites/parado.png"
+                alt="Personagem"
+                id="characterPreview"
+            >
+
+
+            <div id="characterName">
+                Personagem
+            </div>
+
+
+        </div>
 
 
         <div class="screenButtons">
 
 
             <button id="backCharacter">
-
                 VOLTAR
-
             </button>
 
 
-
             <button id="finishCharacter">
-
                 CONTINUAR
-
             </button>
 
 
@@ -210,7 +164,6 @@ CRIAR PERSONAGEM
 
 
     </div>
-
 
 </div>
 
@@ -221,7 +174,6 @@ CRIAR PERSONAGEM
 <!-- ======================
 TELA DO JOGO
 ====================== -->
-
 
 <div id="gameScreen">
 
@@ -236,7 +188,6 @@ TELA DO JOGO
 CONFIGURAÇÕES
 ====================== -->
 
-
 <div id="settingsScreen">
 
 
@@ -244,23 +195,17 @@ CONFIGURAÇÕES
 
 
         <button class="settingOption" data-page="som">
-
             SOM
-
         </button>
 
 
         <button class="settingOption" data-page="imagem">
-
             IMAGEM
-
         </button>
 
 
         <button class="settingOption" data-page="controles">
-
             CONTROLES
-
         </button>
 
 
@@ -273,16 +218,12 @@ CONFIGURAÇÕES
 
 
         <h2>
-
             CONFIGURAÇÕES
-
         </h2>
 
 
         <div id="settingInfo">
-
             Selecione uma opção
-
         </div>
 
 
@@ -292,9 +233,7 @@ CONFIGURAÇÕES
 
 
     <button id="backSettings">
-
         VOLTAR
-
     </button>
 
 
@@ -307,7 +246,6 @@ CONFIGURAÇÕES
 <!-- ======================
 TELA DE TRANSIÇÃO
 ====================== -->
-
 
 <div id="transitionScreen">
 
@@ -337,5 +275,4 @@ TELA DE TRANSIÇÃO
 
 </body>
 
-
-    </html>
+</html>
