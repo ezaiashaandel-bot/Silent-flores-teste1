@@ -1,206 +1,127 @@
+```css
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-
 body{
-
     width:100vw;
     height:100vh;
-
     overflow:hidden;
-
     background:#000;
-
     font-family:"Trebuchet MS", sans-serif;
-
 }
-
 
 /* ======================
 MENU INICIAL
 ====================== */
 
 #menu{
-
     position:relative;
-
     width:100%;
     height:100vh;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
     overflow:hidden;
-
 }
-
 
 #background{
-
     position:absolute;
-
     inset:0;
-
     background-image:url("imagens/fundo.png");
-
     background-size:cover;
-
     background-position:center;
-
     z-index:0;
-
 }
-
 
 #nevoa{
-
     position:absolute;
-
     inset:0;
-
     background:rgba(0,0,0,.45);
-
     z-index:1;
-
     pointer-events:none;
-
 }
-
 
 #lightning{
-
     position:absolute;
-
     inset:0;
-
     pointer-events:none;
-
     opacity:0;
-
     z-index:2;
-
 }
-
 
 /* ======================
 TÍTULO
 ====================== */
 
 h1{
-
     position:relative;
-
     z-index:3;
-
     font-family:"Nosifer",cursive;
-
     font-size:80px;
-
     color:#c40000;
-
     letter-spacing:5px;
-
     text-align:center;
 
     text-shadow:
         0 0 10px #ff0000,
         0 0 25px #8b0000;
-
 }
-
 
 /* ======================
 BOTÕES
 ====================== */
 
 button{
-
     cursor:pointer;
-
     font-weight:bold;
-
 }
-
-
-/* ======================
-BOTÕES PRINCIPAIS
-====================== */
 
 #start,
 #config{
-
     position:relative;
-
     z-index:3;
-
     width:260px;
-
     padding:16px;
-
     margin-top:15px;
 
     background:rgba(20,20,20,.85);
-
     color:white;
 
     border:2px solid #8b0000;
-
     border-radius:12px;
 
     font-size:22px;
-
     letter-spacing:3px;
 
     transition:.3s;
-
 }
-
 
 #start:hover,
 #config:hover{
-
     background:#8b0000;
-
     box-shadow:0 0 20px #8b0000;
-
     transform:scale(1.05);
-
 }
-
 
 /* ======================
 TELA NICKNAME
 ====================== */
 
 #nicknameScreen{
-
     display:none;
-
     position:absolute;
-
     inset:0;
-
     background:#000;
-
     overflow:hidden;
-
     z-index:15;
-
 }
 
-
 #nicknameFog{
-
     position:absolute;
-
     inset:0;
 
     background:
@@ -217,13 +138,9 @@ TELA NICKNAME
         );
 
     animation:fogMove 18s ease-in-out infinite;
-
     opacity:.8;
-
     pointer-events:none;
-
 }
-
 
 @keyframes fogMove{
 
@@ -238,101 +155,68 @@ TELA NICKNAME
     100%{
         transform:translateX(-60px);
     }
-
 }
 
-
 #nicknamePanel{
-
     position:absolute;
-
     top:50%;
-
     left:50%;
-
     transform:translate(-50%,-50%);
 
     width:420px;
-
     padding:35px;
 
     background:rgba(20,20,20,.92);
 
     border:2px solid #8b0000;
-
     border-radius:15px;
 
     text-align:center;
-
     z-index:2;
-
 }
-
 
 #nicknamePanel h2{
-
     font-family:"Nosifer",cursive;
-
     color:#c40000;
-
     text-shadow:0 0 15px red;
-
     margin-bottom:20px;
-
 }
-
 
 #nicknamePanel p{
-
     color:white;
-
     font-size:20px;
-
     margin-bottom:15px;
-
 }
 
-
 #playerName{
-
     width:100%;
-
     padding:15px;
 
     font-size:20px;
 
     border:none;
-
     border-radius:8px;
 
     margin-bottom:25px;
 
     background:#222;
-
     color:white;
 
     outline:none;
-
 }
-
 
 #playerName:focus{
-
     box-shadow:0 0 12px #8b0000;
-
 }
-
 
 /* ======================
 TELA ESCOLHA PERSONAGEM
 ====================== */
 
 #characterSelectScreen{
-
     display:none;
 
     position:absolute;
-
     inset:0;
 
     background:#000;
@@ -340,14 +224,10 @@ TELA ESCOLHA PERSONAGEM
     overflow:hidden;
 
     z-index:17;
-
 }
 
-
 #characterSelectFog{
-
     position:absolute;
-
     inset:0;
 
     background:
@@ -366,22 +246,17 @@ TELA ESCOLHA PERSONAGEM
     animation:fogMove 18s ease-in-out infinite;
 
     pointer-events:none;
-
 }
 
-
 #characterSelectPanel{
-
     position:absolute;
 
     top:50%;
-
     left:50%;
 
     transform:translate(-50%,-50%);
 
     width:520px;
-
     min-height:620px;
 
     padding:35px;
@@ -389,7 +264,6 @@ TELA ESCOLHA PERSONAGEM
     background:rgba(20,20,20,.94);
 
     border:2px solid #8b0000;
-
     border-radius:15px;
 
     text-align:center;
@@ -397,56 +271,39 @@ TELA ESCOLHA PERSONAGEM
     z-index:2;
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
 }
 
-
 #characterSelectPanel h2{
-
     font-family:"Nosifer",cursive;
-
     color:#c40000;
 
     text-shadow:0 0 15px red;
 
     margin-bottom:15px;
-
 }
-
 
 #characterSelectPanel p{
-
     color:white;
-
     font-size:17px;
-
     margin-bottom:20px;
-
 }
-
 
 /* ======================
 CARD PERSONAGEM
 ====================== */
 
 #characterCard{
-
     position:relative;
 
     width:300px;
-
     height:390px;
 
     display:flex;
-
     flex-direction:column;
 
     justify-content:flex-end;
-
     align-items:center;
 
     background:
@@ -457,7 +314,6 @@ CARD PERSONAGEM
         );
 
     border:2px solid #4d0000;
-
     border-radius:15px;
 
     cursor:pointer;
@@ -469,16 +325,12 @@ CARD PERSONAGEM
         background .3s ease;
 
     overflow:hidden;
-
 }
 
-
 #characterCard::before{
-
     content:"";
 
     position:absolute;
-
     inset:0;
 
     background:
@@ -493,45 +345,51 @@ CARD PERSONAGEM
     transition:opacity .3s ease;
 
     pointer-events:none;
-
 }
 
-
 /* ======================
-SPRITE
-660x167
-4 SPRITES
-====================== */
+PREVIEW DO PERSONAGEM
+======================
+
+PARADO.PNG
+660 x 167
+4 FRAMES
+
+Cada frame:
+165 x 167
+*/
 
 #characterPreview{
 
-    width:330px;
-
-    height:334px;
+    width:165px;
+    height:167px;
 
     background-image:url("sprites/parado.png");
 
     background-repeat:no-repeat;
 
-    background-position:left center;
+    background-position:0 0;
 
-    background-size:1320px 334px;
+    background-size:660px 167px;
 
     image-rendering:pixelated;
+
+    transform:scale(1.8);
+
+    transform-origin:center center;
+
+    margin-bottom:70px;
 
     transition:
         transform .35s ease,
         filter .35s ease;
-
 }
-
 
 /* ======================
 EFEITO MOUSE
 ====================== */
 
 #characterCard:hover{
-
     transform:scale(1.04);
 
     border-color:#c40000;
@@ -539,36 +397,31 @@ EFEITO MOUSE
     box-shadow:
         0 0 10px #8b0000,
         0 0 30px rgba(139,0,0,.6);
-
 }
-
 
 #characterCard:hover::before{
-
     opacity:1;
-
 }
 
-
 #characterCard:hover #characterPreview{
-
-    transform:scale(1.08);
+    transform:scale(1.95);
 
     filter:
         drop-shadow(
             0 0 8px rgba(255,0,0,.65)
         );
-
 }
-
 
 /* ======================
 NOME
 ====================== */
 
 #characterName{
+    position:absolute;
 
-    position:relative;
+    bottom:0;
+
+    left:0;
 
     z-index:3;
 
@@ -585,16 +438,13 @@ NOME
     letter-spacing:2px;
 
     border-top:1px solid #4d0000;
-
 }
-
 
 /* ======================
 SELECIONADO
 ====================== */
 
 #characterCard.selected{
-
     transform:scale(1.06);
 
     border-color:#ff0000;
@@ -602,35 +452,25 @@ SELECIONADO
     box-shadow:
         0 0 15px #8b0000,
         0 0 40px rgba(196,0,0,.7);
-
 }
-
 
 #characterCard.selected::before{
-
     opacity:1;
-
 }
 
-
 #characterCard.selected #characterPreview{
-
     filter:
         drop-shadow(
             0 0 12px rgba(255,0,0,.9)
         );
-
 }
 
-
 #characterCard.selected::after{
-
     content:"SELECIONADO";
 
     position:absolute;
 
     top:12px;
-
     left:50%;
 
     transform:translateX(-50%);
@@ -652,20 +492,16 @@ SELECIONADO
     letter-spacing:2px;
 
     box-shadow:0 0 12px #8b0000;
-
 }
-
 
 /* ======================
 TELA PC / CELULAR
 ====================== */
 
 #platformScreen{
-
     display:none;
 
     position:absolute;
-
     inset:0;
 
     background:#000;
@@ -673,14 +509,10 @@ TELA PC / CELULAR
     overflow:hidden;
 
     z-index:18;
-
 }
 
-
 #platformFog{
-
     position:absolute;
-
     inset:0;
 
     background:
@@ -699,39 +531,30 @@ TELA PC / CELULAR
     animation:fogMove 18s ease-in-out infinite;
 
     pointer-events:none;
-
 }
 
-
 #platformPanel{
-
     position:absolute;
 
     top:50%;
-
     left:50%;
 
     transform:translate(-50%,-50%);
 
     width:650px;
-
     padding:40px;
 
     background:rgba(20,20,20,.94);
 
     border:2px solid #8b0000;
-
     border-radius:15px;
 
     text-align:center;
 
     z-index:2;
-
 }
 
-
 #platformPanel h2{
-
     font-family:"Nosifer",cursive;
 
     color:#c40000;
@@ -739,50 +562,36 @@ TELA PC / CELULAR
     text-shadow:0 0 15px red;
 
     margin-bottom:20px;
-
 }
-
 
 #platformPanel p{
-
     color:white;
-
     font-size:18px;
-
     margin-bottom:30px;
-
 }
-
 
 /* ======================
 BOTÕES PC / CELULAR
 ====================== */
 
 #platformButtons{
-
     display:flex;
 
     gap:20px;
 
     justify-content:center;
-
 }
 
-
 .platformButton{
-
     width:260px;
-
     min-height:220px;
 
     padding:25px 15px;
 
     background:#111;
-
     color:white;
 
     border:2px solid #4d0000;
-
     border-radius:15px;
 
     display:flex;
@@ -790,18 +599,14 @@ BOTÕES PC / CELULAR
     flex-direction:column;
 
     align-items:center;
-
     justify-content:center;
 
     gap:12px;
 
     transition:.3s;
-
 }
 
-
 .platformButton:hover{
-
     background:#8b0000;
 
     border-color:#ff0000;
@@ -811,51 +616,32 @@ BOTÕES PC / CELULAR
     box-shadow:
         0 0 15px #8b0000,
         0 0 30px rgba(139,0,0,.5);
-
 }
-
 
 .platformIcon{
-
     font-size:55px;
-
 }
-
 
 .platformTitle{
-
     font-size:25px;
-
     letter-spacing:3px;
-
 }
 
-
 .platformDescription{
-
     font-size:14px;
-
     line-height:1.7;
-
     color:#ddd;
-
 }
 
-
-.platformButton:hover
-.platformDescription{
-
+.platformButton:hover .platformDescription{
     color:white;
-
 }
-
 
 /* ======================
 BOTÕES DAS TELAS
 ====================== */
 
 .screenButtons{
-
     width:100%;
 
     display:flex;
@@ -865,12 +651,9 @@ BOTÕES DAS TELAS
     gap:15px;
 
     margin-top:25px;
-
 }
 
-
 .screenButtons button{
-
     flex:1;
 
     padding:15px;
@@ -880,115 +663,131 @@ BOTÕES DAS TELAS
     color:white;
 
     border:2px solid #8b0000;
-
     border-radius:10px;
 
     font-size:18px;
 
     transition:.3s;
-
 }
 
-
 .screenButtons button:hover{
-
     background:#8b0000;
 
     transform:scale(1.03);
 
     box-shadow:0 0 15px #8b0000;
-
 }
-
 
 /* ======================
 TELA DO JOGO
 ====================== */
 
 #gameScreen{
-
     display:none;
 
     position:absolute;
-
     inset:0;
 
-    background:#000;
-
-    z-index:10;
+    background:#3f7f35;
 
     overflow:hidden;
 
-    touch-action:none;
+    z-index:10;
 
+    touch-action:none;
 }
 
-
 /* ======================
-MAPA TEMPORÁRIO
+MUNDO DO JOGO
 ====================== */
 
 #gameWorld{
-
     position:absolute;
 
     width:3000px;
-
     height:3000px;
 
     left:0;
-
     top:0;
 
-    background:#315c2a;
+    background:#3f7f35;
 
+    overflow:hidden;
+
+    will-change:transform;
 }
 
+/* ======================
+PERSONAGEM
+======================
+
+O JS vai trocar dinamicamente:
+
+parado.png
+correr_frente.png
+correr_atras.png
+correr_direita.png
+correr_esquerda.png
+
+e futuramente:
+
+pegar_item.png
+
+correr_graveto_*.png
+*/
 
 #player{
 
     position:absolute;
 
-    width:40px;
+    width:165px;
+    height:167px;
 
-    height:40px;
+    left:1500px;
+    top:1500px;
 
-    left:1480px;
+    background-image:url("sprites/parado.png");
 
-    top:1480px;
+    background-repeat:no-repeat;
 
+    background-position:0 0;
+
+    background-size:660px 167px;
+
+    image-rendering:pixelated;
+
+    z-index:10;
+
+    pointer-events:none;
+
+    will-change:
+        left,
+        top,
+        background-position;
 }
-
 
 /* ======================
 CONTROLES CELULAR
 ====================== */
 
 #mobileControls{
-
     display:none;
 
     position:absolute;
-
     inset:0;
 
     z-index:50;
 
     pointer-events:none;
-
 }
 
-
 #joystick{
-
     position:absolute;
 
     left:35px;
-
     bottom:35px;
 
     width:130px;
-
     height:130px;
 
     border-radius:50%;
@@ -1000,20 +799,15 @@ CONTROLES CELULAR
     pointer-events:auto;
 
     touch-action:none;
-
 }
 
-
 #joystickKnob{
-
     position:absolute;
 
     width:58px;
-
     height:58px;
 
     left:50%;
-
     top:50%;
 
     transform:translate(-50%,-50%);
@@ -1023,16 +817,12 @@ CONTROLES CELULAR
     background:rgba(255,255,255,.35);
 
     border:2px solid rgba(255,255,255,.6);
-
 }
 
-
 #mobileActionButtons{
-
     position:absolute;
 
     right:30px;
-
     bottom:35px;
 
     display:flex;
@@ -1040,14 +830,10 @@ CONTROLES CELULAR
     gap:15px;
 
     pointer-events:auto;
-
 }
 
-
 #mobileActionButtons button{
-
     width:75px;
-
     height:75px;
 
     border-radius:50%;
@@ -1060,26 +846,21 @@ CONTROLES CELULAR
 
     font-size:12px;
 
+    touch-action:none;
 }
-
 
 #mobileActionButtons button:active{
-
     background:#8b0000;
-
 }
-
 
 /* ======================
 CONFIGURAÇÕES
 ====================== */
 
 #settingsScreen{
-
     display:none;
 
     position:absolute;
-
     inset:0;
 
     background:#000;
@@ -1087,16 +868,12 @@ CONFIGURAÇÕES
     color:white;
 
     z-index:20;
-
 }
 
-
 #settingsSide{
-
     position:absolute;
 
     right:50px;
-
     top:50%;
 
     transform:translateY(-50%);
@@ -1106,12 +883,9 @@ CONFIGURAÇÕES
     flex-direction:column;
 
     gap:20px;
-
 }
 
-
 .settingOption{
-
     width:220px;
 
     padding:15px;
@@ -1125,59 +899,41 @@ CONFIGURAÇÕES
     border-radius:10px;
 
     font-size:20px;
-
 }
-
 
 .settingOption:hover,
 .settingOption.ativo{
-
     background:#8b0000;
-
 }
 
-
 #settingsContent{
-
     position:absolute;
 
     top:50%;
-
     left:50%;
 
     transform:translate(-50%,-50%);
 
     text-align:center;
-
 }
 
-
 #settingsContent h2{
-
     font-family:"Nosifer",cursive;
 
     color:#c40000;
 
     font-size:40px;
-
 }
-
 
 #settingInfo{
-
     margin-top:35px;
-
     font-size:22px;
-
 }
 
-
 #backSettings{
-
     position:absolute;
 
     bottom:40px;
-
     left:50%;
 
     transform:translateX(-50%);
@@ -1193,27 +949,20 @@ CONFIGURAÇÕES
     border:2px solid #8b0000;
 
     border-radius:10px;
-
 }
 
-
 input[type="range"]{
-
     width:300px;
-
     height:8px;
 
     accent-color:#8b0000;
-
 }
-
 
 /* ======================
 TRANSIÇÃO
 ====================== */
 
 #transitionScreen{
-
     position:fixed;
 
     inset:0;
@@ -1227,29 +976,21 @@ TRANSIÇÃO
     z-index:9999;
 
     transition:.6s;
-
 }
-
 
 #transitionScreen.show{
-
     display:block;
-
     opacity:1;
-
 }
-
 
 /* ======================
 LOADING
 ====================== */
 
 #loading{
-
     position:absolute;
 
     left:40px;
-
     bottom:40px;
 
     display:flex;
@@ -1263,14 +1004,10 @@ LOADING
     font-size:20px;
 
     font-weight:bold;
-
 }
 
-
 #loadingCircle{
-
     width:35px;
-
     height:35px;
 
     border-radius:50%;
@@ -1280,9 +1017,7 @@ LOADING
     border-top:4px solid #8b0000;
 
     animation:loadingRotate 1s linear infinite;
-
 }
-
 
 @keyframes loadingRotate{
 
@@ -1296,7 +1031,6 @@ LOADING
 
 }
 
-
 /* ======================
 RESPONSIVO
 ====================== */
@@ -1304,157 +1038,63 @@ RESPONSIVO
 @media (max-width:700px){
 
     h1{
-
         font-size:45px;
-
     }
-
 
     #nicknamePanel{
-
         width:90%;
-
         padding:25px;
-
     }
-
 
     #characterSelectPanel{
-
         width:92%;
-
         min-height:auto;
-
         padding:25px;
-
     }
-
 
     #characterCard{
-
         width:260px;
-
         height:340px;
-
     }
-
 
     #characterPreview{
-
-        transform:scale(.85);
-
+        transform:scale(1.5);
+        margin-bottom:65px;
     }
 
+    #characterCard:hover #characterPreview{
+        transform:scale(1.6);
+    }
 
     #platformPanel{
-
         width:92%;
-
         padding:25px;
-
     }
-
 
     #platformButtons{
-
         flex-direction:column;
-
         align-items:center;
-
     }
-
 
     .platformButton{
-
         width:100%;
-
         max-width:300px;
-
         min-height:150px;
-
     }
-
 
     #platformPanel .screenButtons{
-
         margin-top:20px;
-
     }
 
-/* ======================
-JOGO - PERSONAGEM
-====================== */
+    #joystick{
+        left:25px;
+        bottom:25px;
+    }
 
-#gameScreen{
-
-    display:none;
-
-    position:absolute;
-
-    inset:0;
-
-    background:#3f7f35;
-
-    overflow:hidden;
-
-    z-index:10;
-
-    touch-action:none;
+    #mobileActionButtons{
+        right:20px;
+        bottom:25px;
+    }
 
 }
-
-
-/* ======================
-MUNDO TEMPORÁRIO
-====================== */
-
-#gameWorld{
-
-    position:absolute;
-
-    width:3000px;
-
-    height:3000px;
-
-    left:0;
-
-    top:0;
-
-    background:#3f7f35;
-
-    overflow:hidden;
-
-    transform-origin:0 0;
-
-}
-
-
-/* ======================
-PERSONAGEM
-====================== */
-
-#player{
-
-    position:absolute;
-
-    width:165px;
-
-    height:167px;
-
-    left:1500px;
-
-    top:1500px;
-
-    background-image:url("sprites/parado.png");
-
-    background-repeat:no-repeat;
-
-    background-position:0 0;
-
-    background-size:660px 167px;
-
-    image-rendering:pixelated;
-
-    z-index:10;
-
-}
+```
