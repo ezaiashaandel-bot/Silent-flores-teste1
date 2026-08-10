@@ -7,45 +7,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("Silent Forest: JS carregado!");
 
-
-
     // ==================================================
     // SONS
     // ==================================================
 
-    const clickSound =
-        new Audio("sons/click.mp3");
-
-    const transitionSound =
-        new Audio("sons/transicao.mp3");
-
-    const rainSound =
-        new Audio("sons/chuva.mp3");
-
-    const thunderSound =
-        new Audio("sons/trovao.mp3");
-
+    const clickSound = new Audio("sons/click.mp3");
+    const transitionSound = new Audio("sons/transicao.mp3");
+    const rainSound = new Audio("sons/chuva.mp3");
+    const thunderSound = new Audio("sons/trovao.mp3");
 
     rainSound.loop = true;
-
 
 
     // ==================================================
     // VOLUMES
     // ==================================================
 
-    let volumes =
-        JSON.parse(
-            localStorage.getItem("volumes")
-        ) || {
-
-            geral: 100,
-            click: 50,
-            transicao: 70,
-            chuva: 35,
-            trova: 80
-
-        };
+    let volumes = JSON.parse(
+        localStorage.getItem("volumes")
+    ) || {
+        geral: 100,
+        click: 50,
+        transicao: 70,
+        chuva: 35,
+        trova: 80
+    };
 
 
     function atualizarVolumes() {
@@ -54,32 +40,26 @@ document.addEventListener("DOMContentLoaded", () => {
             (volumes.click / 100) *
             (volumes.geral / 100);
 
-
         transitionSound.volume =
             (volumes.transicao / 100) *
             (volumes.geral / 100);
-
 
         rainSound.volume =
             (volumes.chuva / 100) *
             (volumes.geral / 100);
 
-
         thunderSound.volume =
             (volumes.trova / 100) *
             (volumes.geral / 100);
-
 
         localStorage.setItem(
             "volumes",
             JSON.stringify(volumes)
         );
-
     }
 
 
     atualizarVolumes();
-
 
 
     // ==================================================
@@ -96,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("menu");
 
 
-
     // NICKNAME
 
     const nicknameScreen =
@@ -110,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const continueToCharacter =
         document.getElementById("continueToCharacter");
-
 
 
     // PERSONAGEM
@@ -134,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("finishCharacter");
 
 
-
     // PLATAFORMA
 
     const platformScreen =
@@ -150,15 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("backPlatform");
 
 
-
     // JOGO
 
     const gameScreen =
         document.getElementById("gameScreen");
 
+    const gameWorld =
+        document.getElementById("gameWorld");
+
+    const player =
+        document.getElementById("player");
+
     const mobileControls =
         document.getElementById("mobileControls");
-
 
 
     // JOYSTICK
@@ -176,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("interactButton");
 
 
-
     // CONFIGURAÇÕES
 
     const settingsScreen =
@@ -192,12 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("settingInfo");
 
 
-
     // TRANSIÇÃO
 
     const transitionScreen =
         document.getElementById("transitionScreen");
-
 
 
     // FUNDO
@@ -206,12 +184,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("background");
 
 
-
     // RELÂMPAGO
 
     const lightning =
         document.getElementById("lightning");
-
 
 
     // ==================================================
@@ -224,11 +200,23 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.getItem("platform") || null;
 
     let joystickX = 0;
-
     let joystickY = 0;
-
     let joystickAtivo = false;
 
+    let correndo = false;
+
+    const teclas = {};
+
+
+    // ==================================================
+    // POSIÇÃO DO PERSONAGEM
+    // ==================================================
+
+    let playerX = 1500;
+    let playerY = 1500;
+
+    const velocidadeNormal = 3;
+    const velocidadeCorrendo = 6;
 
 
     // ==================================================
@@ -244,10 +232,11 @@ document.addEventListener("DOMContentLoaded", () => {
             characterSelectScreen,
             platformScreen,
             gameScreen,
-            settingsScreen
+            settingsScreen,
+            player,
+            gameWorld
         }
     );
-
 
 
     // ==================================================
@@ -272,9 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener(
         "click",
         iniciarChuva,
-        { once:true }
+        { once: true }
     );
-
 
 
     // ==================================================
@@ -315,7 +303,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-
     // ==================================================
     // CONFIGURAÇÕES
     // ==================================================
@@ -344,7 +331,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     options.forEach(option => {
 
         option.onclick = () => {
@@ -361,7 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const page =
                 option.dataset.page;
-
 
 
             // ==========================================
@@ -471,7 +456,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     const barra =
                         document.getElementById(id);
 
-
                     if (!barra) return;
 
 
@@ -479,7 +463,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         volumes[id] =
                             Number(barra.value);
-
 
                         atualizarVolumes();
 
@@ -504,7 +487,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
             }
-
 
 
             // ==========================================
@@ -584,7 +566,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-
             // ==========================================
             // CONTROLES
             // ==========================================
@@ -626,7 +607,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
     // ==================================================
     // TRANSIÇÃO
     // ==================================================
@@ -637,7 +617,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         transitionSound.currentTime = 0;
-
 
         transitionSound
             .play()
@@ -660,7 +639,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     // ==================================================
     // JOGAR → NICKNAME
     // ==================================================
@@ -674,7 +652,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 menu.style.display =
                     "none";
 
-
                 nicknameScreen.style.display =
                     "block";
 
@@ -683,7 +660,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -699,7 +675,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 nicknameScreen.style.display =
                     "none";
 
-
                 menu.style.display =
                     "flex";
 
@@ -708,7 +683,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -745,7 +719,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 nicknameScreen.style.display =
                     "none";
 
-
                 characterSelectScreen.style.display =
                     "block";
 
@@ -754,7 +727,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -807,7 +779,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     // ==================================================
     // PERSONAGEM → NICKNAME
     // ==================================================
@@ -821,7 +792,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 characterSelectScreen.style.display =
                     "none";
 
-
                 nicknameScreen.style.display =
                     "block";
 
@@ -830,7 +800,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -857,7 +826,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 characterSelectScreen.style.display =
                     "none";
 
-
                 platformScreen.style.display =
                     "block";
 
@@ -866,7 +834,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -884,7 +851,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     // ==================================================
     // PLATAFORMA → CELULAR
     // ==================================================
@@ -898,7 +864,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -922,17 +887,19 @@ document.addEventListener("DOMContentLoaded", () => {
             platformScreen.style.display =
                 "none";
 
-
             gameScreen.style.display =
                 "block";
 
 
             configurarControles();
 
+            // Reposiciona o personagem
+            playerX = 1500;
+            playerY = 1500;
+
         });
 
     }
-
 
 
     // ==================================================
@@ -948,7 +915,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 platformScreen.style.display =
                     "none";
 
-
                 characterSelectScreen.style.display =
                     "block";
 
@@ -957,7 +923,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
     }
-
 
 
     // ==================================================
@@ -987,12 +952,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     // ==================================================
     // JOYSTICK
     // ==================================================
 
-    function atualizarJoystick(touchX, touchY) {
+    function atualizarJoystick(
+        touchX,
+        touchY
+    ) {
+
+        if (!joystick) return;
+
 
         const rect =
             joystick.getBoundingClientRect();
@@ -1061,19 +1031,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     function resetarJoystick() {
 
         joystickX = 0;
-
         joystickY = 0;
 
 
-        joystickKnob.style.transform =
-            "translate(-50%,-50%)";
+        if (joystickKnob) {
+
+            joystickKnob.style.transform =
+                "translate(-50%,-50%)";
+
+        }
 
     }
-
 
 
     if (joystick) {
@@ -1097,7 +1068,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             },
-            { passive:false }
+            { passive: false }
         );
 
 
@@ -1122,7 +1093,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             },
-            { passive:false }
+            { passive: false }
         );
 
 
@@ -1137,20 +1108,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 resetarJoystick();
 
             },
-            { passive:false }
+            { passive: false }
         );
 
     }
 
 
-
     // ==================================================
-    // BOTÃO CORRER
+    // BOTÃO CORRER — CELULAR
     // ==================================================
-
-    let correndo =
-        false;
-
 
     if (runButton) {
 
@@ -1166,7 +1132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "#8b0000";
 
             },
-            { passive:false }
+            { passive: false }
         );
 
 
@@ -1182,11 +1148,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     "rgba(20,20,20,.8)";
 
             },
-            { passive:false }
+            { passive: false }
         );
 
     }
-
 
 
     // ==================================================
@@ -1206,20 +1171,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             },
-            { passive:false }
+            { passive: false }
         );
 
     }
 
 
-
     // ==================================================
     // CONTROLES PC
     // ==================================================
-
-    const teclas =
-        {};
-
 
     document.addEventListener(
         "keydown",
@@ -1231,8 +1191,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ) return;
 
 
-            teclas[event.key.toLowerCase()] =
-                true;
+            teclas[
+                event.key.toLowerCase()
+            ] = true;
 
 
             if (
@@ -1243,7 +1204,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 correndo = true;
 
             }
-
 
         }
     );
@@ -1259,8 +1219,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ) return;
 
 
-            teclas[event.key.toLowerCase()] =
-                false;
+            teclas[
+                event.key.toLowerCase()
+            ] = false;
 
 
             if (
@@ -1276,164 +1237,183 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-// ==================================================
-// MOVIMENTO DO PERSONAGEM + CÂMERA
-// ==================================================
+    // ==================================================
+    // MOVIMENTO + CÂMERA
+    // ==================================================
 
-const player =
-    document.getElementById("player");
+    function atualizarMovimento() {
 
-const gameWorld =
-    document.getElementById("gameWorld");
-
-let playerX = 1500;
-let playerY = 1500;
-
-let velocidadeNormal = 3;
-let velocidadeCorrendo = 6;
-
-
-// Movimento do personagem
-function atualizarMovimento() {
-
-    if (!gameScreen) return;
-
-    if (gameScreen.style.display !== "block") {
-        requestAnimationFrame(atualizarMovimento);
-        return;
-    }
-
-
-    let velocidade =
-        correndo
-            ? velocidadeCorrendo
-            : velocidadeNormal;
-
-
-    let movimentoX = 0;
-    let movimentoY = 0;
-
-
-    // =========================
-    // CELULAR
-    // =========================
-
-    if (
-        plataformaSelecionada ===
-        "mobile"
-    ) {
-
-        movimentoX = joystickX;
-        movimentoY = joystickY;
-
-    }
-
-
-    // =========================
-    // PC
-    // =========================
-
-    if (
-        plataformaSelecionada ===
-        "pc"
-    ) {
-
-        if (teclas["w"]) {
-            movimentoY -= 1;
-        }
-
-        if (teclas["s"]) {
-            movimentoY += 1;
-        }
-
-        if (teclas["a"]) {
-            movimentoX -= 1;
-        }
-
-        if (teclas["d"]) {
-            movimentoX += 1;
-        }
-
-    }
-
-
-    // =========================
-    // MOVIMENTO
-    // =========================
-
-    playerX +=
-        movimentoX *
-        velocidade;
-
-    playerY +=
-        movimentoY *
-        velocidade;
-
-
-    // =========================
-    // LIMITES TEMPORÁRIOS
-    // =========================
-
-    const limite =
-        1500 - 20;
-
-    playerX =
-        Math.max(
-            -limite,
-            Math.min(
-                3000 + limite,
-                playerX
-            )
-        );
-
-    playerY =
-        Math.max(
-            -limite,
-            Math.min(
-                3000 + limite,
-                playerY
-            )
+        requestAnimationFrame(
+            atualizarMovimento
         );
 
 
-    // =========================
-    // POSIÇÃO DO PERSONAGEM
-    // =========================
-
-    player.style.left =
-        playerX + "px";
-
-    player.style.top =
-        playerY + "px";
+        if (!gameScreen || !player)
+            return;
 
 
-    // =========================
-    // CÂMERA
-    // =========================
-
-    const telaX =
-        window.innerWidth / 2;
-
-    const telaY =
-        window.innerHeight / 2;
+        if (
+            gameScreen.style.display !==
+            "block"
+        ) return;
 
 
-    gameWorld.style.transform =
-        `translate(
-            ${telaX - playerX}px,
-            ${telaY - playerY}px
-        )`;
+        let movimentoX = 0;
+        let movimentoY = 0;
 
 
-    requestAnimationFrame(
-        atualizarMovimento
-    );
+        // ==============================================
+        // CELULAR
+        // ==============================================
 
-}
+        if (
+            plataformaSelecionada ===
+            "mobile"
+        ) {
+
+            movimentoX =
+                joystickX;
+
+            movimentoY =
+                joystickY;
+
+        }
 
 
-atualizarMovimento();
-    
+        // ==============================================
+        // PC
+        // ==============================================
+
+        if (
+            plataformaSelecionada ===
+            "pc"
+        ) {
+
+            if (teclas["w"])
+                movimentoY -= 1;
+
+            if (teclas["s"])
+                movimentoY += 1;
+
+            if (teclas["a"])
+                movimentoX -= 1;
+
+            if (teclas["d"])
+                movimentoX += 1;
+
+        }
+
+
+        // ==============================================
+        // EVITA VELOCIDADE MAIOR NA DIAGONAL
+        // ==============================================
+
+        const tamanho =
+            Math.sqrt(
+                movimentoX * movimentoX +
+                movimentoY * movimentoY
+            );
+
+
+        if (tamanho > 1) {
+
+            movimentoX /= tamanho;
+            movimentoY /= tamanho;
+
+        }
+
+
+        // ==============================================
+        // VELOCIDADE
+        // ==============================================
+
+        const velocidade =
+            correndo
+                ? velocidadeCorrendo
+                : velocidadeNormal;
+
+
+        // ==============================================
+        // MOVIMENTO
+        // ==============================================
+
+        playerX +=
+            movimentoX *
+            velocidade;
+
+
+        playerY +=
+            movimentoY *
+            velocidade;
+
+
+        // ==============================================
+        // LIMITES DO MAPA
+        // ==============================================
+
+        const limiteX =
+            3000 - 165;
+
+        const limiteY =
+            3000 - 167;
+
+
+        playerX =
+            Math.max(
+                0,
+                Math.min(
+                    limiteX,
+                    playerX
+                )
+            );
+
+
+        playerY =
+            Math.max(
+                0,
+                Math.min(
+                    limiteY,
+                    playerY
+                )
+            );
+
+
+        // ==============================================
+        // POSIÇÃO DO PERSONAGEM
+        // ==============================================
+
+        player.style.left =
+            playerX + "px";
+
+
+        player.style.top =
+            playerY + "px";
+
+
+        // ==============================================
+        // CÂMERA
+        // ==============================================
+
+        const telaX =
+            window.innerWidth / 2;
+
+
+        const telaY =
+            window.innerHeight / 2;
+
+
+        gameWorld.style.transform =
+            `translate(
+                ${telaX - playerX}px,
+                ${telaY - playerY}px
+            )`;
+
+    }
+
+
+    atualizarMovimento();
+
+
     // ==================================================
     // RELÂMPAGO
     // ==================================================
@@ -1510,12 +1490,10 @@ atualizarMovimento();
     }
 
 
-    setInterval(() => {
-
-        relampago();
-
-    }, 15000);
-
+    setInterval(
+        relampago,
+        15000
+    );
 
 
     // ==================================================
@@ -1537,7 +1515,6 @@ atualizarMovimento();
             nomeSalvo;
 
     }
-
 
 
     // ==================================================
@@ -1578,58 +1555,44 @@ atualizarMovimento();
     }
 
 
+    // ==================================================
+    // CONFIGURAR PLATAFORMA SALVA
+    // ==================================================
+
+    if (
+        plataformaSelecionada === "mobile"
+    ) {
+
+        mobileControls.style.display =
+            "block";
+
+    } else {
+
+        mobileControls.style.display =
+            "none";
+
+    }
+
+
+    // ==================================================
+    // POSIÇÃO INICIAL
+    // ==================================================
+
+    if (player) {
+
+        player.style.left =
+            playerX + "px";
+
+        player.style.top =
+            playerY + "px";
+
+    }
+
 
     // ==================================================
     // FINAL
     // ==================================================
 
-    // ==================================================
-    // MOVIMENTO DO PERSONAGEM
-    // ==================================================
-
-    const player = document.getElementById("player");
-
-    let playerX = 1500;
-    let playerY = 1500;
-
-    let velocidade = 3;
-
-    function moverPersonagem() {
-
-        if (!player) return;
-
-        let movimentoX = joystickX;
-        let movimentoY = joystickY;
-
-        // CONTROLE PC
-        if (plataformaSelecionada === "pc") {
-
-            movimentoX = 0;
-            movimentoY = 0;
-
-            if (teclas["w"]) movimentoY -= 1;
-            if (teclas["s"]) movimentoY += 1;
-            if (teclas["a"]) movimentoX -= 1;
-            if (teclas["d"]) movimentoX += 1;
-
-        }
-
-        // CORRER
-        let velocidadeAtual =
-            correndo ? 6 : velocidade;
-
-        playerX += movimentoX * velocidadeAtual;
-        playerY += movimentoY * velocidadeAtual;
-
-        player.style.left = playerX + "px";
-        player.style.top = playerY + "px";
-
-        requestAnimationFrame(moverPersonagem);
-
-    }
-
-    moverPersonagem();
-    
     console.log(
         "Silent Forest carregado com sucesso!"
     );
