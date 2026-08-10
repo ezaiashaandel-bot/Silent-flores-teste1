@@ -118,7 +118,7 @@ h1{
 
 
 /* ======================
-BOTÕES PRINCIPAIS
+BOTÕES
 ====================== */
 
 button{
@@ -129,6 +129,10 @@ button{
 
 }
 
+
+/* ======================
+BOTÕES PRINCIPAIS
+====================== */
 
 #start,
 #config{
@@ -320,10 +324,10 @@ TELA NICKNAME
 
 
 /* ======================
-TELA ESCOLHA DE PERSONAGEM
+TELA ESCOLHA PERSONAGEM
 ====================== */
 
-#characterScreen{
+#characterSelectScreen{
 
     display:none;
 
@@ -340,7 +344,33 @@ TELA ESCOLHA DE PERSONAGEM
 }
 
 
-#characterPanel{
+#characterSelectFog{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(255,255,255,.07),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 70% 70%,
+            rgba(255,255,255,.05),
+            transparent 45%
+        );
+
+    animation:fogMove 18s ease-in-out infinite;
+
+    pointer-events:none;
+
+}
+
+
+#characterSelectPanel{
 
     position:absolute;
 
@@ -375,7 +405,7 @@ TELA ESCOLHA DE PERSONAGEM
 }
 
 
-#characterPanel h2{
+#characterSelectPanel h2{
 
     font-family:"Nosifer",cursive;
 
@@ -388,7 +418,7 @@ TELA ESCOLHA DE PERSONAGEM
 }
 
 
-#characterPanel p{
+#characterSelectPanel p{
 
     color:white;
 
@@ -400,7 +430,7 @@ TELA ESCOLHA DE PERSONAGEM
 
 
 /* ======================
-CARD DO PERSONAGEM
+CARD PERSONAGEM
 ====================== */
 
 #characterCard{
@@ -433,7 +463,6 @@ CARD DO PERSONAGEM
     cursor:pointer;
 
     transition:
-
         transform .3s ease,
         border-color .3s ease,
         box-shadow .3s ease,
@@ -469,9 +498,9 @@ CARD DO PERSONAGEM
 
 
 /* ======================
-SPRITE DO PERSONAGEM
+SPRITE
 660x167
-4 sprites = 165x167
+4 SPRITES
 ====================== */
 
 #characterPreview{
@@ -491,16 +520,14 @@ SPRITE DO PERSONAGEM
     image-rendering:pixelated;
 
     transition:
-
         transform .35s ease,
-
         filter .35s ease;
 
 }
 
 
 /* ======================
-EFEITO AO PASSAR O MOUSE
+EFEITO MOUSE
 ====================== */
 
 #characterCard:hover{
@@ -510,7 +537,6 @@ EFEITO AO PASSAR O MOUSE
     border-color:#c40000;
 
     box-shadow:
-
         0 0 10px #8b0000,
         0 0 30px rgba(139,0,0,.6);
 
@@ -537,7 +563,7 @@ EFEITO AO PASSAR O MOUSE
 
 
 /* ======================
-NOME DO PERSONAGEM
+NOME
 ====================== */
 
 #characterName{
@@ -564,7 +590,7 @@ NOME DO PERSONAGEM
 
 
 /* ======================
-PERSONAGEM SELECIONADO
+SELECIONADO
 ====================== */
 
 #characterCard.selected{
@@ -574,7 +600,6 @@ PERSONAGEM SELECIONADO
     border-color:#ff0000;
 
     box-shadow:
-
         0 0 15px #8b0000,
         0 0 40px rgba(196,0,0,.7);
 
@@ -597,10 +622,6 @@ PERSONAGEM SELECIONADO
 
 }
 
-
-/* ======================
-INDICADOR SELECIONADO
-====================== */
 
 #characterCard.selected::after{
 
@@ -631,6 +652,200 @@ INDICADOR SELECIONADO
     letter-spacing:2px;
 
     box-shadow:0 0 12px #8b0000;
+
+}
+
+
+/* ======================
+TELA PC / CELULAR
+====================== */
+
+#platformScreen{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:#000;
+
+    overflow:hidden;
+
+    z-index:18;
+
+}
+
+
+#platformFog{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(255,255,255,.07),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,255,255,.05),
+            transparent 45%
+        );
+
+    animation:fogMove 18s ease-in-out infinite;
+
+    pointer-events:none;
+
+}
+
+
+#platformPanel{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:650px;
+
+    padding:40px;
+
+    background:rgba(20,20,20,.94);
+
+    border:2px solid #8b0000;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    z-index:2;
+
+}
+
+
+#platformPanel h2{
+
+    font-family:"Nosifer",cursive;
+
+    color:#c40000;
+
+    text-shadow:0 0 15px red;
+
+    margin-bottom:20px;
+
+}
+
+
+#platformPanel p{
+
+    color:white;
+
+    font-size:18px;
+
+    margin-bottom:30px;
+
+}
+
+
+/* ======================
+BOTÕES PC / CELULAR
+====================== */
+
+#platformButtons{
+
+    display:flex;
+
+    gap:20px;
+
+    justify-content:center;
+
+}
+
+
+.platformButton{
+
+    width:260px;
+
+    min-height:220px;
+
+    padding:25px 15px;
+
+    background:#111;
+
+    color:white;
+
+    border:2px solid #4d0000;
+
+    border-radius:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    transition:.3s;
+
+}
+
+
+.platformButton:hover{
+
+    background:#8b0000;
+
+    border-color:#ff0000;
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 15px #8b0000,
+        0 0 30px rgba(139,0,0,.5);
+
+}
+
+
+.platformIcon{
+
+    font-size:55px;
+
+}
+
+
+.platformTitle{
+
+    font-size:25px;
+
+    letter-spacing:3px;
+
+}
+
+
+.platformDescription{
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    color:#ddd;
+
+}
+
+
+.platformButton:hover
+.platformDescription{
+
+    color:white;
 
 }
 
@@ -701,6 +916,156 @@ TELA DO JOGO
     background:#000;
 
     z-index:10;
+
+    overflow:hidden;
+
+    touch-action:none;
+
+}
+
+
+/* ======================
+MAPA TEMPORÁRIO
+====================== */
+
+#gameWorld{
+
+    position:absolute;
+
+    width:3000px;
+
+    height:3000px;
+
+    left:0;
+
+    top:0;
+
+    background:#315c2a;
+
+}
+
+
+#player{
+
+    position:absolute;
+
+    width:40px;
+
+    height:40px;
+
+    left:1480px;
+
+    top:1480px;
+
+}
+
+
+/* ======================
+CONTROLES CELULAR
+====================== */
+
+#mobileControls{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:50;
+
+    pointer-events:none;
+
+}
+
+
+#joystick{
+
+    position:absolute;
+
+    left:35px;
+
+    bottom:35px;
+
+    width:130px;
+
+    height:130px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+
+    border:2px solid rgba(255,255,255,.3);
+
+    pointer-events:auto;
+
+    touch-action:none;
+
+}
+
+
+#joystickKnob{
+
+    position:absolute;
+
+    width:58px;
+
+    height:58px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.35);
+
+    border:2px solid rgba(255,255,255,.6);
+
+}
+
+
+#mobileActionButtons{
+
+    position:absolute;
+
+    right:30px;
+
+    bottom:35px;
+
+    display:flex;
+
+    gap:15px;
+
+    pointer-events:auto;
+
+}
+
+
+#mobileActionButtons button{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    background:rgba(20,20,20,.8);
+
+    color:white;
+
+    border:2px solid #8b0000;
+
+    font-size:12px;
+
+}
+
+
+#mobileActionButtons button:active{
+
+    background:#8b0000;
 
 }
 
@@ -929,4 +1294,91 @@ LOADING
         transform:rotate(360deg);
     }
 
+}
+
+
+/* ======================
+RESPONSIVO
+====================== */
+
+@media (max-width:700px){
+
+    h1{
+
+        font-size:45px;
+
     }
+
+
+    #nicknamePanel{
+
+        width:90%;
+
+        padding:25px;
+
+    }
+
+
+    #characterSelectPanel{
+
+        width:92%;
+
+        min-height:auto;
+
+        padding:25px;
+
+    }
+
+
+    #characterCard{
+
+        width:260px;
+
+        height:340px;
+
+    }
+
+
+    #characterPreview{
+
+        transform:scale(.85);
+
+    }
+
+
+    #platformPanel{
+
+        width:92%;
+
+        padding:25px;
+
+    }
+
+
+    #platformButtons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+
+    .platformButton{
+
+        width:100%;
+
+        max-width:300px;
+
+        min-height:150px;
+
+    }
+
+
+    #platformPanel .screenButtons{
+
+        margin-top:20px;
+
+    }
+
+            }
