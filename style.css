@@ -1098,3 +1098,121 @@ RESPONSIVO
 
 }
 ```
+
+/* ======================================================
+   IDLE DO PERSONAGEM — RESPIRAÇÃO NO FRIO
+   ====================================================== */
+
+#player {
+    animation: playerIdle 2.8s ease-in-out infinite;
+}
+
+
+/* Movimento sutil do corpo */
+
+@keyframes playerIdle {
+
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-2px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+
+}
+
+
+/* ======================================================
+   FUMAÇA DA RESPIRAÇÃO
+   ====================================================== */
+
+#player::after {
+
+    content: "";
+
+    position: absolute;
+
+    /*
+       Ajuste estes dois valores se a boca
+       do seu sprite estiver em outro lugar.
+    */
+
+    left: 48%;
+    top: 18%;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: rgba(230, 230, 230, 0.55);
+
+    filter: blur(4px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    animation: breathSmoke 3.2s ease-out infinite;
+
+}
+
+
+/* ======================================================
+   ANIMAÇÃO DA FUMAÇA
+   ====================================================== */
+
+@keyframes breathSmoke {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate(0px, 5px)
+            scale(0.4);
+
+    }
+
+    15% {
+
+        opacity: 0.55;
+
+    }
+
+    45% {
+
+        opacity: 0.35;
+
+        transform:
+            translate(-5px, -12px)
+            scale(1);
+
+    }
+
+    75% {
+
+        opacity: 0.15;
+
+        transform:
+            translate(4px, -25px)
+            scale(1.5);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(8px, -35px)
+            scale(2);
+
+    }
+
+}
