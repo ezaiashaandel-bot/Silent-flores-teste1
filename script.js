@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
 
-
     function atualizarVolumes() {
 
         clickSound.volume =
@@ -83,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // ELEMENTOS
     // ==================================================
@@ -91,10 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn =
         document.getElementById("start");
 
-
     const configBtn =
         document.getElementById("config");
-
 
     const menu =
         document.getElementById("menu");
@@ -104,130 +100,134 @@ document.addEventListener("DOMContentLoaded", () => {
     // NICKNAME
 
     const nicknameScreen =
-        document.getElementById(
-            "nicknameScreen"
-        );
-
+        document.getElementById("nicknameScreen");
 
     const playerName =
-        document.getElementById(
-            "playerName"
-        );
-
+        document.getElementById("playerName");
 
     const backToMenu =
-        document.getElementById(
-            "backToMenu"
-        );
-
+        document.getElementById("backToMenu");
 
     const continueToCharacter =
-        document.getElementById(
-            "continueToCharacter"
-        );
+        document.getElementById("continueToCharacter");
 
 
 
     // PERSONAGEM
 
     const characterSelectScreen =
-        document.getElementById(
-            "characterSelectScreen"
-        );
-
+        document.getElementById("characterSelectScreen");
 
     const characterCard =
-        document.getElementById(
-            "characterCard"
-        );
-
+        document.getElementById("characterCard");
 
     const characterPreview =
-        document.getElementById(
-            "characterPreview"
-        );
-
+        document.getElementById("characterPreview");
 
     const characterName =
-        document.getElementById(
-            "characterName"
-        );
-
+        document.getElementById("characterName");
 
     const backCharacter =
-        document.getElementById(
-            "backCharacter"
-        );
-
+        document.getElementById("backCharacter");
 
     const finishCharacter =
-        document.getElementById(
-            "finishCharacter"
-        );
+        document.getElementById("finishCharacter");
+
+
+
+    // PLATAFORMA
+
+    const platformScreen =
+        document.getElementById("platformScreen");
+
+    const pcButton =
+        document.getElementById("pcButton");
+
+    const mobileButton =
+        document.getElementById("mobileButton");
+
+    const backPlatform =
+        document.getElementById("backPlatform");
 
 
 
     // JOGO
 
     const gameScreen =
-        document.getElementById(
-            "gameScreen"
-        );
+        document.getElementById("gameScreen");
+
+    const mobileControls =
+        document.getElementById("mobileControls");
+
+
+
+    // JOYSTICK
+
+    const joystick =
+        document.getElementById("joystick");
+
+    const joystickKnob =
+        document.getElementById("joystickKnob");
+
+    const runButton =
+        document.getElementById("runButton");
+
+    const interactButton =
+        document.getElementById("interactButton");
 
 
 
     // CONFIGURAÇÕES
 
     const settingsScreen =
-        document.getElementById(
-            "settingsScreen"
-        );
-
+        document.getElementById("settingsScreen");
 
     const backSettings =
-        document.getElementById(
-            "backSettings"
-        );
-
+        document.getElementById("backSettings");
 
     const options =
-        document.querySelectorAll(
-            ".settingOption"
-        );
-
+        document.querySelectorAll(".settingOption");
 
     const info =
-        document.getElementById(
-            "settingInfo"
-        );
+        document.getElementById("settingInfo");
 
 
 
     // TRANSIÇÃO
 
     const transitionScreen =
-        document.getElementById(
-            "transitionScreen"
-        );
+        document.getElementById("transitionScreen");
 
 
 
     // FUNDO
 
     const background =
-        document.getElementById(
-            "background"
-        );
+        document.getElementById("background");
 
 
 
     // RELÂMPAGO
 
     const lightning =
-        document.getElementById(
-            "lightning"
-        );
+        document.getElementById("lightning");
 
+
+
+    // ==================================================
+    // VARIÁVEIS
+    // ==================================================
+
+    let personagemSelecionado = false;
+
+    let plataformaSelecionada =
+        localStorage.getItem("platform") || null;
+
+    let joystickX = 0;
+
+    let joystickY = 0;
+
+    let joystickAtivo = false;
 
 
 
@@ -238,26 +238,15 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(
         "Elementos encontrados:",
         {
-
             startBtn,
             configBtn,
-            menu,
-
             nicknameScreen,
-            playerName,
-
             characterSelectScreen,
-            characterCard,
-            characterPreview,
-
+            platformScreen,
             gameScreen,
-
-            settingsScreen,
-            transitionScreen
-
+            settingsScreen
         }
     );
-
 
 
 
@@ -288,7 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // SOM DOS BOTÕES
     // ==================================================
@@ -296,7 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .querySelectorAll("button")
         .forEach(button => {
-
 
             button.addEventListener(
                 "mouseenter",
@@ -325,9 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
-
         });
-
 
 
 
@@ -347,7 +332,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     if (backSettings) {
 
         backSettings.onclick = () => {
@@ -365,19 +349,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         option.onclick = () => {
 
-
             options.forEach(btn => {
 
-                btn.classList.remove(
-                    "ativo"
-                );
+                btn.classList.remove("ativo");
 
             });
 
 
-            option.classList.add(
-                "ativo"
-            );
+            option.classList.add("ativo");
 
 
             const page =
@@ -390,7 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // ==========================================
 
             if (page === "som") {
-
 
                 info.innerHTML = `
 
@@ -479,51 +457,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
 
-
                 const barras = [
-
                     "geral",
                     "click",
                     "chuva",
                     "trova",
                     "transicao"
-
                 ];
-
 
 
                 barras.forEach(id => {
 
-
                     const barra =
-                        document.getElementById(
-                            id
-                        );
+                        document.getElementById(id);
 
 
                     if (!barra) return;
 
 
-
                     barra.oninput = () => {
 
-
                         volumes[id] =
-                            Number(
-                                barra.value
-                            );
+                            Number(barra.value);
 
 
                         atualizarVolumes();
 
 
-
                         const valor =
                             document.getElementById(
                                 "valor" +
-                                id
-                                    .charAt(0)
-                                    .toUpperCase() +
+                                id.charAt(0).toUpperCase() +
                                 id.slice(1)
                             );
 
@@ -531,18 +495,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (valor) {
 
                             valor.textContent =
-                                barra.value +
-                                "%";
+                                barra.value + "%";
 
                         }
 
                     };
 
-
                 });
 
             }
-
 
 
 
@@ -552,12 +513,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (page === "imagem") {
 
-
                 const brilhoSalvo =
-                    localStorage.getItem(
-                        "brilho"
-                    ) || 100;
-
+                    localStorage.getItem("brilho") || 100;
 
 
                 info.innerHTML = `
@@ -579,16 +536,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
 
-
                 const bar =
                     document.getElementById(
                         "brightnessBar"
                     );
 
 
-
                 if (bar && background) {
-
 
                     background.style.filter =
                         "brightness(" +
@@ -596,9 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "%)";
 
 
-
                     bar.oninput = () => {
-
 
                         background.style.filter =
                             "brightness(" +
@@ -621,8 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (valor) {
 
                             valor.textContent =
-                                bar.value +
-                                "%";
+                                bar.value + "%";
 
                         }
 
@@ -634,26 +585,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
             // ==========================================
             // CONTROLES
             // ==========================================
 
             if (page === "controles") {
 
-
                 info.innerHTML = `
 
                     CONTROLES<br><br>
 
-                    <strong>W A S D</strong><br>
+                    <strong>PC</strong><br>
+
+                    W A S D<br>
                     MOVIMENTO<br><br>
 
-                    <strong>E</strong><br>
+                    SHIFT<br>
+                    CORRER<br><br>
+
+                    E<br>
                     INTERAGIR<br><br>
 
-                    <strong>SHIFT</strong><br>
-                    CORRER
+                    <strong>CELULAR</strong><br>
+
+                    JOYSTICK<br>
+                    MOVIMENTO<br><br>
+
+                    BOTÃO CORRER<br>
+                    CORRER<br><br>
+
+                    BOTÃO E<br>
+                    INTERAGIR
 
                 `;
 
@@ -665,19 +627,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // TRANSIÇÃO
     // ==================================================
 
-    function iniciarTransicao(
-        callback
-    ) {
+    function iniciarTransicao(callback) {
 
-
-        transitionScreen.classList.add(
-            "show"
-        );
+        transitionScreen.classList.add("show");
 
 
         transitionSound.currentTime = 0;
@@ -688,13 +644,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(() => {});
 
 
-
         setTimeout(() => {
 
-
-            transitionScreen.classList.remove(
-                "show"
-            );
+            transitionScreen.classList.remove("show");
 
 
             if (callback) {
@@ -703,11 +655,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-
         }, 3000);
 
     }
-
 
 
 
@@ -719,9 +669,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         startBtn.onclick = () => {
 
-
             iniciarTransicao(() => {
-
 
                 menu.style.display =
                     "none";
@@ -730,13 +678,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 nicknameScreen.style.display =
                     "block";
 
-
             });
 
         };
 
     }
-
 
 
 
@@ -748,9 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         backToMenu.onclick = () => {
 
-
             iniciarTransicao(() => {
-
 
                 nicknameScreen.style.display =
                     "none";
@@ -759,13 +703,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 menu.style.display =
                     "flex";
 
-
             });
 
         };
 
     }
-
 
 
 
@@ -777,24 +719,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         continueToCharacter.onclick = () => {
 
-
             const nome =
                 playerName.value.trim();
 
 
-
             if (nome === "") {
-
 
                 alert(
                     "Digite seu nickname."
                 );
 
-
                 return;
 
             }
-
 
 
             localStorage.setItem(
@@ -803,9 +740,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-
             iniciarTransicao(() => {
-
 
                 nicknameScreen.style.display =
                     "none";
@@ -813,7 +748,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 characterSelectScreen.style.display =
                     "block";
-
 
             });
 
@@ -823,28 +757,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // SELEÇÃO DO PERSONAGEM
     // ==================================================
-
-    let personagemSelecionado =
-        false;
-
-
 
     if (characterCard) {
 
         characterCard.onclick = () => {
 
-
             personagemSelecionado =
                 !personagemSelecionado;
 
 
-
             if (personagemSelecionado) {
-
 
                 characterCard.classList.add(
                     "selected"
@@ -860,9 +785,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "personagem1"
                 );
 
-
             } else {
-
 
                 characterCard.classList.remove(
                     "selected"
@@ -885,7 +808,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // PERSONAGEM → NICKNAME
     // ==================================================
@@ -894,9 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         backCharacter.onclick = () => {
 
-
             iniciarTransicao(() => {
-
 
                 characterSelectScreen.style.display =
                     "none";
@@ -905,7 +825,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 nicknameScreen.style.display =
                     "block";
 
-
             });
 
         };
@@ -914,40 +833,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
-    // PERSONAGEM → JOGO
+    // PERSONAGEM → PLATAFORMA
     // ==================================================
 
     if (finishCharacter) {
 
         finishCharacter.onclick = () => {
 
-
             if (!personagemSelecionado) {
-
 
                 alert(
                     "Escolha um personagem primeiro."
                 );
-
 
                 return;
 
             }
 
 
-
             iniciarTransicao(() => {
-
 
                 characterSelectScreen.style.display =
                     "none";
 
 
-                gameScreen.style.display =
+                platformScreen.style.display =
                     "block";
-
 
             });
 
@@ -955,6 +867,413 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+
+    // ==================================================
+    // PLATAFORMA → PC
+    // ==================================================
+
+    if (pcButton) {
+
+        pcButton.onclick = () => {
+
+            selecionarPlataforma("pc");
+
+        };
+
+    }
+
+
+
+    // ==================================================
+    // PLATAFORMA → CELULAR
+    // ==================================================
+
+    if (mobileButton) {
+
+        mobileButton.onclick = () => {
+
+            selecionarPlataforma("mobile");
+
+        };
+
+    }
+
+
+
+    // ==================================================
+    // ESCOLHER PLATAFORMA
+    // ==================================================
+
+    function selecionarPlataforma(plataforma) {
+
+        plataformaSelecionada =
+            plataforma;
+
+
+        localStorage.setItem(
+            "platform",
+            plataforma
+        );
+
+
+        iniciarTransicao(() => {
+
+            platformScreen.style.display =
+                "none";
+
+
+            gameScreen.style.display =
+                "block";
+
+
+            configurarControles();
+
+        });
+
+    }
+
+
+
+    // ==================================================
+    // PLATAFORMA → PERSONAGEM
+    // ==================================================
+
+    if (backPlatform) {
+
+        backPlatform.onclick = () => {
+
+            iniciarTransicao(() => {
+
+                platformScreen.style.display =
+                    "none";
+
+
+                characterSelectScreen.style.display =
+                    "block";
+
+            });
+
+        };
+
+    }
+
+
+
+    // ==================================================
+    // CONFIGURAR CONTROLES
+    // ==================================================
+
+    function configurarControles() {
+
+        if (!mobileControls) return;
+
+
+        if (
+            plataformaSelecionada ===
+            "mobile"
+        ) {
+
+            mobileControls.style.display =
+                "block";
+
+        } else {
+
+            mobileControls.style.display =
+                "none";
+
+        }
+
+    }
+
+
+
+    // ==================================================
+    // JOYSTICK
+    // ==================================================
+
+    function atualizarJoystick(touchX, touchY) {
+
+        const rect =
+            joystick.getBoundingClientRect();
+
+
+        const centroX =
+            rect.left +
+            rect.width / 2;
+
+
+        const centroY =
+            rect.top +
+            rect.height / 2;
+
+
+        let dx =
+            touchX -
+            centroX;
+
+
+        let dy =
+            touchY -
+            centroY;
+
+
+        const distancia =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const limite =
+            rect.width / 2 -
+            30;
+
+
+        if (distancia > limite) {
+
+            dx =
+                (dx / distancia) *
+                limite;
+
+
+            dy =
+                (dy / distancia) *
+                limite;
+
+        }
+
+
+        joystickX =
+            dx / limite;
+
+
+        joystickY =
+            dy / limite;
+
+
+        joystickKnob.style.transform =
+            `translate(
+                calc(-50% + ${dx}px),
+                calc(-50% + ${dy}px)
+            )`;
+
+    }
+
+
+
+    function resetarJoystick() {
+
+        joystickX = 0;
+
+        joystickY = 0;
+
+
+        joystickKnob.style.transform =
+            "translate(-50%,-50%)";
+
+    }
+
+
+
+    if (joystick) {
+
+        joystick.addEventListener(
+            "touchstart",
+            event => {
+
+                event.preventDefault();
+
+                joystickAtivo = true;
+
+
+                const touch =
+                    event.touches[0];
+
+
+                atualizarJoystick(
+                    touch.clientX,
+                    touch.clientY
+                );
+
+            },
+            { passive:false }
+        );
+
+
+        joystick.addEventListener(
+            "touchmove",
+            event => {
+
+                if (!joystickAtivo)
+                    return;
+
+
+                event.preventDefault();
+
+
+                const touch =
+                    event.touches[0];
+
+
+                atualizarJoystick(
+                    touch.clientX,
+                    touch.clientY
+                );
+
+            },
+            { passive:false }
+        );
+
+
+        joystick.addEventListener(
+            "touchend",
+            event => {
+
+                event.preventDefault();
+
+                joystickAtivo = false;
+
+                resetarJoystick();
+
+            },
+            { passive:false }
+        );
+
+    }
+
+
+
+    // ==================================================
+    // BOTÃO CORRER
+    // ==================================================
+
+    let correndo =
+        false;
+
+
+    if (runButton) {
+
+        runButton.addEventListener(
+            "touchstart",
+            event => {
+
+                event.preventDefault();
+
+                correndo = true;
+
+                runButton.style.background =
+                    "#8b0000";
+
+            },
+            { passive:false }
+        );
+
+
+        runButton.addEventListener(
+            "touchend",
+            event => {
+
+                event.preventDefault();
+
+                correndo = false;
+
+                runButton.style.background =
+                    "rgba(20,20,20,.8)";
+
+            },
+            { passive:false }
+        );
+
+    }
+
+
+
+    // ==================================================
+    // BOTÃO INTERAGIR
+    // ==================================================
+
+    if (interactButton) {
+
+        interactButton.addEventListener(
+            "touchstart",
+            event => {
+
+                event.preventDefault();
+
+                console.log(
+                    "Interagir!"
+                );
+
+            },
+            { passive:false }
+        );
+
+    }
+
+
+
+    // ==================================================
+    // CONTROLES PC
+    // ==================================================
+
+    const teclas =
+        {};
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                plataformaSelecionada !==
+                "pc"
+            ) return;
+
+
+            teclas[event.key.toLowerCase()] =
+                true;
+
+
+            if (
+                event.key ===
+                "Shift"
+            ) {
+
+                correndo = true;
+
+            }
+
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keyup",
+        event => {
+
+            if (
+                plataformaSelecionada !==
+                "pc"
+            ) return;
+
+
+            teclas[event.key.toLowerCase()] =
+                false;
+
+
+            if (
+                event.key ===
+                "Shift"
+            ) {
+
+                correndo = false;
+
+            }
+
+        }
+    );
 
 
 
@@ -964,19 +1283,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function relampago() {
 
-
         if (!lightning) return;
 
 
-
         const lados = [
-
             "left",
             "center",
             "right"
-
         ];
-
 
 
         const lado =
@@ -988,9 +1302,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ];
 
 
-
         if (lado === "left") {
-
 
             lightning.style.background =
                 "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22), transparent 70%)";
@@ -998,9 +1310,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-
         if (lado === "center") {
-
 
             lightning.style.background =
                 "radial-gradient(circle at center, rgba(255,255,255,.22), transparent 70%)";
@@ -1008,9 +1318,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-
         if (lado === "right") {
-
 
             lightning.style.background =
                 "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22), transparent 70%)";
@@ -1018,25 +1326,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-
         lightning.style.opacity =
             ".22";
 
 
-
         setTimeout(() => {
-
 
             lightning.style.opacity =
                 "0";
 
-
         }, 350);
 
 
-
         setTimeout(() => {
-
 
             thunderSound.currentTime =
                 0;
@@ -1046,11 +1348,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .play()
                 .catch(() => {});
 
-
         }, 300);
 
     }
-
 
 
     setInterval(() => {
@@ -1058,7 +1358,6 @@ document.addEventListener("DOMContentLoaded", () => {
         relampago();
 
     }, 15000);
-
 
 
 
@@ -1084,7 +1383,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     // ==================================================
     // CARREGAR PERSONAGEM SALVO
     // ==================================================
@@ -1099,7 +1397,6 @@ document.addEventListener("DOMContentLoaded", () => {
         personagemSalvo ===
         "personagem1"
     ) {
-
 
         personagemSelecionado =
             true;
@@ -1122,7 +1419,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }
-
 
 
 
