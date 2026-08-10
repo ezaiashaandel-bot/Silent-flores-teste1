@@ -55,13 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
             (volumes.click / 100) *
             (volumes.geral / 100);
 
+
         transitionSound.volume =
             (volumes.transicao / 100) *
             (volumes.geral / 100);
 
+
         rainSound.volume =
             (volumes.chuva / 100) *
             (volumes.geral / 100);
+
 
         thunderSound.volume =
             (volumes.trova / 100) *
@@ -80,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // ELEMENTOS
     // ==================================================
@@ -87,32 +91,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn =
         document.getElementById("start");
 
+
     const configBtn =
         document.getElementById("config");
+
 
     const menu =
         document.getElementById("menu");
 
 
 
-    // ==================================================
     // NICKNAME
-    // ==================================================
 
     const nicknameScreen =
         document.getElementById(
             "nicknameScreen"
         );
 
+
     const playerName =
         document.getElementById(
             "playerName"
         );
 
+
     const backToMenu =
         document.getElementById(
             "backToMenu"
         );
+
 
     const continueToCharacter =
         document.getElementById(
@@ -121,29 +128,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
-    // ESCOLHA DE PERSONAGEM
-    // ==================================================
+    // PERSONAGEM
 
     const characterSelectScreen =
         document.getElementById(
             "characterSelectScreen"
         );
 
+
     const characterCard =
         document.getElementById(
             "characterCard"
         );
+
 
     const characterPreview =
         document.getElementById(
             "characterPreview"
         );
 
+
+    const characterName =
+        document.getElementById(
+            "characterName"
+        );
+
+
     const backCharacter =
         document.getElementById(
             "backCharacter"
         );
+
 
     const finishCharacter =
         document.getElementById(
@@ -152,9 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
     // JOGO
-    // ==================================================
 
     const gameScreen =
         document.getElementById(
@@ -163,24 +176,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
     // CONFIGURAÇÕES
-    // ==================================================
 
     const settingsScreen =
         document.getElementById(
             "settingsScreen"
         );
 
+
     const backSettings =
         document.getElementById(
             "backSettings"
         );
 
+
     const options =
         document.querySelectorAll(
             ".settingOption"
         );
+
 
     const info =
         document.getElementById(
@@ -189,9 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
     // TRANSIÇÃO
-    // ==================================================
 
     const transitionScreen =
         document.getElementById(
@@ -200,9 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
     // FUNDO
-    // ==================================================
 
     const background =
         document.getElementById(
@@ -211,14 +221,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================================================
     // RELÂMPAGO
-    // ==================================================
 
     const lightning =
         document.getElementById(
             "lightning"
         );
+
 
 
 
@@ -235,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
             menu,
 
             nicknameScreen,
+            playerName,
 
             characterSelectScreen,
             characterCard,
@@ -243,11 +253,11 @@ document.addEventListener("DOMContentLoaded", () => {
             gameScreen,
 
             settingsScreen,
-
             transitionScreen
 
         }
     );
+
 
 
 
@@ -270,12 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     document.addEventListener(
         "click",
         iniciarChuva,
-        { once: true }
+        { once:true }
     );
+
 
 
 
@@ -315,7 +325,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
+
         });
+
 
 
 
@@ -378,6 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ==========================================
 
             if (page === "som") {
+
 
                 info.innerHTML = `
 
@@ -481,6 +494,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 barras.forEach(id => {
 
+
                     const barra =
                         document.getElementById(
                             id
@@ -492,6 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     barra.oninput = () => {
+
 
                         volumes[id] =
                             Number(
@@ -506,7 +521,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         const valor =
                             document.getElementById(
                                 "valor" +
-                                id.charAt(0)
+                                id
+                                    .charAt(0)
                                     .toUpperCase() +
                                 id.slice(1)
                             );
@@ -515,15 +531,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (valor) {
 
                             valor.textContent =
-                                barra.value + "%";
+                                barra.value +
+                                "%";
 
                         }
 
                     };
 
+
                 });
 
             }
+
 
 
 
@@ -532,6 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ==========================================
 
             if (page === "imagem") {
+
 
                 const brilhoSalvo =
                     localStorage.getItem(
@@ -569,6 +589,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (bar && background) {
 
+
                     background.style.filter =
                         "brightness(" +
                         brilhoSalvo +
@@ -577,6 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     bar.oninput = () => {
+
 
                         background.style.filter =
                             "brightness(" +
@@ -590,10 +612,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
 
-                        document.getElementById(
-                            "valorBrilho"
-                        ).textContent =
-                            bar.value + "%";
+                        const valor =
+                            document.getElementById(
+                                "valorBrilho"
+                            );
+
+
+                        if (valor) {
+
+                            valor.textContent =
+                                bar.value +
+                                "%";
+
+                        }
 
                     };
 
@@ -603,11 +634,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
             // ==========================================
             // CONTROLES
             // ==========================================
 
             if (page === "controles") {
+
 
                 info.innerHTML = `
 
@@ -632,11 +665,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // TRANSIÇÃO
     // ==================================================
 
-    function iniciarTransicao(callback) {
+    function iniciarTransicao(
+        callback
+    ) {
+
 
         transitionScreen.classList.add(
             "show"
@@ -645,6 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         transitionSound.currentTime = 0;
 
+
         transitionSound
             .play()
             .catch(() => {});
@@ -652,6 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         setTimeout(() => {
+
 
             transitionScreen.classList.remove(
                 "show"
@@ -664,9 +703,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
+
         }, 3000);
 
     }
+
 
 
 
@@ -678,19 +719,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         startBtn.onclick = () => {
 
+
             iniciarTransicao(() => {
+
 
                 menu.style.display =
                     "none";
 
+
                 nicknameScreen.style.display =
                     "block";
+
 
             });
 
         };
 
     }
+
 
 
 
@@ -702,13 +748,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         backToMenu.onclick = () => {
 
+
             iniciarTransicao(() => {
+
 
                 nicknameScreen.style.display =
                     "none";
 
+
                 menu.style.display =
                     "flex";
+
 
             });
 
@@ -718,13 +768,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
-    // NICKNAME → ESCOLHA DE PERSONAGEM
+    // NICKNAME → PERSONAGEM
     // ==================================================
 
     if (continueToCharacter) {
 
         continueToCharacter.onclick = () => {
+
 
             const nome =
                 playerName.value.trim();
@@ -733,9 +785,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (nome === "") {
 
+
                 alert(
                     "Digite seu nickname."
                 );
+
 
                 return;
 
@@ -752,11 +806,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             iniciarTransicao(() => {
 
+
                 nicknameScreen.style.display =
                     "none";
 
+
                 characterSelectScreen.style.display =
                     "block";
+
 
             });
 
@@ -766,11 +823,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // SELEÇÃO DO PERSONAGEM
     // ==================================================
 
-    let personagemSelecionado = false;
+    let personagemSelecionado =
+        false;
 
 
 
@@ -778,24 +837,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
         characterCard.onclick = () => {
 
+
             personagemSelecionado =
                 !personagemSelecionado;
 
 
-            characterCard.classList.toggle(
-                "selected",
-                personagemSelecionado
-            );
-
 
             if (personagemSelecionado) {
+
+
+                characterCard.classList.add(
+                    "selected"
+                );
+
+
+                characterName.textContent =
+                    "Personagem selecionado";
+
 
                 localStorage.setItem(
                     "character",
                     "personagem1"
                 );
 
+
             } else {
+
+
+                characterCard.classList.remove(
+                    "selected"
+                );
+
+
+                characterName.textContent =
+                    "Personagem";
+
 
                 localStorage.removeItem(
                     "character"
@@ -809,6 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // PERSONAGEM → NICKNAME
     // ==================================================
@@ -817,15 +894,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         backCharacter.onclick = () => {
 
-            characterSelectScreen.style.display =
-                "none";
 
-            nicknameScreen.style.display =
-                "block";
+            iniciarTransicao(() => {
+
+
+                characterSelectScreen.style.display =
+                    "none";
+
+
+                nicknameScreen.style.display =
+                    "block";
+
+
+            });
 
         };
 
     }
+
 
 
 
@@ -840,9 +926,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!personagemSelecionado) {
 
+
                 alert(
-                    "Escolha seu personagem."
+                    "Escolha um personagem primeiro."
                 );
+
 
                 return;
 
@@ -852,11 +940,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             iniciarTransicao(() => {
 
+
                 characterSelectScreen.style.display =
                     "none";
 
+
                 gameScreen.style.display =
                     "block";
+
 
             });
 
@@ -866,20 +957,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // RELÂMPAGO
     // ==================================================
 
     function relampago() {
 
+
         if (!lightning) return;
 
 
 
         const lados = [
+
             "left",
             "center",
             "right"
+
         ];
 
 
@@ -896,6 +991,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (lado === "left") {
 
+
             lightning.style.background =
                 "radial-gradient(circle at 20% 50%, rgba(255,255,255,.22), transparent 70%)";
 
@@ -905,6 +1001,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (lado === "center") {
 
+
             lightning.style.background =
                 "radial-gradient(circle at center, rgba(255,255,255,.22), transparent 70%)";
 
@@ -913,6 +1010,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (lado === "right") {
+
 
             lightning.style.background =
                 "radial-gradient(circle at 80% 50%, rgba(255,255,255,.22), transparent 70%)";
@@ -928,8 +1026,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
 
+
             lightning.style.opacity =
                 "0";
+
 
         }, 350);
 
@@ -937,12 +1037,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
 
+
             thunderSound.currentTime =
                 0;
+
 
             thunderSound
                 .play()
                 .catch(() => {});
+
 
         }, 300);
 
@@ -958,6 +1061,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
     // CARREGAR NOME SALVO
     // ==================================================
@@ -968,7 +1072,10 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    if (nomeSalvo && playerName) {
+    if (
+        nomeSalvo &&
+        playerName
+    ) {
 
         playerName.value =
             nomeSalvo;
@@ -977,8 +1084,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
     // ==================================================
-    // RECUPERAR PERSONAGEM SELECIONADO
+    // CARREGAR PERSONAGEM SALVO
     // ==================================================
 
     const personagemSalvo =
@@ -992,6 +1100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "personagem1"
     ) {
 
+
         personagemSelecionado =
             true;
 
@@ -1004,7 +1113,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
+        if (characterName) {
+
+            characterName.textContent =
+                "Personagem selecionado";
+
+        }
+
     }
+
 
 
 
