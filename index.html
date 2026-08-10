@@ -1,382 +1,281 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Silent Forest</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Silent Forest</title><link rel="stylesheet" href="style.css"><link
     href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap"
     rel="stylesheet"
->
-
-</head>
-
-
-<body>
-
-
-<!-- ======================
+></head><body><!-- ======================
 MENU INICIAL
-====================== -->
+====================== --><div id="menu"><div id="background"></div>
 
-<div id="menu">
+<div id="lightning"></div>
 
-    <div id="background"></div>
-
-    <div id="lightning"></div>
-
-    <div id="nevoa"></div>
+<div id="nevoa"></div>
 
 
-    <h1>
-        Silent Forest
-    </h1>
+<h1>
+    Silent Forest
+</h1>
 
 
-    <button id="start">
-        JOGAR
-    </button>
+<button id="start">
+    JOGAR
+</button>
 
 
-    <button id="config">
-        CONFIGURAÇÕES
-    </button>
+<button id="config">
+    CONFIGURAÇÕES
+</button>
 
-</div>
-
-
-
-
-<!-- ======================
+</div><!-- ======================
 TELA NICKNAME
-====================== -->
-
-<div id="nicknameScreen">
-
-    <div id="nicknameFog"></div>
+====================== --><div id="nicknameScreen"><div id="nicknameFog"></div>
 
 
-    <div id="nicknamePanel">
+<div id="nicknamePanel">
 
-        <h2>
-            Criar Personagem
-        </h2>
-
-
-        <p>
-            Digite seu nickname
-        </p>
+    <h2>
+        Criar Personagem
+    </h2>
 
 
-        <input
-            type="text"
-            id="playerName"
-            maxlength="16"
-            placeholder="Seu nome"
-        >
+    <p>
+        Digite seu nickname
+    </p>
 
 
-        <div class="screenButtons">
+    <input
+        type="text"
+        id="playerName"
+        maxlength="16"
+        placeholder="Seu nome"
+    >
 
-            <button id="backToMenu">
-                VOLTAR
-            </button>
+
+    <div class="screenButtons">
+
+        <button id="backToMenu">
+            VOLTAR
+        </button>
 
 
-            <button id="continueToCharacter">
-                CONTINUAR
-            </button>
-
-        </div>
+        <button id="continueToCharacter">
+            CONTINUAR
+        </button>
 
     </div>
 
 </div>
 
-
-
-
-<!-- ======================
+</div><!-- ======================
 TELA ESCOLHA DE PERSONAGEM
-====================== -->
-
-<div id="characterSelectScreen">
-
-    <div id="characterSelectFog"></div>
+====================== --><div id="characterSelectScreen"><div id="characterSelectFog"></div>
 
 
-    <div id="characterSelectPanel">
+<div id="characterSelectPanel">
 
-        <h2>
-            Escolha seu personagem
-        </h2>
-
-
-        <p>
-            Escolha o personagem que irá explorar a floresta
-        </p>
+    <h2>
+        Escolha seu personagem
+    </h2>
 
 
-        <!-- CARD DO PERSONAGEM -->
-
-        <div id="characterCard">
-
-            <div id="characterPreview"></div>
+    <p>
+        Escolha o personagem que irá explorar a floresta
+    </p>
 
 
-            <div id="characterName">
-                Personagem
-            </div>
+    <!-- CARD DO PERSONAGEM -->
 
+    <div id="characterCard">
+
+        <div id="characterPreview"></div>
+
+
+        <div id="characterName">
+            Personagem
         </div>
-
-
-        <!-- BOTÕES -->
-
-        <div class="screenButtons">
-
-            <button id="backCharacter">
-                VOLTAR
-            </button>
-
-
-            <button id="finishCharacter">
-                CONTINUAR
-            </button>
-
-        </div>
-
 
     </div>
 
+
+    <!-- BOTÕES -->
+
+    <div class="screenButtons">
+
+        <button id="backCharacter">
+            VOLTAR
+        </button>
+
+
+        <button id="finishCharacter">
+            CONTINUAR
+        </button>
+
+    </div>
+
+
 </div>
 
-
-
-
-<!-- ======================
+</div><!-- ======================
 TELA ESCOLHA DE PLATAFORMA
-====================== -->
-
-<div id="platformScreen">
-
-    <div id="platformFog"></div>
+====================== --><div id="platformScreen"><div id="platformFog"></div>
 
 
-    <div id="platformPanel">
+<div id="platformPanel">
+
+    <h2>
+        Como você vai jogar?
+    </h2>
 
 
-        <h2>
-            Como você vai jogar?
-        </h2>
+    <p>
+        Escolha a plataforma
+    </p>
 
 
-        <p>
-            Escolha a plataforma
-        </p>
+    <div id="platformButtons">
 
 
-        <div id="platformButtons">
+        <!-- PC -->
+
+        <button
+            class="platformButton"
+            id="pcButton"
+        >
+
+            <span class="platformIcon">
+                🖥️
+            </span>
 
 
-            <!-- ======================
-            PC
-            ====================== -->
-
-            <button
-                class="platformButton"
-                id="pcButton"
-            >
-
-                <span class="platformIcon">
-                    🖥️
-                </span>
+            <span class="platformTitle">
+                PC
+            </span>
 
 
-                <span class="platformTitle">
-                    PC
-                </span>
+            <span class="platformDescription">
+                W A S D — Movimento<br>
+                SHIFT — Correr<br>
+                E — Interagir
+            </span>
 
-
-                <span class="platformDescription">
-                    W A S D — Movimento<br>
-                    SHIFT — Correr<br>
-                    E — Interagir
-                </span>
-
-            </button>
+        </button>
 
 
 
-            <!-- ======================
-            CELULAR
-            ====================== -->
+        <!-- CELULAR -->
 
-            <button
-                class="platformButton"
-                id="mobileButton"
-            >
+        <button
+            class="platformButton"
+            id="mobileButton"
+        >
 
-                <span class="platformIcon">
-                    📱
-                </span>
+            <span class="platformIcon">
+                📱
+            </span>
 
 
-                <span class="platformTitle">
-                    CELULAR
-                </span>
+            <span class="platformTitle">
+                CELULAR
+            </span>
 
 
-                <span class="platformDescription">
-                    Joystick — Movimento<br>
-                    CORRER — Correr<br>
-                    E — Interagir
-                </span>
+            <span class="platformDescription">
+                Joystick — Movimento<br>
+                CORRER — Correr<br>
+                E — Interagir
+            </span>
 
-            </button>
-
-
-        </div>
-
-
-        <div class="screenButtons">
-
-            <button id="backPlatform">
-                VOLTAR
-            </button>
-
-        </div>
+        </button>
 
 
     </div>
 
+
+    <div class="screenButtons">
+
+        <button id="backPlatform">
+            VOLTAR
+        </button>
+
+    </div>
+
+
 </div>
 
-
-
-
-<!-- ======================
+</div><!-- ======================
 TELA DO JOGO
+====================== --><div id="gameScreen"><!-- ======================
+MUNDO DO JOGO
 ====================== -->
 
-<div id="gameScreen">
+<div id="gameWorld">
+
+    <!-- PERSONAGEM -->
+
+    <div id="player"></div>
+
+</div>
 
 
-    <!-- MAPA TEMPORÁRIO -->
 
-    <div id="gameWorld">
+<!-- ======================
+CONTROLES CELULAR
+====================== -->
 
-        <div id="player"></div>
+<div id="mobileControls">
+
+
+    <!-- JOYSTICK -->
+
+    <div id="joystick">
+
+        <div id="joystickKnob"></div>
 
     </div>
 
 
-    <!-- ======================
-    CONTROLES CELULAR
-    ====================== -->
+    <!-- BOTÕES DE AÇÃO -->
 
-    <div id="mobileControls">
+    <div id="mobileActionButtons">
 
-
-        <!-- JOYSTICK -->
-
-        <div id="joystick">
-
-            <div id="joystickKnob"></div>
-
-        </div>
+        <button id="runButton">
+            CORRER
+        </button>
 
 
-        <!-- BOTÕES -->
-
-        <div id="mobileActionButtons">
-
-            <button id="runButton">
-                CORRER
-            </button>
-
-
-            <button id="interactButton">
-                E
-            </button>
-
-        </div>
-
+        <button id="interactButton">
+            E
+        </button>
 
     </div>
 
 
 </div>
 
-
-
-
-<!-- ======================
+</div><!-- ======================
 CONFIGURAÇÕES
-====================== -->
-
-<div id="settingsScreen">
+====================== --><div id="settingsScreen"><div id="settingsSide">
 
 
-    <div id="settingsSide">
+    <button
+        class="settingOption"
+        data-page="som"
+    >
+        SOM
+    </button>
 
 
-        <button
-            class="settingOption"
-            data-page="som"
-        >
-            SOM
-        </button>
+    <button
+        class="settingOption"
+        data-page="imagem"
+    >
+        IMAGEM
+    </button>
 
 
-        <button
-            class="settingOption"
-            data-page="imagem"
-        >
-            IMAGEM
-        </button>
-
-
-        <button
-            class="settingOption"
-            data-page="controles"
-        >
-            CONTROLES
-        </button>
-
-
-    </div>
-
-
-
-
-    <div id="settingsContent">
-
-
-        <h2>
-            CONFIGURAÇÕES
-        </h2>
-
-
-        <div id="settingInfo">
-            Selecione uma opção
-        </div>
-
-
-    </div>
-
-
-
-
-    <button id="backSettings">
-        VOLTAR
+    <button
+        class="settingOption"
+        data-page="controles"
+    >
+        CONTROLES
     </button>
 
 
@@ -385,24 +284,16 @@ CONFIGURAÇÕES
 
 
 
-<!-- ======================
-TELA DE TRANSIÇÃO
-====================== -->
-
-<div id="transitionScreen">
+<div id="settingsContent">
 
 
-    <div id="loading">
+    <h2>
+        CONFIGURAÇÕES
+    </h2>
 
 
-        <div id="loadingCircle"></div>
-
-
-        <span>
-            Carregando...
-        </span>
-
-
+    <div id="settingInfo">
+        Selecione uma opção
     </div>
 
 
@@ -411,9 +302,23 @@ TELA DE TRANSIÇÃO
 
 
 
-<script src="script.js"></script>
+<button id="backSettings">
+    VOLTAR
+</button>
+
+</div><!-- ======================
+TELA DE TRANSIÇÃO
+====================== --><div id="transitionScreen"><div id="loading">
 
 
-</body>
+    <div id="loadingCircle"></div>
 
-    </html>
+
+    <span>
+        Carregando...
+    </span>
+
+
+</div>
+
+</div><script src="script.js"></script></body></html>
