@@ -1583,6 +1583,53 @@ atualizarMovimento();
     // FINAL
     // ==================================================
 
+    // ==================================================
+    // MOVIMENTO DO PERSONAGEM
+    // ==================================================
+
+    const player = document.getElementById("player");
+
+    let playerX = 1500;
+    let playerY = 1500;
+
+    let velocidade = 3;
+
+    function moverPersonagem() {
+
+        if (!player) return;
+
+        let movimentoX = joystickX;
+        let movimentoY = joystickY;
+
+        // CONTROLE PC
+        if (plataformaSelecionada === "pc") {
+
+            movimentoX = 0;
+            movimentoY = 0;
+
+            if (teclas["w"]) movimentoY -= 1;
+            if (teclas["s"]) movimentoY += 1;
+            if (teclas["a"]) movimentoX -= 1;
+            if (teclas["d"]) movimentoX += 1;
+
+        }
+
+        // CORRER
+        let velocidadeAtual =
+            correndo ? 6 : velocidade;
+
+        playerX += movimentoX * velocidadeAtual;
+        playerY += movimentoY * velocidadeAtual;
+
+        player.style.left = playerX + "px";
+        player.style.top = playerY + "px";
+
+        requestAnimationFrame(moverPersonagem);
+
+    }
+
+    moverPersonagem();
+    
     console.log(
         "Silent Forest carregado com sucesso!"
     );
