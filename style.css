@@ -1418,26 +1418,25 @@ PERSONAGEM
 ====================== */
 
 #player{
-position:absolute;
 
-width:165px;
-height:167px;
+    position:absolute;
 
-left:50%;
-top:50%;
+    width:165px;
+    height:167px;
 
-transform:translate(-50%, -50%);
+    left:1500px;
+    top:1500px;
 
-background-image:url("sprites/parado.png");
+    background-image:url("sprites/parado.png");
 
-background-repeat:no-repeat;
+    background-repeat:no-repeat;
 
-background-position:0 0;
+    background-position:0 0;
 
-background-size:660px 167px;
+    background-size:660px 167px;
 
-image-rendering:pixelated;
+    image-rendering:pixelated;
 
-z-index:10;
+    z-index:10;
 
 }
