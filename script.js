@@ -1481,232 +1481,190 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function atualizarMovimento() {
 
-        if (!gameScreen) {
+    requestAnimationFrame(atualizarMovimento);
 
-            requestAnimationFrame(
-                atualizarMovimento
-            );
+    if (!gameScreen) return;
 
-            return;
+    if (gameScreen.style.display !== "block") {
 
+        andando = false;
+
+        return;
+    }
+
+
+    let movimentoX = 0;
+    let movimentoY = 0;
+
+
+    // ==================================================
+    // CONTROLE CELULAR
+    // ==================================================
+
+    if (plataformaSelecionada === "mobile") {
+
+        movimentoX = joystickX;
+        movimentoY = joystickY;
+
+    }
+
+
+    // ==================================================
+    // CONTROLE PC
+    // ==================================================
+
+    if (plataformaSelecionada === "pc") {
+
+        if (teclas["w"]) {
+            movimentoY -= 1;
         }
 
-
-        if (
-            gameScreen.style.display !==
-            "block"
-        ) {
-
-            andando = false;
-
-            requestAnimationFrame(
-                atualizarMovimento
-            );
-
-            return;
-
+        if (teclas["s"]) {
+            movimentoY += 1;
         }
 
-
-        let movimentoX = 0;
-        let movimentoY = 0;
-
-
-        // ==============================================
-        // CELULAR
-        // ==============================================
-
-        if (
-            plataformaSelecionada ===
-            "mobile"
-        ) {
-
-            movimentoX =
-                joystickX;
-
-            movimentoY =
-                joystickY;
-
+        if (teclas["a"]) {
+            movimentoX -= 1;
         }
 
-
-        // ==============================================
-        // PC
-        // ==============================================
-
-        if (
-            plataformaSelecionada ===
-            "pc"
-        ) {
-
-            if (teclas["w"]) {
-
-                movimentoY -= 1;
-
-            }
-
-            if (teclas["s"]) {
-
-                movimentoY += 1;
-
-            }
-
-            if (teclas["a"]) {
-
-                movimentoX -= 1;
-
-            }
-
-            if (teclas["d"]) {
-
-                movimentoX += 1;
-
-            }
-
+        if (teclas["d"]) {
+            movimentoX += 1;
         }
 
-
-        // ==============================================
-        // NORMALIZAR DIAGONAL
-        // ==============================================
-
-        const comprimento =
-            Math.sqrt(
-                movimentoX * movimentoX +
-                movimentoY * movimentoY
-            );
+    }
 
 
-        if (comprimento > 1) {
+    // ==================================================
+    // NORMALIZAR DIAGONAL
+    // ==================================================
 
-            movimentoX /=
-                comprimento;
-
-            movimentoY /=
-                comprimento;
-
-        }
-
-
-        // ==============================================
-        // VERIFICAR SE ESTÁ ANDANDO
-        // ==============================================
-
-        andando =
-            Math.abs(movimentoX) > 0 ||
-            Math.abs(movimentoY) > 0;
+    const distancia = Math.sqrt(
+        movimentoX * movimentoX +
+        movimentoY * movimentoY
+    );
 
 
-        // ==============================================
-        // DIREÇÃO
-        // ==============================================
+    if (distancia > 1) {
 
-        if (andando) {
+        movimentoX /= distancia;
+        movimentoY /= distancia;
 
-            atualizarDirecao(
-                movimentoX,
-                movimentoY
-            );
-
-        }
+    }
 
 
-        // ==============================================
-        // VELOCIDADE
-        // ==============================================
+    // ==================================================
+    // VERIFICAR MOVIMENTO
+    // ==================================================
 
-        const velocidade =
-            correndo
-                ? velocidadeCorrendo
-                : velocidadeNormal;
-
-
-        // ==============================================
-        // MOVIMENTO
-        // ==============================================
-
-        playerX +=
-            movimentoX *
-            velocidade;
+    andando =
+        movimentoX !== 0 ||
+        movimentoY !== 0;
 
 
-        playerY +=
-            movimentoY *
-            velocidade;
+    // ==================================================
+    // DIREÇÃO
+    // ==================================================
 
+    if (andando) {
 
-        // ==============================================
-        // LIMITES DO MAPA
-        // ==============================================
-
-        const limiteX =
-            3000 -
-            (player.offsetWidth || 100);
-
-
-        const limiteY =
-            3000 -
-            (player.offsetHeight || 100);
-
-
-        playerX =
-            Math.max(
-                0,
-                Math.min(
-                    limiteX,
-                    playerX
-                )
-            );
-
-
-        playerY =
-            Math.max(
-                0,
-                Math.min(
-                    limiteY,
-                    playerY
-                )
-            );
-
-
-        // ==============================================
-        // POSIÇÃO
-        // ==============================================
-
-        player.style.left =
-            playerX + "px";
-
-        player.style.top =
-            playerY + "px";
-
-
-        // ==============================================
-        // CÂMERA
-        // ==============================================
-
-        const telaX =
-            window.innerWidth / 2;
-
-
-        const telaY =
-            window.innerHeight / 2;
-
-
-        gameWorld.style.transform =
-            `translate(
-                ${telaX - playerX}px,
-                ${telaY - playerY}px
-            )`;
-
-
-        requestAnimationFrame(
-            atualizarMovimento
+        atualizarDirecao(
+            movimentoX,
+            movimentoY
         );
 
     }
 
 
-    atualizarMovimento();
+    // ==================================================
+    // VELOCIDADE
+    // ==================================================
+
+    const velocidadeAtual =
+        correndo
+            ? velocidadeCorrendo
+            : velocidadeNormal;
+
+
+    // ==================================================
+    // ALTERAR POSIÇÃO
+    // ==================================================
+
+    playerX +=
+        movimentoX *
+        velocidadeAtual;
+
+    playerY +=
+        movimentoY *
+        velocidadeAtual;
+
+
+    // ==================================================
+    // LIMITES
+    // ==================================================
+
+    const larguraMapa =
+        gameWorld.offsetWidth;
+
+    const alturaMapa =
+        gameWorld.offsetHeight;
+
+
+    const larguraPersonagem =
+        player.offsetWidth;
+
+    const alturaPersonagem =
+        player.offsetHeight;
+
+
+    playerX = Math.max(
+        0,
+        Math.min(
+            larguraMapa - larguraPersonagem,
+            playerX
+        )
+    );
+
+
+    playerY = Math.max(
+        0,
+        Math.min(
+            alturaMapa - alturaPersonagem,
+            playerY
+        )
+    );
+
+
+    // ==================================================
+    // POSIÇÃO DO PERSONAGEM
+    // ==================================================
+
+    player.style.left =
+        playerX + "px";
+
+    player.style.top =
+        playerY + "px";
+
+
+    // ==================================================
+    // CÂMERA
+    // ==================================================
+
+    const centroX =
+        window.innerWidth / 2 -
+        playerX -
+        larguraPersonagem / 2;
+
+
+    const centroY =
+        window.innerHeight / 2 -
+        playerY -
+        alturaPersonagem / 2;
+
+
+    gameWorld.style.transform =
+        `translate(${centroX}px, ${centroY}px)`;
+
+}
 
 
     // ==================================================
