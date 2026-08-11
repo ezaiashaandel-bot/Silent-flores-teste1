@@ -1,4 +1,3 @@
-```css
 *{
     margin:0;
     padding:0;
@@ -10,12 +9,17 @@ body{
     height:100vh;
     overflow:hidden;
     background:#000;
-    font-family:"Trebuchet MS", sans-serif;
+    font-family:"Trebuchet MS",sans-serif;
 }
 
-/* ======================
-MENU INICIAL
-====================== */
+button{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ======================================================
+   MENU
+====================================================== */
 
 #menu{
     position:relative;
@@ -53,10 +57,6 @@ MENU INICIAL
     z-index:2;
 }
 
-/* ======================
-TÍTULO
-====================== */
-
 h1{
     position:relative;
     z-index:3;
@@ -71,19 +71,11 @@ h1{
         0 0 25px #8b0000;
 }
 
-/* ======================
-BOTÕES
-====================== */
-
-button{
-    cursor:pointer;
-    font-weight:bold;
-}
-
 #start,
 #config{
     position:relative;
     z-index:3;
+
     width:260px;
     padding:16px;
     margin-top:15px;
@@ -107,9 +99,9 @@ button{
     transform:scale(1.05);
 }
 
-/* ======================
-TELA NICKNAME
-====================== */
+/* ======================================================
+   NICKNAME
+====================================================== */
 
 #nicknameScreen{
     display:none;
@@ -120,7 +112,9 @@ TELA NICKNAME
     z-index:15;
 }
 
-#nicknameFog{
+#nicknameFog,
+#characterSelectFog,
+#platformFog{
     position:absolute;
     inset:0;
 
@@ -130,7 +124,6 @@ TELA NICKNAME
             rgba(255,255,255,.08),
             transparent 35%
         ),
-
         radial-gradient(
             circle at 80% 70%,
             rgba(255,255,255,.06),
@@ -143,7 +136,6 @@ TELA NICKNAME
 }
 
 @keyframes fogMove{
-
     0%{
         transform:translateX(-60px);
     }
@@ -175,10 +167,15 @@ TELA NICKNAME
     z-index:2;
 }
 
-#nicknamePanel h2{
+#nicknamePanel h2,
+#characterSelectPanel h2,
+#platformPanel h2{
     font-family:"Nosifer",cursive;
     color:#c40000;
     text-shadow:0 0 15px red;
+}
+
+#nicknamePanel h2{
     margin-bottom:20px;
 }
 
@@ -209,43 +206,17 @@ TELA NICKNAME
     box-shadow:0 0 12px #8b0000;
 }
 
-/* ======================
-TELA ESCOLHA PERSONAGEM
-====================== */
+/* ======================================================
+   ESCOLHA DE PERSONAGEM
+====================================================== */
 
 #characterSelectScreen{
     display:none;
-
     position:absolute;
     inset:0;
-
     background:#000;
-
     overflow:hidden;
-
     z-index:17;
-}
-
-#characterSelectFog{
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(
-            circle at 30% 30%,
-            rgba(255,255,255,.07),
-            transparent 40%
-        ),
-
-        radial-gradient(
-            circle at 70% 70%,
-            rgba(255,255,255,.05),
-            transparent 45%
-        );
-
-    animation:fogMove 18s ease-in-out infinite;
-
-    pointer-events:none;
 }
 
 #characterSelectPanel{
@@ -276,11 +247,6 @@ TELA ESCOLHA PERSONAGEM
 }
 
 #characterSelectPanel h2{
-    font-family:"Nosifer",cursive;
-    color:#c40000;
-
-    text-shadow:0 0 15px red;
-
     margin-bottom:15px;
 }
 
@@ -290,9 +256,9 @@ TELA ESCOLHA PERSONAGEM
     margin-bottom:20px;
 }
 
-/* ======================
-CARD PERSONAGEM
-====================== */
+/* ======================================================
+   CARD
+====================================================== */
 
 #characterCard{
     position:relative;
@@ -321,15 +287,13 @@ CARD PERSONAGEM
     transition:
         transform .3s ease,
         border-color .3s ease,
-        box-shadow .3s ease,
-        background .3s ease;
+        box-shadow .3s ease;
 
     overflow:hidden;
 }
 
 #characterCard::before{
     content:"";
-
     position:absolute;
     inset:0;
 
@@ -347,35 +311,22 @@ CARD PERSONAGEM
     pointer-events:none;
 }
 
-/* ======================
-PREVIEW DO PERSONAGEM
-======================
-
-PARADO.PNG
-660 x 167
-4 FRAMES
-
-Cada frame:
-165 x 167
-*/
+/* ======================================================
+   PREVIEW DO PERSONAGEM
+====================================================== */
 
 #characterPreview{
-
     width:165px;
     height:167px;
 
     background-image:url("sprites/parado.png");
-
     background-repeat:no-repeat;
-
     background-position:0 0;
-
     background-size:660px 167px;
 
     image-rendering:pixelated;
 
     transform:scale(1.8);
-
     transform-origin:center center;
 
     margin-bottom:70px;
@@ -384,10 +335,6 @@ Cada frame:
         transform .35s ease,
         filter .35s ease;
 }
-
-/* ======================
-EFEITO MOUSE
-====================== */
 
 #characterCard:hover{
     transform:scale(1.04);
@@ -412,15 +359,10 @@ EFEITO MOUSE
         );
 }
 
-/* ======================
-NOME
-====================== */
-
 #characterName{
     position:absolute;
 
     bottom:0;
-
     left:0;
 
     z-index:3;
@@ -439,10 +381,6 @@ NOME
 
     border-top:1px solid #4d0000;
 }
-
-/* ======================
-SELECIONADO
-====================== */
 
 #characterCard.selected{
     transform:scale(1.06);
@@ -494,9 +432,9 @@ SELECIONADO
     box-shadow:0 0 12px #8b0000;
 }
 
-/* ======================
-TELA PC / CELULAR
-====================== */
+/* ======================================================
+   PLATAFORMA
+====================================================== */
 
 #platformScreen{
     display:none;
@@ -505,32 +443,9 @@ TELA PC / CELULAR
     inset:0;
 
     background:#000;
-
     overflow:hidden;
 
     z-index:18;
-}
-
-#platformFog{
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(
-            circle at 20% 30%,
-            rgba(255,255,255,.07),
-            transparent 40%
-        ),
-
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(255,255,255,.05),
-            transparent 45%
-        );
-
-    animation:fogMove 18s ease-in-out infinite;
-
-    pointer-events:none;
 }
 
 #platformPanel{
@@ -550,17 +465,10 @@ TELA PC / CELULAR
     border-radius:15px;
 
     text-align:center;
-
     z-index:2;
 }
 
 #platformPanel h2{
-    font-family:"Nosifer",cursive;
-
-    color:#c40000;
-
-    text-shadow:0 0 15px red;
-
     margin-bottom:20px;
 }
 
@@ -570,15 +478,9 @@ TELA PC / CELULAR
     margin-bottom:30px;
 }
 
-/* ======================
-BOTÕES PC / CELULAR
-====================== */
-
 #platformButtons{
     display:flex;
-
     gap:20px;
-
     justify-content:center;
 }
 
@@ -595,7 +497,6 @@ BOTÕES PC / CELULAR
     border-radius:15px;
 
     display:flex;
-
     flex-direction:column;
 
     align-items:center;
@@ -608,7 +509,6 @@ BOTÕES PC / CELULAR
 
 .platformButton:hover{
     background:#8b0000;
-
     border-color:#ff0000;
 
     transform:scale(1.05);
@@ -637,19 +537,17 @@ BOTÕES PC / CELULAR
     color:white;
 }
 
-/* ======================
-BOTÕES DAS TELAS
-====================== */
+/* ======================================================
+   BOTÕES DAS TELAS
+====================================================== */
 
 .screenButtons{
     width:100%;
 
     display:flex;
-
     justify-content:space-between;
 
     gap:15px;
-
     margin-top:25px;
 }
 
@@ -659,7 +557,6 @@ BOTÕES DAS TELAS
     padding:15px;
 
     background:#111;
-
     color:white;
 
     border:2px solid #8b0000;
@@ -678,9 +575,9 @@ BOTÕES DAS TELAS
     box-shadow:0 0 15px #8b0000;
 }
 
-/* ======================
-TELA DO JOGO
-====================== */
+/* ======================================================
+   TELA DO JOGO
+====================================================== */
 
 #gameScreen{
     display:none;
@@ -697,9 +594,9 @@ TELA DO JOGO
     touch-action:none;
 }
 
-/* ======================
-MUNDO DO JOGO
-====================== */
+/* ======================================================
+   MAPA
+====================================================== */
 
 #gameWorld{
     position:absolute;
@@ -713,44 +610,40 @@ MUNDO DO JOGO
     background:#3f7f35;
 
     overflow:hidden;
+
+    will-change:transform;
 }
 
-/* ======================
-PERSONAGEM
-======================
+/* ======================================================
+   PERSONAGEM
+====================================================== */
 
-O JS vai trocar dinamicamente:
+/*
+   IMPORTANTE:
 
-parado.png
-correr_frente.png
-correr_atras.png
-correr_direita.png
-correr_esquerda.png
+   O JS controla:
+   - imagem
+   - recorte
+   - tamanho
+   - posição do frame
 
-e futuramente:
+   Por isso o CSS NÃO usa background-size
+   específico aqui.
 
-pegar_item.png
-
-correr_graveto_*.png
+   Isso evita cortar os sprites.
 */
 
 #player{
-
     position:absolute;
-
-    width:165px;
-    height:167px;
 
     left:1500px;
     top:1500px;
 
-    background-image:url("sprites/parado.png");
+    width:165px;
+    height:167px;
 
     background-repeat:no-repeat;
-
     background-position:0 0;
-
-    background-size:660px 167px;
 
     image-rendering:pixelated;
 
@@ -758,15 +651,119 @@ correr_graveto_*.png
 
     pointer-events:none;
 
+    transform-origin:center bottom;
+
     will-change:
         left,
         top,
-        background-position;
+        background-position,
+        width,
+        height;
 }
 
-/* ======================
-CONTROLES CELULAR
-====================== */
+/* ======================================================
+   RESPIRAÇÃO / IDLE
+====================================================== */
+
+#player.idle{
+    animation:playerIdle 2.8s ease-in-out infinite;
+}
+
+@keyframes playerIdle{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-2px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/*
+   Quando estiver andando/correndo,
+   o JS pode remover a classe idle.
+*/
+
+#player.walking,
+#player.running{
+    animation:none;
+}
+
+/* ======================================================
+   FUMAÇA DA RESPIRAÇÃO
+====================================================== */
+
+#player::after{
+    content:"";
+
+    position:absolute;
+
+    left:48%;
+    top:18%;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:rgba(230,230,230,.55);
+
+    filter:blur(4px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    animation:breathSmoke 3.2s ease-out infinite;
+}
+
+@keyframes breathSmoke{
+
+    0%{
+        opacity:0;
+
+        transform:
+            translate(0,5px)
+            scale(.4);
+    }
+
+    15%{
+        opacity:.55;
+    }
+
+    45%{
+        opacity:.35;
+
+        transform:
+            translate(-5px,-12px)
+            scale(1);
+    }
+
+    75%{
+        opacity:.15;
+
+        transform:
+            translate(4px,-25px)
+            scale(1.5);
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(8px,-35px)
+            scale(2);
+    }
+}
+
+/* ======================================================
+   CONTROLES CELULAR
+====================================================== */
 
 #mobileControls{
     display:none;
@@ -824,7 +821,6 @@ CONTROLES CELULAR
     bottom:35px;
 
     display:flex;
-
     gap:15px;
 
     pointer-events:auto;
@@ -851,9 +847,9 @@ CONTROLES CELULAR
     background:#8b0000;
 }
 
-/* ======================
-CONFIGURAÇÕES
-====================== */
+/* ======================================================
+   CONFIGURAÇÕES
+====================================================== */
 
 #settingsScreen{
     display:none;
@@ -862,7 +858,6 @@ CONFIGURAÇÕES
     inset:0;
 
     background:#000;
-
     color:white;
 
     z-index:20;
@@ -877,9 +872,7 @@ CONFIGURAÇÕES
     transform:translateY(-50%);
 
     display:flex;
-
     flex-direction:column;
-
     gap:20px;
 }
 
@@ -889,11 +882,9 @@ CONFIGURAÇÕES
     padding:15px;
 
     background:#111;
-
     color:white;
 
     border:2px solid #8b0000;
-
     border-radius:10px;
 
     font-size:20px;
@@ -941,11 +932,9 @@ CONFIGURAÇÕES
     padding:15px;
 
     background:#111;
-
     color:white;
 
     border:2px solid #8b0000;
-
     border-radius:10px;
 }
 
@@ -956,9 +945,9 @@ input[type="range"]{
     accent-color:#8b0000;
 }
 
-/* ======================
-TRANSIÇÃO
-====================== */
+/* ======================================================
+   TRANSIÇÃO
+====================================================== */
 
 #transitionScreen{
     position:fixed;
@@ -981,10 +970,6 @@ TRANSIÇÃO
     opacity:1;
 }
 
-/* ======================
-LOADING
-====================== */
-
 #loading{
     position:absolute;
 
@@ -992,7 +977,6 @@ LOADING
     bottom:40px;
 
     display:flex;
-
     align-items:center;
 
     gap:15px;
@@ -1000,7 +984,6 @@ LOADING
     color:white;
 
     font-size:20px;
-
     font-weight:bold;
 }
 
@@ -1011,7 +994,6 @@ LOADING
     border-radius:50%;
 
     border:4px solid #333;
-
     border-top:4px solid #8b0000;
 
     animation:loadingRotate 1s linear infinite;
@@ -1026,12 +1008,11 @@ LOADING
     to{
         transform:rotate(360deg);
     }
-
 }
 
-/* ======================
-RESPONSIVO
-====================== */
+/* ======================================================
+   RESPONSIVO
+====================================================== */
 
 @media (max-width:700px){
 
@@ -1093,124 +1074,4 @@ RESPONSIVO
         right:20px;
         bottom:25px;
     }
-
-}
-```
-
-/* ======================================================
-   IDLE DO PERSONAGEM — RESPIRAÇÃO NO FRIO
-   ====================================================== */
-
-#player {
-    animation: playerIdle 2.8s ease-in-out infinite;
-}
-
-
-/* Movimento sutil do corpo */
-
-@keyframes playerIdle {
-
-    0% {
-        transform: translateY(0px);
     }
-
-    50% {
-        transform: translateY(-2px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-
-}
-
-
-/* ======================================================
-   FUMAÇA DA RESPIRAÇÃO
-   ====================================================== */
-
-#player::after {
-
-    content: "";
-
-    position: absolute;
-
-    /*
-       Ajuste estes dois valores se a boca
-       do seu sprite estiver em outro lugar.
-    */
-
-    left: 48%;
-    top: 18%;
-
-    width: 12px;
-    height: 12px;
-
-    border-radius: 50%;
-
-    background: rgba(230, 230, 230, 0.55);
-
-    filter: blur(4px);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    animation: breathSmoke 3.2s ease-out infinite;
-
-}
-
-
-/* ======================================================
-   ANIMAÇÃO DA FUMAÇA
-   ====================================================== */
-
-@keyframes breathSmoke {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translate(0px, 5px)
-            scale(0.4);
-
-    }
-
-    15% {
-
-        opacity: 0.55;
-
-    }
-
-    45% {
-
-        opacity: 0.35;
-
-        transform:
-            translate(-5px, -12px)
-            scale(1);
-
-    }
-
-    75% {
-
-        opacity: 0.15;
-
-        transform:
-            translate(4px, -25px)
-            scale(1.5);
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translate(8px, -35px)
-            scale(2);
-
-    }
-
-}
