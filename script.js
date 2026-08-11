@@ -1,6 +1,6 @@
 // ======================================================
 // SILENT FOREST
-// SCRIPT PRINCIPAL
+// SCRIPT PRINCIPAL — VERSÃO CORRIGIDA
 // ======================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
             JSON.stringify(volumes)
         );
     }
-
 
     atualizarVolumes();
 
@@ -217,21 +216,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let correndo = false;
 
-
     const teclas = {};
 
 
     // ==================================================
     // SPRITES
     // ==================================================
-
-    /*
-        Cada imagem possui vários frames lado a lado.
-
-        O CSS já deixa o personagem preparado.
-        Aqui vamos trocar a imagem conforme
-        a direção do movimento.
-    */
 
     const sprites = {
 
@@ -253,6 +243,44 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
+    // ==================================================
+    // INFORMAÇÕES DOS SPRITES
+    // ==================================================
+    //
+    // IMPORTANTE:
+    //
+    // Não colocamos mais:
+    //
+    // 490px
+    // 466px
+    // 498px
+    //
+    // O JS vai descobrir automaticamente
+    // o tamanho REAL de cada PNG.
+    //
+    // Cada folha possui 4 frames.
+    //
+    // ==================================================
+
+    const spriteInfo = {};
+
+    Object.keys(sprites).forEach(direcao => {
+
+        spriteInfo[direcao] = {
+            frames: 4,
+            largura: 0,
+            altura: 0,
+            larguraFrame: 0,
+            carregado: false
+        };
+
+    });
+
+
+    // ==================================================
+    // ESTADO DA ANIMAÇÃO
+    // ==================================================
+
     let direcaoAtual = "frente";
 
     let andando = false;
@@ -261,58 +289,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let ultimoFrame = 0;
 
+    // Tempo entre os frames.
+    // Menor = mais rápido.
     const velocidadeAnimacao = 120;
 
 
     // ==================================================
-    // TAMANHO DOS SPRITES
+    // CARREGAR SPRITES
     // ==================================================
 
-    const spriteInfo = {
+    Object.keys(sprites).forEach(direcao => {
 
-        parado: {
-            frames: 4,
-            largura: 660,
-            altura: 167
-        },
+        const imagem = new Image();
 
-        frente: {
-            frames: 4,
-            largura: 490,
-            altura: 142
-        },
+        imagem.onload = () => {
 
-        atras: {
-            frames: 4,
-            largura: 466,
-            altura: 122
-        },
+            const largura =
+                imagem.naturalWidth;
 
-        direita: {
-            frames: 4,
-            largura: 498,
-            altura: 145
-        },
+            const altura =
+                imagem.naturalHeight;
 
-        esquerda: {
-            frames: 4,
-            largura: 540,
-            altura: 141
-        }
+            const totalFrames =
+                spriteInfo[direcao].frames;
 
-    };
+            const larguraFrame =
+                largura / totalFrames;
 
 
-    // ==================================================
-    // PRECARREGAR SPRITES
-    // ==================================================
+            spriteInfo[direcao].largura =
+                largura;
 
-    Object.values(sprites).forEach(src => {
+            spriteInfo[direcao].altura =
+                altura;
 
-        const imagem =
-            new Image();
+            spriteInfo[direcao].larguraFrame =
+                larguraFrame;
 
-        imagem.src = src;
+            spriteInfo[direcao].carregado =
+                true;
+
+
+            console.log(
+                `Sprite ${direcao}:`,
+                largura,
+                "x",
+                altura,
+                "| frame:",
+                larguraFrame,
+                "x",
+                altura
+            );
+
+
+            // Se for o sprite atual,
+            // aplica imediatamente.
+            if (direcaoAtual === direcao) {
+
+                aplicarSprite(direcao);
+
+            }
+
+        };
+
+
+        imagem.onerror = () => {
+
+            console.error(
+                "Erro ao carregar sprite:",
+                sprites[direcao]
+            );
+
+        };
+
+
+        imagem.src =
+            sprites[direcao];
 
     });
 
@@ -325,42 +377,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!player) return;
 
-        const infoSprite =
+
+        const dados =
             spriteInfo[direcao];
 
-        if (!infoSprite) return;
+        if (!dados) return;
 
+        if (!dados.carregado) return;
+
+
+        const larguraFrame =
+            dados.larguraFrame;
+
+        const altura =
+            dados.altura;
+
+
+        // ----------------------------------------------
+        // TROCA A IMAGEM
+        // ----------------------------------------------
 
         player.style.backgroundImage =
             `url("${sprites[direcao]}")`;
 
 
-        /*
-            As imagens possuem larguras diferentes.
-
-            Como cada sprite é dividido em 4 frames,
-            calculamos automaticamente a largura
-            aproximada de cada frame.
-        */
-
-        const larguraFrame =
-            infoSprite.largura /
-            infoSprite.frames;
-
+        // ----------------------------------------------
+        // TAMANHO EXATO DE UM FRAME
+        // ----------------------------------------------
 
         player.style.width =
-            larguraFrame + "px";
+            `${larguraFrame}px`;
 
         player.style.height =
-            infoSprite.altura + "px";
+            `${altura}px`;
 
+
+        // ----------------------------------------------
+        // TAMANHO EXATO DA FOLHA
+        // ----------------------------------------------
 
         player.style.backgroundSize =
-            `${infoSprite.largura}px ${infoSprite.altura}px`;
+            `${dados.largura}px ${dados.altura}px`;
+
+
+        // ----------------------------------------------
+        // POSIÇÃO DO FRAME
+        // ----------------------------------------------
+
+        const posicaoX =
+            frameAtual * larguraFrame;
 
 
         player.style.backgroundPosition =
-            `-${frameAtual * larguraFrame}px 0px`;
+            `-${posicaoX}px 0px`;
 
     }
 
@@ -382,22 +451,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        // =================================================
+        // PERSONAGEM ANDANDO
+        // =================================================
+
         if (andando) {
 
+            const dados =
+                spriteInfo[direcaoAtual];
+
+
             if (
-                tempo -
-                ultimoFrame >=
+                dados &&
+                dados.carregado &&
+                tempo - ultimoFrame >=
                 velocidadeAnimacao
             ) {
 
                 frameAtual++;
 
-                const totalFrames =
-                    spriteInfo[direcaoAtual].frames;
-
                 if (
                     frameAtual >=
-                    totalFrames
+                    dados.frames
                 ) {
 
                     frameAtual = 0;
@@ -410,16 +485,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-                ultimoFrame = tempo;
+                ultimoFrame =
+                    tempo;
 
             }
 
-        } else {
+        }
 
-            /*
-                Quando está parado,
-                usamos o primeiro frame.
-            */
+
+        // =================================================
+        // PERSONAGEM PARADO
+        // =================================================
+
+        else {
 
             frameAtual = 0;
 
@@ -459,11 +537,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-            Vertical tem prioridade quando
-            o personagem está indo para frente
-            ou para trás.
-        */
+        // Vertical possui prioridade
+        // quando o movimento é maior.
 
         if (
             Math.abs(movimentoY) >
@@ -472,11 +547,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (movimentoY < 0) {
 
+                // W
                 direcaoAtual =
                     "atras";
 
             } else {
 
+                // S
                 direcaoAtual =
                     "frente";
 
@@ -486,11 +563,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (movimentoX > 0) {
 
+                // D
                 direcaoAtual =
                     "direita";
 
             } else {
 
+                // A
                 direcaoAtual =
                     "esquerda";
 
@@ -880,7 +959,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
 
-            transitionScreen.classList.remove("show");
+            transitionScreen.classList.remove(
+                "show"
+            );
 
             if (callback) {
 
@@ -1265,7 +1346,6 @@ document.addEventListener("DOMContentLoaded", () => {
         joystickX =
             dx / limite;
 
-
         joystickY =
             dy / limite;
 
@@ -1389,6 +1469,19 @@ document.addEventListener("DOMContentLoaded", () => {
             { passive: false }
         );
 
+
+        runButton.addEventListener(
+            "touchcancel",
+            () => {
+
+                correndo = false;
+
+                runButton.style.background =
+                    "rgba(20,20,20,.8)";
+
+            }
+        );
+
     }
 
 
@@ -1429,17 +1522,36 @@ document.addEventListener("DOMContentLoaded", () => {
             ) return;
 
 
-            teclas[
-                event.key.toLowerCase()
-            ] = true;
+            const tecla =
+                event.key.toLowerCase();
+
+
+            teclas[tecla] = true;
 
 
             if (
-                event.key ===
-                "Shift"
+                event.key === "Shift"
             ) {
 
                 correndo = true;
+
+            }
+
+
+            // Evita comportamento do navegador
+            // com teclas de movimento.
+
+            if (
+                [
+                    "w",
+                    "a",
+                    "s",
+                    "d",
+                    "shift"
+                ].includes(tecla)
+            ) {
+
+                event.preventDefault();
 
             }
 
@@ -1457,14 +1569,15 @@ document.addEventListener("DOMContentLoaded", () => {
             ) return;
 
 
-            teclas[
-                event.key.toLowerCase()
-            ] = false;
+            const tecla =
+                event.key.toLowerCase();
+
+
+            teclas[tecla] = false;
 
 
             if (
-                event.key ===
-                "Shift"
+                event.key === "Shift"
             ) {
 
                 correndo = false;
@@ -1481,190 +1594,230 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function atualizarMovimento() {
 
-    requestAnimationFrame(atualizarMovimento);
-
-    if (!gameScreen) return;
-
-    if (gameScreen.style.display !== "block") {
-
-        andando = false;
-
-        return;
-    }
-
-
-    let movimentoX = 0;
-    let movimentoY = 0;
-
-
-    // ==================================================
-    // CONTROLE CELULAR
-    // ==================================================
-
-    if (plataformaSelecionada === "mobile") {
-
-        movimentoX = joystickX;
-        movimentoY = joystickY;
-
-    }
-
-
-    // ==================================================
-    // CONTROLE PC
-    // ==================================================
-
-    if (plataformaSelecionada === "pc") {
-
-        if (teclas["w"]) {
-            movimentoY -= 1;
-        }
-
-        if (teclas["s"]) {
-            movimentoY += 1;
-        }
-
-        if (teclas["a"]) {
-            movimentoX -= 1;
-        }
-
-        if (teclas["d"]) {
-            movimentoX += 1;
-        }
-
-    }
-
-
-    // ==================================================
-    // NORMALIZAR DIAGONAL
-    // ==================================================
-
-    const distancia = Math.sqrt(
-        movimentoX * movimentoX +
-        movimentoY * movimentoY
-    );
-
-
-    if (distancia > 1) {
-
-        movimentoX /= distancia;
-        movimentoY /= distancia;
-
-    }
-
-
-    // ==================================================
-    // VERIFICAR MOVIMENTO
-    // ==================================================
-
-    andando =
-        movimentoX !== 0 ||
-        movimentoY !== 0;
-
-
-    // ==================================================
-    // DIREÇÃO
-    // ==================================================
-
-    if (andando) {
-
-        atualizarDirecao(
-            movimentoX,
-            movimentoY
+        requestAnimationFrame(
+            atualizarMovimento
         );
 
+
+        if (!gameScreen) return;
+
+
+        if (
+            gameScreen.style.display !==
+            "block"
+        ) {
+
+            andando = false;
+
+            return;
+
+        }
+
+
+        let movimentoX = 0;
+        let movimentoY = 0;
+
+
+        // =================================================
+        // CELULAR
+        // =================================================
+
+        if (
+            plataformaSelecionada ===
+            "mobile"
+        ) {
+
+            movimentoX =
+                joystickX;
+
+            movimentoY =
+                joystickY;
+
+        }
+
+
+        // =================================================
+        // PC
+        // =================================================
+
+        if (
+            plataformaSelecionada ===
+            "pc"
+        ) {
+
+            if (teclas["w"]) {
+
+                movimentoY -= 1;
+
+            }
+
+            if (teclas["s"]) {
+
+                movimentoY += 1;
+
+            }
+
+            if (teclas["a"]) {
+
+                movimentoX -= 1;
+
+            }
+
+            if (teclas["d"]) {
+
+                movimentoX += 1;
+
+            }
+
+        }
+
+
+        // =================================================
+        // NORMALIZAR DIAGONAL
+        // =================================================
+
+        const distancia =
+            Math.sqrt(
+                movimentoX *
+                movimentoX +
+                movimentoY *
+                movimentoY
+            );
+
+
+        if (distancia > 1) {
+
+            movimentoX /=
+                distancia;
+
+            movimentoY /=
+                distancia;
+
+        }
+
+
+        // =================================================
+        // VERIFICAR MOVIMENTO
+        // =================================================
+
+        andando =
+            movimentoX !== 0 ||
+            movimentoY !== 0;
+
+
+        // =================================================
+        // DIREÇÃO
+        // =================================================
+
+        if (andando) {
+
+            atualizarDirecao(
+                movimentoX,
+                movimentoY
+            );
+
+        }
+
+
+        // =================================================
+        // VELOCIDADE
+        // =================================================
+
+        const velocidadeAtual =
+            correndo
+                ? velocidadeCorrendo
+                : velocidadeNormal;
+
+
+        // =================================================
+        // MOVIMENTAR
+        // =================================================
+
+        playerX +=
+            movimentoX *
+            velocidadeAtual;
+
+        playerY +=
+            movimentoY *
+            velocidadeAtual;
+
+
+        // =================================================
+        // LIMITES DO MAPA
+        // =================================================
+
+        const larguraMapa =
+            gameWorld.offsetWidth;
+
+        const alturaMapa =
+            gameWorld.offsetHeight;
+
+
+        const larguraPersonagem =
+            player.offsetWidth;
+
+        const alturaPersonagem =
+            player.offsetHeight;
+
+
+        playerX =
+            Math.max(
+                0,
+                Math.min(
+                    larguraMapa -
+                    larguraPersonagem,
+                    playerX
+                )
+            );
+
+
+        playerY =
+            Math.max(
+                0,
+                Math.min(
+                    alturaMapa -
+                    alturaPersonagem,
+                    playerY
+                )
+            );
+
+
+        // =================================================
+        // POSIÇÃO
+        // =================================================
+
+        player.style.left =
+            playerX + "px";
+
+        player.style.top =
+            playerY + "px";
+
+
+        // =================================================
+        // CÂMERA
+        // =================================================
+
+        const centroX =
+            window.innerWidth / 2 -
+            playerX -
+            larguraPersonagem / 2;
+
+
+        const centroY =
+            window.innerHeight / 2 -
+            playerY -
+            alturaPersonagem / 2;
+
+
+        gameWorld.style.transform =
+            `translate(${centroX}px, ${centroY}px)`;
+
     }
 
 
-    // ==================================================
-    // VELOCIDADE
-    // ==================================================
-
-    const velocidadeAtual =
-        correndo
-            ? velocidadeCorrendo
-            : velocidadeNormal;
-
-
-    // ==================================================
-    // ALTERAR POSIÇÃO
-    // ==================================================
-
-    playerX +=
-        movimentoX *
-        velocidadeAtual;
-
-    playerY +=
-        movimentoY *
-        velocidadeAtual;
-
-
-    // ==================================================
-    // LIMITES
-    // ==================================================
-
-    const larguraMapa =
-        gameWorld.offsetWidth;
-
-    const alturaMapa =
-        gameWorld.offsetHeight;
-
-
-    const larguraPersonagem =
-        player.offsetWidth;
-
-    const alturaPersonagem =
-        player.offsetHeight;
-
-
-    playerX = Math.max(
-        0,
-        Math.min(
-            larguraMapa - larguraPersonagem,
-            playerX
-        )
+    requestAnimationFrame(
+        atualizarMovimento
     );
-
-
-    playerY = Math.max(
-        0,
-        Math.min(
-            alturaMapa - alturaPersonagem,
-            playerY
-        )
-    );
-
-
-    // ==================================================
-    // POSIÇÃO DO PERSONAGEM
-    // ==================================================
-
-    player.style.left =
-        playerX + "px";
-
-    player.style.top =
-        playerY + "px";
-
-
-    // ==================================================
-    // CÂMERA
-    // ==================================================
-
-    const centroX =
-        window.innerWidth / 2 -
-        playerX -
-        larguraPersonagem / 2;
-
-
-    const centroY =
-        window.innerHeight / 2 -
-        playerY -
-        alturaPersonagem / 2;
-
-
-    gameWorld.style.transform =
-        `translate(${centroX}px, ${centroY}px)`;
-
-}
 
 
     // ==================================================
@@ -1808,12 +1961,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
+    // CARREGAR PLATAFORMA
+    // ==================================================
+
+    if (
+        plataformaSelecionada ===
+        "mobile"
+    ) {
+
+        configurarControles();
+
+    }
+
+
+    // ==================================================
     // SPRITE INICIAL
     // ==================================================
 
     if (player) {
 
-        aplicarSprite("parado");
+        // Começa parado olhando para frente.
+
+        direcaoAtual =
+            "frente";
+
+        frameAtual =
+            0;
+
+        aplicarSprite(
+            "parado"
+        );
 
     }
 
