@@ -312,32 +312,54 @@ function aplicarSprite(direcao) {
         const frames =
             spriteInfo[direcao].frames;
 
-        // tamanho real da folha
         const larguraFolha =
             imagem.naturalWidth;
 
         const alturaFolha =
             imagem.naturalHeight;
 
-        // tamanho real de UM frame
         const larguraFrame =
             larguraFolha / frames;
 
 
         // ==========================================
-        // TAMANHO VISUAL PADRÃO
-        // baseado no parado.png
+        // PARADO — NÃO ALTERAR
         // ==========================================
 
-        const larguraPadrao = 165;
-        const alturaPadrao = 167;
+        if (direcao === "parado") {
+
+            player.style.width = "165px";
+            player.style.height = "167px";
+
+            player.style.backgroundImage =
+                `url("${sprites.parado}")`;
+
+            player.style.backgroundSize =
+                `${larguraFolha}px ${alturaFolha}px`;
+
+            player.style.backgroundPosition =
+                `-${frameAtual * larguraFrame}px 0px`;
+
+            return;
+        }
+
+
+        // ==========================================
+        // CAMINHADA
+        // ==========================================
+
+        const corteDireita =
+            larguraFrame * 0.25;
+
+        const larguraVisivel =
+            larguraFrame - corteDireita;
 
 
         player.style.width =
-            `${larguraPadrao}px`;
+            "165px";
 
         player.style.height =
-            `${alturaPadrao}px`;
+            "167px";
 
 
         player.style.backgroundImage =
@@ -347,22 +369,12 @@ function aplicarSprite(direcao) {
             "no-repeat";
 
 
-        // A folha continua no tamanho ORIGINAL
         player.style.backgroundSize =
             `${larguraFolha}px ${alturaFolha}px`;
 
 
-        // ==========================================
-        // FRAME
-        // ==========================================
-
-      const corteDireita = larguraFrame * 0.25;
-
-const larguraFrameVisivel =
-    larguraFrame - corteDireita;
-
-const posicaoX =
-    frameAtual * larguraFrame;
+        const posicaoX =
+            frameAtual * larguraFrame;
 
 
         player.style.backgroundPosition =
