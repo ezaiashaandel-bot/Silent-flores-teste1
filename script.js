@@ -1157,9 +1157,8 @@ requestAnimationFrame(
                 "block";
 
 
-            playerX = 1300;
-            playerY = 1300;
-
+            playerX = spawnX;
+playerY = spawnY;
 
             configurarControles();
 
