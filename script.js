@@ -197,9 +197,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // MOVIMENTO
     // ==================================================
 
-    let playerX = 1300;
-    let playerY = 1300;
+    let playerX = 1500;
+let playerY = 1500;
 
+const spawnX = 1500;
+const spawnY = 1500;
+    
     const velocidadeNormal = 3;
     const velocidadeCorrendo = 6;
 
