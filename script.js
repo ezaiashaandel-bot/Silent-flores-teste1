@@ -323,18 +323,13 @@ function aplicarSprite(direcao) {
     const larguraFrame =
         info.larguraFolha / info.frames;
 
-
-    // Largura visível depois do pequeno corte
-    const larguraVisivel =
-        larguraFrame - (corteHorizontal * 2);
+const larguraVisivel =
+    larguraFrame - (corteHorizontal * 2);
 
 
-    player.style.width =
-        larguraVisivel + "px";
-
-    player.style.height =
-        info.altura + "px";
-
+// Mantém o mesmo tamanho visual do personagem parado
+player.style.width = "165px";
+player.style.height = "167px";
 
     player.style.backgroundImage =
         `url("${sprites[direcao]}")`;
