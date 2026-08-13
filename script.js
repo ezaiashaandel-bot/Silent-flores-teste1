@@ -319,17 +319,33 @@ function aplicarSprite(direcao) {
     if (!info) return;
 
 
-    // Largura real de cada slot
+    // ==============================================
+    // TAMANHO DE CADA FRAME DA SPRITESHEET
+    // ==============================================
+
     const larguraFrame =
         info.larguraFolha / info.frames;
 
-const larguraVisivel =
-    larguraFrame - (corteHorizontal * 2);
+
+    // ==============================================
+    // TAMANHO PADRÃO DO PERSONAGEM
+    // Igual ao parado.png
+    // ==============================================
+
+    const larguraPersonagem = 165;
+    const alturaPersonagem = 167;
 
 
-// Mantém o mesmo tamanho visual do personagem parado
-player.style.width = "165px";
-player.style.height = "167px";
+    player.style.width =
+        `${larguraPersonagem}px`;
+
+    player.style.height =
+        `${alturaPersonagem}px`;
+
+
+    // ==============================================
+    // SPRITESHEET
+    // ==============================================
 
     player.style.backgroundImage =
         `url("${sprites[direcao]}")`;
@@ -338,25 +354,23 @@ player.style.height = "167px";
         "no-repeat";
 
 
+    // Mantém a spritesheet no tamanho original
     player.style.backgroundSize =
         `${info.larguraFolha}px ${info.altura}px`;
 
 
-    /*
-       Avançamos até o frame correto
-       e cortamos igualmente os dois lados.
-    */
+    // ==============================================
+    // POSIÇÃO DO FRAME
+    // ==============================================
 
     const posicaoX =
-        (frameAtual * larguraFrame) +
-        corteHorizontal;
+        frameAtual * larguraFrame;
 
 
     player.style.backgroundPosition =
         `-${posicaoX}px 0px`;
 
 }
-
 
 // ======================================================
 // ANIMAÇÃO
