@@ -349,7 +349,7 @@ function aplicarSprite(direcao) {
         // ==========================================
 
         const corteDireita =
-            larguraFrame * 0.25;
+            larguraFrame * 0.50;
 
         const larguraVisivel =
             larguraFrame - corteDireita;
