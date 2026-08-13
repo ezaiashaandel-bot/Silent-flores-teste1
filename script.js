@@ -303,63 +303,70 @@ function aplicarSprite(direcao) {
 
     if (!player) return;
 
-    const info = spriteInfo[direcao];
+    const imagem = new Image();
 
-    if (!info) return;
+    imagem.src = sprites[direcao];
+
+    imagem.onload = () => {
+
+        const frames =
+            spriteInfo[direcao].frames;
+
+        // tamanho real da folha
+        const larguraFolha =
+            imagem.naturalWidth;
+
+        const alturaFolha =
+            imagem.naturalHeight;
+
+        // tamanho real de UM frame
+        const larguraFrame =
+            larguraFolha / frames;
 
 
-    // ==============================================
-    // SPRITE PARADO
-    // ==============================================
+        // ==========================================
+        // TAMANHO VISUAL PADRÃO
+        // baseado no parado.png
+        // ==========================================
 
-    if (direcao === "parado") {
+        const larguraPadrao = 165;
+        const alturaPadrao = 167;
 
-        player.style.width = "165px";
-        player.style.height = "167px";
+
+        player.style.width =
+            `${larguraPadrao}px`;
+
+        player.style.height =
+            `${alturaPadrao}px`;
+
 
         player.style.backgroundImage =
-            `url("${sprites.parado}")`;
+            `url("${sprites[direcao]}")`;
 
+        player.style.backgroundRepeat =
+            "no-repeat";
+
+
+        // A folha continua no tamanho ORIGINAL
         player.style.backgroundSize =
-            "660px 167px";
+            `${larguraFolha}px ${alturaFolha}px`;
+
+
+        // ==========================================
+        // FRAME
+        // ==========================================
+
+        const posicaoX =
+            frameAtual * larguraFrame;
+
 
         player.style.backgroundPosition =
-            `-${frameAtual * 165}px 0px`;
+            `-${posicaoX}px 0px`;
 
-        return;
-    }
-
-
-    // ==============================================
-    // SPRITES DE MOVIMENTO
-    // ==============================================
-
-    const larguraFrame =
-        info.larguraFolha / info.frames;
-
-
-    player.style.width =
-        `${larguraFrame}px`;
-
-    player.style.height =
-        `${info.altura}px`;
-
-
-    player.style.backgroundImage =
-        `url("${sprites[direcao]}")`;
-
-    player.style.backgroundRepeat =
-        "no-repeat";
-
-
-    player.style.backgroundSize =
-        `${info.larguraFolha}px ${info.altura}px`;
-
-
-    player.style.backgroundPosition =
-        `-${frameAtual * larguraFrame}px 0px`;
+    };
 
 }
+    
 // ======================================================
 // ANIMAÇÃO
 // ======================================================
