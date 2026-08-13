@@ -205,392 +205,213 @@ document.addEventListener("DOMContentLoaded", () => {
     const teclas = {};
 
 
-    // ==================================================
-    // SPRITES
-    // ==================================================
+    // ======================================================
+// SPRITES
+// ======================================================
 
-    const sprites = {
+const sprites = {
 
-        parado:
-            "sprites/parado.png",
+    parado: "sprites/parado.png",
 
-        frente:
-            "sprites/correr_frente.png",
+    frente: "sprites/correr_frente.png",
 
-        atras:
-            "sprites/correr_atras.png",
+    atras: "sprites/correr_atras.png",
 
-        direita:
-            "sprites/correr_direita.png",
+    direita: "sprites/correr_direita.png",
 
-        esquerda:
-            "sprites/correr_esquerda.png"
+    esquerda: "sprites/correr_esquerda.png"
 
-    };
+};
 
 
-    // ==================================================
-    // INFORMAÇÕES DOS SPRITES
-    // ==================================================
+// ======================================================
+// CONFIGURAÇÃO DOS SPRITES
+// ======================================================
+
+const spriteInfo = {
+
+    parado: {
+        frames: 4,
+        larguraFolha: 660,
+        altura: 167
+    },
+
+    frente: {
+        frames: 4,
+        larguraFolha: 1536,
+        altura: 142
+    },
+
+    atras: {
+        frames: 4,
+        larguraFolha: 1536,
+        altura: 122
+    },
+
+    direita: {
+        frames: 4,
+        larguraFolha: 1536,
+        altura: 145
+    },
+
+    esquerda: {
+        frames: 4,
+        larguraFolha: 1536,
+        altura: 141
+    }
+
+};
+
+
+// ======================================================
+// CORTE DAS BORDAS
+// ======================================================
+
+// Quanto maior, mais cortamos de cada lado.
+// Começamos pequeno para não cortar o personagem.
+const corteHorizontal = 8;
+
+
+// ======================================================
+// VARIÁVEIS DA ANIMAÇÃO
+// ======================================================
+
+let direcaoAtual = "frente";
+
+let andando = false;
+
+let frameAtual = 0;
+
+let ultimoFrame = 0;
+
+const velocidadeAnimacao = 120;
+
+
+// ======================================================
+// PRECARREGAR SPRITES
+// ======================================================
+
+Object.values(sprites).forEach(src => {
+
+    const imagem = new Image();
+
+    imagem.src = src;
+
+});
+
+
+// ======================================================
+// APLICAR SPRITE
+// ======================================================
+
+function aplicarSprite(direcao) {
+
+    if (!player) return;
+
+    const info = spriteInfo[direcao];
+
+    if (!info) return;
+
+
+    // Largura real de cada slot
+    const larguraFrame =
+        info.larguraFolha / info.frames;
+
+
+    // Largura visível depois do pequeno corte
+    const larguraVisivel =
+        larguraFrame - (corteHorizontal * 2);
+
+
+    player.style.width =
+        larguraVisivel + "px";
+
+    player.style.height =
+        info.altura + "px";
+
+
+    player.style.backgroundImage =
+        `url("${sprites[direcao]}")`;
+
+    player.style.backgroundRepeat =
+        "no-repeat";
+
+
+    player.style.backgroundSize =
+        `${info.larguraFolha}px ${info.altura}px`;
+
 
     /*
-        IMPORTANTE:
-
-        Todas as spritesheets de movimento enviadas
-        possuem 1536px de largura.
-
-        1536 / 4 = 384px por frame.
-
-        Em vez de colocar alturas manualmente,
-        o JS descobre a altura real do PNG.
+       Avançamos até o frame correto
+       e cortamos igualmente os dois lados.
     */
 
-    const spriteInfo = {};
+    const posicaoX =
+        (frameAtual * larguraFrame) +
+        corteHorizontal;
 
 
-    // ==================================================
-    // CARREGAR SPRITES
-    // ==================================================
+    player.style.backgroundPosition =
+        `-${posicaoX}px 0px`;
 
-    const imagensSprites = {};
+}
 
 
-    function carregarSprite(nome, caminho) {
+// ======================================================
+// ANIMAÇÃO
+// ======================================================
 
-        return new Promise(resolve => {
+function atualizarAnimacao(tempo) {
 
-            const imagem = new Image();
-
-            imagem.onload = () => {
-
-                imagensSprites[nome] = imagem;
-
-                spriteInfo[nome] = {
-
-                    larguraTotal:
-                        imagem.naturalWidth,
-
-                    altura:
-                        imagem.naturalHeight,
-
-                    frames: 4,
-
-                    larguraFrame:
-                        imagem.naturalWidth / 4
-
-                };
-
-                console.log(
-                    `Sprite ${nome}:`,
-                    imagem.naturalWidth,
-                    "x",
-                    imagem.naturalHeight,
-                    "→ frame:",
-                    imagem.naturalWidth / 4
-                );
-
-                resolve();
-
-            };
-
-
-            imagem.onerror = () => {
-
-                console.error(
-                    "Erro ao carregar sprite:",
-                    caminho
-                );
-
-                resolve();
-
-            };
-
-
-            imagem.src = caminho;
-
-        });
-
-    }
-
-
-    // ==================================================
-    // CARREGAR TODOS
-    // ==================================================
-
-    Promise.all([
-
-        carregarSprite(
-            "parado",
-            sprites.parado
-        ),
-
-        carregarSprite(
-            "frente",
-            sprites.frente
-        ),
-
-        carregarSprite(
-            "atras",
-            sprites.atras
-        ),
-
-        carregarSprite(
-            "direita",
-            sprites.direita
-        ),
-
-        carregarSprite(
-            "esquerda",
-            sprites.esquerda
-        )
-
-    ]).then(() => {
-
-        console.log(
-            "Todos os sprites foram carregados."
-        );
-
-        aplicarSpriteParado();
-
-    });
-
-
-    // ==================================================
-    // DIREÇÃO
-    // ==================================================
-
-    /*
-        Direção inicial:
-
-        frente = 0
-        atras  = 1
-        direita = 2
-        esquerda = 3
-
-        Isso corresponde à folha parada enviada.
-    */
-
-    let direcaoAtual = "frente";
-
-    const direcaoParado = {
-
-        frente: 0,
-
-        atras: 1,
-
-        direita: 2,
-
-        esquerda: 3
-
-    };
-
-
-    // ==================================================
-    // FRAMES
-    // ==================================================
-
-    let frameAtual = 0;
-
-    let ultimoFrame = 0;
-
-    const intervaloAnimacao =
-        120;
-
-
-    let andando = false;
-
-
-    // ==================================================
-    // APLICAR SPRITE DE MOVIMENTO
-    // ==================================================
-
-    function aplicarSpriteMovimento(
-        direcao
-    ) {
-
-        if (!player) return;
-
-        const dados =
-            spriteInfo[direcao];
-
-        if (!dados) return;
-
-
-        player.style.backgroundImage =
-            `url("${sprites[direcao]}")`;
-
-
-        /*
-            FRAME REAL:
-
-            1536 / 4 = 384
-
-            Nunca usamos aproximação.
-        */
-
-        const largura =
-            dados.larguraFrame;
-
-
-        const altura =
-            dados.altura;
-
-
-        player.style.width =
-            `${largura}px`;
-
-        player.style.height =
-            `${altura}px`;
-
-
-        player.style.backgroundSize =
-            `${dados.larguraTotal}px ${altura}px`;
-
-
-        player.style.backgroundPosition =
-            `-${frameAtual * largura}px 0px`;
-
-
-        player.style.backgroundRepeat =
-            "no-repeat";
-
-
-        player.style.imageRendering =
-            "pixelated";
-
-    }
-
-
-    // ==================================================
-    // APLICAR SPRITE PARADO
-    // ==================================================
-
-    function aplicarSpriteParado() {
-
-        if (!player) return;
-
-        const dados =
-            spriteInfo.parado;
-
-        if (!dados) return;
-
-
-        player.style.backgroundImage =
-            `url("${sprites.parado}")`;
-
-
-        player.style.width =
-            `${dados.larguraFrame}px`;
-
-        player.style.height =
-            `${dados.altura}px`;
-
-
-        player.style.backgroundSize =
-            `${dados.larguraTotal}px ${dados.altura}px`;
-
-
-        /*
-            O parado possui 4 direções
-            na mesma imagem.
-
-            Não é uma animação de caminhada.
-
-            Apenas selecionamos o slot
-            correspondente à direção.
-        */
-
-        const frame =
-            direcaoParado[direcaoAtual];
-
-
-        player.style.backgroundPosition =
-            `-${frame * dados.larguraFrame}px 0px`;
-
-
-        player.style.backgroundRepeat =
-            "no-repeat";
-
-
-        player.style.imageRendering =
-            "pixelated";
-
-    }
-
-
-    // ==================================================
-    // ATUALIZAR ANIMAÇÃO
-    // ==================================================
-
-    function atualizarAnimacao(tempo) {
-
-        if (!player) {
-
-            requestAnimationFrame(
-                atualizarAnimacao
-            );
-
-            return;
-
-        }
-
-
-        if (andando) {
-
-            if (
-                tempo - ultimoFrame >=
-                intervaloAnimacao
-            ) {
-
-                frameAtual++;
-
-
-                const dados =
-                    spriteInfo[direcaoAtual];
-
-
-                if (dados) {
-
-                    if (
-                        frameAtual >=
-                        dados.frames
-                    ) {
-
-                        frameAtual = 0;
-
-                    }
-
-                }
-
-
-                aplicarSpriteMovimento(
-                    direcaoAtual
-                );
-
-
-                ultimoFrame =
-                    tempo;
-
-            }
-
-        } else {
-
-            /*
-                Parado:
-
-                sempre mostra somente
-                a posição correspondente
-                à direção atual.
-            */
-
-            aplicarSpriteParado();
-
-        }
-
+    if (!player) {
 
         requestAnimationFrame(
             atualizarAnimacao
         );
+
+        return;
+
+    }
+
+
+    if (andando) {
+
+        if (
+            tempo - ultimoFrame >=
+            velocidadeAnimacao
+        ) {
+
+            frameAtual++;
+
+
+            const totalFrames =
+                spriteInfo[direcaoAtual].frames;
+
+
+            if (
+                frameAtual >=
+                totalFrames
+            ) {
+
+                frameAtual = 0;
+
+            }
+
+
+            aplicarSprite(
+                direcaoAtual
+            );
+
+
+            ultimoFrame = tempo;
+
+        }
+
+    } else {
+
+        frameAtual = 0;
+
+        aplicarSprite("parado");
 
     }
 
@@ -598,6 +419,13 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(
         atualizarAnimacao
     );
+
+}
+
+
+requestAnimationFrame(
+    atualizarAnimacao
+);
 
 
     // ==================================================
