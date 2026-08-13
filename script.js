@@ -356,8 +356,13 @@ function aplicarSprite(direcao) {
         // FRAME
         // ==========================================
 
-        const posicaoX =
-            frameAtual * larguraFrame;
+      const corteDireita = larguraFrame * 0.25;
+
+const larguraFrameVisivel =
+    larguraFrame - corteDireita;
+
+const posicaoX =
+    frameAtual * larguraFrame;
 
 
         player.style.backgroundPosition =
