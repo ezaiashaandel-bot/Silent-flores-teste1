@@ -237,37 +237,26 @@ const sprites = {
 const spriteInfo = {
 
     parado: {
-        frames: 4,
-        larguraFolha: 660,
-        altura: 167
+        frames: 4
     },
 
     frente: {
-        frames: 4,
-        larguraFolha: 1536,
-        altura: 142
+        frames: 4
     },
 
     atras: {
-        frames: 4,
-        larguraFolha: 1536,
-        altura: 122
+        frames: 4
     },
 
     direita: {
-        frames: 4,
-        larguraFolha: 1536,
-        altura: 145
+        frames: 4
     },
 
     esquerda: {
-        frames: 4,
-        larguraFolha: 1536,
-        altura: 141
+        frames: 4
     }
 
 };
-
 
 // ======================================================
 // CORTE DAS BORDAS
