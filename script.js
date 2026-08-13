@@ -129,6 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("player");
 
 
+    const spawnPoint =
+    document.getElementById("spawnPoint");
+    
     const mobileControls =
         document.getElementById("mobileControls");
 
