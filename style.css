@@ -1102,3 +1102,7 @@ input[type="range"]{
         bottom:25px;
     }
     }
+
+#player.cortado{
+    clip-path: inset(0 25% 0 0);
+}
