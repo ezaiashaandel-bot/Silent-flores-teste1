@@ -320,32 +320,41 @@ function aplicarSprite(direcao) {
 
 
     // ==============================================
-    // TAMANHO DE CADA FRAME DA SPRITESHEET
+    // SPRITE PARADO
+    // ==============================================
+
+    if (direcao === "parado") {
+
+        player.style.width = "165px";
+        player.style.height = "167px";
+
+        player.style.backgroundImage =
+            `url("${sprites.parado}")`;
+
+        player.style.backgroundSize =
+            "660px 167px";
+
+        player.style.backgroundPosition =
+            `-${frameAtual * 165}px 0px`;
+
+        return;
+    }
+
+
+    // ==============================================
+    // SPRITES DE MOVIMENTO
     // ==============================================
 
     const larguraFrame =
         info.larguraFolha / info.frames;
 
 
-    // ==============================================
-    // TAMANHO PADRÃO DO PERSONAGEM
-    // Igual ao parado.png
-    // ==============================================
-
-    const larguraPersonagem = 165;
-    const alturaPersonagem = 167;
-
-
     player.style.width =
-        `${larguraPersonagem}px`;
+        `${larguraFrame}px`;
 
     player.style.height =
-        `${alturaPersonagem}px`;
+        `${info.altura}px`;
 
-
-    // ==============================================
-    // SPRITESHEET
-    // ==============================================
 
     player.style.backgroundImage =
         `url("${sprites[direcao]}")`;
@@ -354,24 +363,14 @@ function aplicarSprite(direcao) {
         "no-repeat";
 
 
-    // Mantém a spritesheet no tamanho original
     player.style.backgroundSize =
         `${info.larguraFolha}px ${info.altura}px`;
 
 
-    // ==============================================
-    // POSIÇÃO DO FRAME
-    // ==============================================
-
-    const posicaoX =
-        frameAtual * larguraFrame;
-
-
     player.style.backgroundPosition =
-        `-${posicaoX}px 0px`;
+        `-${frameAtual * larguraFrame}px 0px`;
 
 }
-
 // ======================================================
 // ANIMAÇÃO
 // ======================================================
