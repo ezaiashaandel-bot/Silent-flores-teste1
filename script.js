@@ -74,8 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("menu");
 
 
-    // NICKNAME
-
     const nicknameScreen =
         document.getElementById("nicknameScreen");
 
@@ -89,13 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("continueToCharacter");
 
 
-    // PERSONAGEM
-
     const characterSelectScreen =
         document.getElementById("characterSelectScreen");
 
     const characterCard =
         document.getElementById("characterCard");
+
+    const characterPreview =
+        document.getElementById("characterPreview");
 
     const characterName =
         document.getElementById("characterName");
@@ -106,8 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const finishCharacter =
         document.getElementById("finishCharacter");
 
-
-    // PLATAFORMA
 
     const platformScreen =
         document.getElementById("platformScreen");
@@ -122,8 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("backPlatform");
 
 
-    // JOGO
-
     const gameScreen =
         document.getElementById("gameScreen");
 
@@ -133,11 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const player =
         document.getElementById("player");
 
+
     const mobileControls =
         document.getElementById("mobileControls");
-
-
-    // JOYSTICK
 
     const joystick =
         document.getElementById("joystick");
@@ -152,8 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("interactButton");
 
 
-    // CONFIGURAÇÕES
-
     const settingsScreen =
         document.getElementById("settingsScreen");
 
@@ -167,29 +158,24 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("settingInfo");
 
 
-    // TRANSIÇÃO
-
     const transitionScreen =
         document.getElementById("transitionScreen");
 
 
-    // FUNDO
-
     const background =
         document.getElementById("background");
 
-
-    // RELÂMPAGO
 
     const lightning =
         document.getElementById("lightning");
 
 
     // ==================================================
-    // VARIÁVEIS
+    // ESTADO
     // ==================================================
 
-    let personagemSelecionado = false;
+    let personagemSelecionado =
+        localStorage.getItem("character") === "personagem1";
 
     let plataformaSelecionada =
         localStorage.getItem("platform") || null;
@@ -208,11 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // MOVIMENTO
     // ==================================================
 
-    let playerX = 1500;
-    let playerY = 1500;
+    let playerX = 1300;
+    let playerY = 1300;
 
-    let velocidadeNormal = 3;
-    let velocidadeCorrendo = 6;
+    const velocidadeNormal = 3;
+    const velocidadeCorrendo = 6;
 
     let correndo = false;
 
@@ -246,196 +232,294 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==================================================
     // INFORMAÇÕES DOS SPRITES
     // ==================================================
-    //
-    // IMPORTANTE:
-    //
-    // Não colocamos mais:
-    //
-    // 490px
-    // 466px
-    // 498px
-    //
-    // O JS vai descobrir automaticamente
-    // o tamanho REAL de cada PNG.
-    //
-    // Cada folha possui 4 frames.
-    //
-    // ==================================================
+
+    /*
+        IMPORTANTE:
+
+        Todas as spritesheets de movimento enviadas
+        possuem 1536px de largura.
+
+        1536 / 4 = 384px por frame.
+
+        Em vez de colocar alturas manualmente,
+        o JS descobre a altura real do PNG.
+    */
 
     const spriteInfo = {};
-
-    Object.keys(sprites).forEach(direcao => {
-
-        spriteInfo[direcao] = {
-            frames: 4,
-            largura: 0,
-            altura: 0,
-            larguraFrame: 0,
-            carregado: false
-        };
-
-    });
-
-
-    // ==================================================
-    // ESTADO DA ANIMAÇÃO
-    // ==================================================
-
-    let direcaoAtual = "frente";
-
-    let andando = false;
-
-    let frameAtual = 0;
-
-    let ultimoFrame = 0;
-
-    // Tempo entre os frames.
-    // Menor = mais rápido.
-    const velocidadeAnimacao = 120;
 
 
     // ==================================================
     // CARREGAR SPRITES
     // ==================================================
 
-    Object.keys(sprites).forEach(direcao => {
-
-        const imagem = new Image();
-
-        imagem.onload = () => {
-
-            const largura =
-                imagem.naturalWidth;
-
-            const altura =
-                imagem.naturalHeight;
-
-            const totalFrames =
-                spriteInfo[direcao].frames;
-
-            const larguraFrame =
-                largura / totalFrames;
+    const imagensSprites = {};
 
 
-            spriteInfo[direcao].largura =
-                largura;
+    function carregarSprite(nome, caminho) {
 
-            spriteInfo[direcao].altura =
-                altura;
+        return new Promise(resolve => {
 
-            spriteInfo[direcao].larguraFrame =
-                larguraFrame;
+            const imagem = new Image();
 
-            spriteInfo[direcao].carregado =
-                true;
+            imagem.onload = () => {
 
+                imagensSprites[nome] = imagem;
 
-            console.log(
-                `Sprite ${direcao}:`,
-                largura,
-                "x",
-                altura,
-                "| frame:",
-                larguraFrame,
-                "x",
-                altura
-            );
+                spriteInfo[nome] = {
 
+                    larguraTotal:
+                        imagem.naturalWidth,
 
-            // Se for o sprite atual,
-            // aplica imediatamente.
-            if (direcaoAtual === direcao) {
+                    altura:
+                        imagem.naturalHeight,
 
-                aplicarSprite(direcao);
+                    frames: 4,
 
-            }
+                    larguraFrame:
+                        imagem.naturalWidth / 4
 
-        };
+                };
 
+                console.log(
+                    `Sprite ${nome}:`,
+                    imagem.naturalWidth,
+                    "x",
+                    imagem.naturalHeight,
+                    "→ frame:",
+                    imagem.naturalWidth / 4
+                );
 
-        imagem.onerror = () => {
+                resolve();
 
-            console.error(
-                "Erro ao carregar sprite:",
-                sprites[direcao]
-            );
-
-        };
+            };
 
 
-        imagem.src =
-            sprites[direcao];
+            imagem.onerror = () => {
+
+                console.error(
+                    "Erro ao carregar sprite:",
+                    caminho
+                );
+
+                resolve();
+
+            };
+
+
+            imagem.src = caminho;
+
+        });
+
+    }
+
+
+    // ==================================================
+    // CARREGAR TODOS
+    // ==================================================
+
+    Promise.all([
+
+        carregarSprite(
+            "parado",
+            sprites.parado
+        ),
+
+        carregarSprite(
+            "frente",
+            sprites.frente
+        ),
+
+        carregarSprite(
+            "atras",
+            sprites.atras
+        ),
+
+        carregarSprite(
+            "direita",
+            sprites.direita
+        ),
+
+        carregarSprite(
+            "esquerda",
+            sprites.esquerda
+        )
+
+    ]).then(() => {
+
+        console.log(
+            "Todos os sprites foram carregados."
+        );
+
+        aplicarSpriteParado();
 
     });
 
 
     // ==================================================
-    // APLICAR SPRITE
+    // DIREÇÃO
     // ==================================================
 
-    function aplicarSprite(direcao) {
+    /*
+        Direção inicial:
+
+        frente = 0
+        atras  = 1
+        direita = 2
+        esquerda = 3
+
+        Isso corresponde à folha parada enviada.
+    */
+
+    let direcaoAtual = "frente";
+
+    const direcaoParado = {
+
+        frente: 0,
+
+        atras: 1,
+
+        direita: 2,
+
+        esquerda: 3
+
+    };
+
+
+    // ==================================================
+    // FRAMES
+    // ==================================================
+
+    let frameAtual = 0;
+
+    let ultimoFrame = 0;
+
+    const intervaloAnimacao =
+        120;
+
+
+    let andando = false;
+
+
+    // ==================================================
+    // APLICAR SPRITE DE MOVIMENTO
+    // ==================================================
+
+    function aplicarSpriteMovimento(
+        direcao
+    ) {
 
         if (!player) return;
-
 
         const dados =
             spriteInfo[direcao];
 
         if (!dados) return;
 
-        if (!dados.carregado) return;
-
-
-        const larguraFrame =
-            dados.larguraFrame;
-
-        const altura =
-            dados.altura;
-
-
-        // ----------------------------------------------
-        // TROCA A IMAGEM
-        // ----------------------------------------------
 
         player.style.backgroundImage =
             `url("${sprites[direcao]}")`;
 
 
-        // ----------------------------------------------
-        // TAMANHO EXATO DE UM FRAME
-        // ----------------------------------------------
+        /*
+            FRAME REAL:
+
+            1536 / 4 = 384
+
+            Nunca usamos aproximação.
+        */
+
+        const largura =
+            dados.larguraFrame;
+
+
+        const altura =
+            dados.altura;
+
 
         player.style.width =
-            `${larguraFrame}px`;
+            `${largura}px`;
 
         player.style.height =
             `${altura}px`;
 
 
-        // ----------------------------------------------
-        // TAMANHO EXATO DA FOLHA
-        // ----------------------------------------------
-
         player.style.backgroundSize =
-            `${dados.largura}px ${dados.altura}px`;
-
-
-        // ----------------------------------------------
-        // POSIÇÃO DO FRAME
-        // ----------------------------------------------
-
-        const posicaoX =
-            frameAtual * larguraFrame;
+            `${dados.larguraTotal}px ${altura}px`;
 
 
         player.style.backgroundPosition =
-            `-${posicaoX}px 0px`;
+            `-${frameAtual * largura}px 0px`;
+
+
+        player.style.backgroundRepeat =
+            "no-repeat";
+
+
+        player.style.imageRendering =
+            "pixelated";
 
     }
 
 
     // ==================================================
-    // ANIMAÇÃO DOS FRAMES
+    // APLICAR SPRITE PARADO
+    // ==================================================
+
+    function aplicarSpriteParado() {
+
+        if (!player) return;
+
+        const dados =
+            spriteInfo.parado;
+
+        if (!dados) return;
+
+
+        player.style.backgroundImage =
+            `url("${sprites.parado}")`;
+
+
+        player.style.width =
+            `${dados.larguraFrame}px`;
+
+        player.style.height =
+            `${dados.altura}px`;
+
+
+        player.style.backgroundSize =
+            `${dados.larguraTotal}px ${dados.altura}px`;
+
+
+        /*
+            O parado possui 4 direções
+            na mesma imagem.
+
+            Não é uma animação de caminhada.
+
+            Apenas selecionamos o slot
+            correspondente à direção.
+        */
+
+        const frame =
+            direcaoParado[direcaoAtual];
+
+
+        player.style.backgroundPosition =
+            `-${frame * dados.larguraFrame}px 0px`;
+
+
+        player.style.backgroundRepeat =
+            "no-repeat";
+
+
+        player.style.imageRendering =
+            "pixelated";
+
+    }
+
+
+    // ==================================================
+    // ATUALIZAR ANIMAÇÃO
     // ==================================================
 
     function atualizarAnimacao(tempo) {
@@ -451,36 +535,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // =================================================
-        // PERSONAGEM ANDANDO
-        // =================================================
-
         if (andando) {
 
-            const dados =
-                spriteInfo[direcaoAtual];
-
-
             if (
-                dados &&
-                dados.carregado &&
                 tempo - ultimoFrame >=
-                velocidadeAnimacao
+                intervaloAnimacao
             ) {
 
                 frameAtual++;
 
-                if (
-                    frameAtual >=
-                    dados.frames
-                ) {
 
-                    frameAtual = 0;
+                const dados =
+                    spriteInfo[direcaoAtual];
+
+
+                if (dados) {
+
+                    if (
+                        frameAtual >=
+                        dados.frames
+                    ) {
+
+                        frameAtual = 0;
+
+                    }
 
                 }
 
 
-                aplicarSprite(
+                aplicarSpriteMovimento(
                     direcaoAtual
                 );
 
@@ -490,18 +573,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-        }
+        } else {
 
+            /*
+                Parado:
 
-        // =================================================
-        // PERSONAGEM PARADO
-        // =================================================
+                sempre mostra somente
+                a posição correspondente
+                à direção atual.
+            */
 
-        else {
-
-            frameAtual = 0;
-
-            aplicarSprite("parado");
+            aplicarSpriteParado();
 
         }
 
@@ -537,8 +619,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // Vertical possui prioridade
-        // quando o movimento é maior.
+        /*
+            Vertical ganha prioridade
+            quando é maior que horizontal.
+        */
 
         if (
             Math.abs(movimentoY) >
@@ -547,13 +631,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (movimentoY < 0) {
 
-                // W
                 direcaoAtual =
                     "atras";
 
             } else {
 
-                // S
                 direcaoAtual =
                     "frente";
 
@@ -563,13 +645,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (movimentoX > 0) {
 
-                // D
                 direcaoAtual =
                     "direita";
 
             } else {
 
-                // A
                 direcaoAtual =
                     "esquerda";
 
@@ -612,7 +692,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "mouseenter",
                 () => {
 
-                    clickSound.currentTime = 0;
+                    clickSound.currentTime =
+                        0;
 
                     clickSound
                         .play()
@@ -626,7 +707,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "touchstart",
                 () => {
 
-                    clickSound.currentTime = 0;
+                    clickSound.currentTime =
+                        0;
 
                     clickSound
                         .play()
@@ -672,12 +754,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             options.forEach(btn => {
 
-                btn.classList.remove("ativo");
+                btn.classList.remove(
+                    "ativo"
+                );
 
             });
 
 
-            option.classList.add("ativo");
+            option.classList.add(
+                "ativo"
+            );
 
 
             const page =
@@ -708,7 +794,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <br>
 
-
                     VOLUME CLICK<br>
 
                     <input
@@ -724,7 +809,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </p>
 
                     <br>
-
 
                     VOLUME CHUVA<br>
 
@@ -742,7 +826,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <br>
 
-
                     VOLUME TROVÃO<br>
 
                     <input
@@ -758,7 +841,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </p>
 
                     <br>
-
 
                     VOLUME TRANSIÇÃO<br>
 
@@ -778,11 +860,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 const barras = [
+
                     "geral",
                     "click",
                     "chuva",
                     "trova",
                     "transicao"
+
                 ];
 
 
@@ -797,16 +881,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     barra.oninput = () => {
 
                         volumes[id] =
-                            Number(barra.value);
+                            Number(
+                                barra.value
+                            );
+
 
                         atualizarVolumes();
 
 
+                        const nome =
+                            id.charAt(0)
+                                .toUpperCase() +
+                            id.slice(1);
+
+
                         const valor =
                             document.getElementById(
-                                "valor" +
-                                id.charAt(0).toUpperCase() +
-                                id.slice(1)
+                                "valor" + nome
                             );
 
 
@@ -831,7 +922,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (page === "imagem") {
 
                 const brilhoSalvo =
-                    localStorage.getItem("brilho") || 100;
+                    localStorage.getItem(
+                        "brilho"
+                    ) || 100;
 
 
                 info.innerHTML = `
@@ -862,17 +955,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (bar && background) {
 
                     background.style.filter =
-                        "brightness(" +
-                        brilhoSalvo +
-                        "%)";
+                        `brightness(${brilhoSalvo}%)`;
 
 
                     bar.oninput = () => {
 
                         background.style.filter =
-                            "brightness(" +
-                            bar.value +
-                            "%)";
+                            `brightness(${bar.value}%)`;
 
 
                         localStorage.setItem(
@@ -911,7 +1000,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     CONTROLES<br><br>
 
-                    <strong>PC</strong><br>
+                    <strong>PC</strong><br><br>
 
                     W A S D<br>
                     MOVIMENTO<br><br>
@@ -922,7 +1011,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     E<br>
                     INTERAGIR<br><br>
 
-                    <strong>CELULAR</strong><br>
+                    <strong>CELULAR</strong><br><br>
 
                     JOYSTICK<br>
                     MOVIMENTO<br><br>
@@ -948,9 +1037,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function iniciarTransicao(callback) {
 
-        transitionScreen.classList.add("show");
+        transitionScreen.classList.add(
+            "show"
+        );
 
-        transitionSound.currentTime = 0;
+
+        transitionSound.currentTime =
+            0;
+
 
         transitionSound
             .play()
@@ -962,6 +1056,7 @@ document.addEventListener("DOMContentLoaded", () => {
             transitionScreen.classList.remove(
                 "show"
             );
+
 
             if (callback) {
 
@@ -1172,7 +1267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // PLATAFORMA → PC
+    // PC
     // ==================================================
 
     if (pcButton) {
@@ -1187,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // PLATAFORMA → CELULAR
+    // CELULAR
     // ==================================================
 
     if (mobileButton) {
@@ -1202,10 +1297,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // ESCOLHER PLATAFORMA
+    // SELECIONAR PLATAFORMA
     // ==================================================
 
-    function selecionarPlataforma(plataforma) {
+    function selecionarPlataforma(
+        plataforma
+    ) {
 
         plataformaSelecionada =
             plataforma;
@@ -1224,6 +1321,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             gameScreen.style.display =
                 "block";
+
+
+            playerX = 1300;
+            playerY = 1300;
+
 
             configurarControles();
 
@@ -1309,13 +1411,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         let dx =
-            touchX -
-            centroX;
+            touchX - centroX;
 
 
         let dy =
-            touchY -
-            centroY;
+            touchY - centroY;
 
 
         const distancia =
@@ -1326,8 +1426,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const limite =
-            rect.width / 2 -
-            30;
+            rect.width / 2 - 30;
 
 
         if (distancia > limite) {
@@ -1345,6 +1444,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         joystickX =
             dx / limite;
+
 
         joystickY =
             dy / limite;
@@ -1433,7 +1533,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // BOTÃO CORRER — CELULAR
+    // CORRER — CELULAR
     // ==================================================
 
     if (runButton) {
@@ -1469,24 +1569,11 @@ document.addEventListener("DOMContentLoaded", () => {
             { passive: false }
         );
 
-
-        runButton.addEventListener(
-            "touchcancel",
-            () => {
-
-                correndo = false;
-
-                runButton.style.background =
-                    "rgba(20,20,20,.8)";
-
-            }
-        );
-
     }
 
 
     // ==================================================
-    // BOTÃO INTERAGIR
+    // INTERAGIR
     // ==================================================
 
     if (interactButton) {
@@ -1509,7 +1596,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // CONTROLES PC
+    // TECLADO PC
     // ==================================================
 
     document.addEventListener(
@@ -1530,7 +1617,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                event.key === "Shift"
+                event.code ===
+                "ShiftLeft" ||
+                event.code ===
+                "ShiftRight"
             ) {
 
                 correndo = true;
@@ -1538,8 +1628,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            // Evita comportamento do navegador
-            // com teclas de movimento.
+            /*
+                Evita a página tentar
+                fazer ações próprias
+                com as teclas.
+            */
 
             if (
                 [
@@ -1547,7 +1640,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     "a",
                     "s",
                     "d",
-                    "shift"
+                    "shift",
+                    "e"
                 ].includes(tecla)
             ) {
 
@@ -1577,10 +1671,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                event.key === "Shift"
+                event.code ===
+                "ShiftLeft" ||
+                event.code ===
+                "ShiftRight"
             ) {
 
                 correndo = false;
+
+            }
+
+        }
+    );
+
+
+    // ==================================================
+    // INTERAGIR PC
+    // ==================================================
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                plataformaSelecionada !==
+                "pc"
+            ) return;
+
+
+            if (
+                event.key.toLowerCase() ===
+                "e"
+            ) {
+
+                console.log(
+                    "Interagir!"
+                );
 
             }
 
@@ -1599,7 +1725,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        if (!gameScreen) return;
+        if (!gameScreen)
+            return;
 
 
         if (
@@ -1618,9 +1745,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let movimentoY = 0;
 
 
-        // =================================================
+        // ==============================================
         // CELULAR
-        // =================================================
+        // ==============================================
 
         if (
             plataformaSelecionada ===
@@ -1636,45 +1763,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // =================================================
+        // ==============================================
         // PC
-        // =================================================
+        // ==============================================
 
         if (
             plataformaSelecionada ===
             "pc"
         ) {
 
-            if (teclas["w"]) {
-
+            if (teclas["w"])
                 movimentoY -= 1;
 
-            }
-
-            if (teclas["s"]) {
-
+            if (teclas["s"])
                 movimentoY += 1;
 
-            }
-
-            if (teclas["a"]) {
-
+            if (teclas["a"])
                 movimentoX -= 1;
 
-            }
-
-            if (teclas["d"]) {
-
+            if (teclas["d"])
                 movimentoX += 1;
-
-            }
 
         }
 
 
-        // =================================================
+        // ==============================================
         // NORMALIZAR DIAGONAL
-        // =================================================
+        // ==============================================
 
         const distancia =
             Math.sqrt(
@@ -1696,18 +1811,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // =================================================
-        // VERIFICAR MOVIMENTO
-        // =================================================
+        // ==============================================
+        // ESTADO
+        // ==============================================
 
         andando =
-            movimentoX !== 0 ||
-            movimentoY !== 0;
+            Math.abs(movimentoX) >
+                0.01 ||
+            Math.abs(movimentoY) >
+                0.01;
 
 
-        // =================================================
+        // ==============================================
         // DIREÇÃO
-        // =================================================
+        // ==============================================
 
         if (andando) {
 
@@ -1719,35 +1836,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // =================================================
+        // ==============================================
         // VELOCIDADE
-        // =================================================
+        // ==============================================
 
-        const velocidadeAtual =
+        const velocidade =
             correndo
                 ? velocidadeCorrendo
                 : velocidadeNormal;
 
 
-        // =================================================
-        // MOVIMENTAR
-        // =================================================
+        // ==============================================
+        // POSIÇÃO
+        // ==============================================
 
-        playerX +=
-            movimentoX *
-            velocidadeAtual;
+        if (andando) {
 
-        playerY +=
-            movimentoY *
-            velocidadeAtual;
+            playerX +=
+                movimentoX *
+                velocidade;
+
+            playerY +=
+                movimentoY *
+                velocidade;
+
+        }
 
 
-        // =================================================
+        // ==============================================
         // LIMITES DO MAPA
-        // =================================================
+        // ==============================================
 
         const larguraMapa =
             gameWorld.offsetWidth;
+
 
         const alturaMapa =
             gameWorld.offsetHeight;
@@ -1755,6 +1877,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const larguraPersonagem =
             player.offsetWidth;
+
 
         const alturaPersonagem =
             player.offsetHeight;
@@ -1782,20 +1905,21 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        // =================================================
-        // POSIÇÃO
-        // =================================================
+        // ==============================================
+        // POSIÇÃO DO PERSONAGEM
+        // ==============================================
 
         player.style.left =
-            playerX + "px";
+            `${playerX}px`;
+
 
         player.style.top =
-            playerY + "px";
+            `${playerY}px`;
 
 
-        // =================================================
+        // ==============================================
         // CÂMERA
-        // =================================================
+        // ==============================================
 
         const centroX =
             window.innerWidth / 2 -
@@ -1926,28 +2050,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // CARREGAR PERSONAGEM
     // ==================================================
 
-    const personagemSalvo =
-        localStorage.getItem(
-            "character"
-        );
-
-
     if (
-        personagemSalvo ===
-        "personagem1"
+        personagemSelecionado &&
+        characterCard
     ) {
 
-        personagemSelecionado =
-            true;
-
-
-        if (characterCard) {
-
-            characterCard.classList.add(
-                "selected"
-            );
-
-        }
+        characterCard.classList.add(
+            "selected"
+        );
 
 
         if (characterName) {
@@ -1961,42 +2071,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================================================
-    // CARREGAR PLATAFORMA
+    // PREVIEW DO PERSONAGEM
     // ==================================================
 
     if (
-        plataformaSelecionada ===
-        "mobile"
+        characterPreview
     ) {
 
-        configurarControles();
+        characterPreview.style.backgroundImage =
+            `url("${sprites.parado}")`;
 
     }
 
 
     // ==================================================
-    // SPRITE INICIAL
-    // ==================================================
-
-    if (player) {
-
-        // Começa parado olhando para frente.
-
-        direcaoAtual =
-            "frente";
-
-        frameAtual =
-            0;
-
-        aplicarSprite(
-            "parado"
-        );
-
-    }
-
-
-    // ==================================================
-    // FINAL
+    // FIM
     // ==================================================
 
     console.log(
